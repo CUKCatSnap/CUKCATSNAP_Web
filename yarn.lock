@@ -3651,9 +3651,9 @@ __metadata:
   linkType: hard
 
 "@types/estree@npm:*, @types/estree@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@types/estree@npm:1.0.5"
-  checksum: dd8b5bed28e6213b7acd0fb665a84e693554d850b0df423ac8076cc3ad5823a6bc26b0251d080bdc545af83179ede51dd3f6fa78cad2c46ed1f29624ddf3e41a
+  version: 1.0.6
+  resolution: "@types/estree@npm:1.0.6"
+  checksum: 8825d6e729e16445d9a1dd2fb1db2edc5ed400799064cd4d028150701031af012ba30d6d03fe9df40f4d7a437d0de6d2b256020152b7b09bde9f2e420afdffd9
   languageName: node
   linkType: hard
 
@@ -3836,12 +3836,12 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*, @types/react@npm:^18.2.6":
-  version: 18.3.7
-  resolution: "@types/react@npm:18.3.7"
+  version: 18.3.8
+  resolution: "@types/react@npm:18.3.8"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: 027cf84d8309c4d0a9b16ec26f71de0950e2d748293bbc4dac42519f77d0bec099aeb5fb1c0bcb891725973e53085c1aedea5c3a16bca215c2fc2ecf68c7ec6e
+  checksum: a2cc2034746cde564a49a9d7f1ae57214bc83adb0daafd4724dc400569adc54c5a489c0e7d8656752b8748908a364d6811e4d7a2adc7f18a7f7179728d20147a
   languageName: node
   linkType: hard
 
@@ -5525,9 +5525,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646":
-  version: 1.0.30001660
-  resolution: "caniuse-lite@npm:1.0.30001660"
-  checksum: 8b2c5de2f5facd31980426afbba68238270984acfe8c1ae925b8b6480448eea2fae292f815674617e9170c730c8a238d7cc0db919f184dc0e3cd9bec18f5e5ad
+  version: 1.0.30001662
+  resolution: "caniuse-lite@npm:1.0.30001662"
+  checksum: 7a6a0c0d9f7c4a1c51de02838eb47f41f36fff57a77b846c8faed35ba9afba17b9399bc00bd637e5c1663cbc132534085d91151de48edca2ad8932a5d87e23af
   languageName: node
   linkType: hard
 
@@ -6986,9 +6986,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.24
-  resolution: "electron-to-chromium@npm:1.5.24"
-  checksum: 0e2a0f2fa38cf2e3be8b4bf07e62e539ffb953087d6766c69fc820468334a34ea32a975a0128f9965c970d0c100e7de7baea0e00718af21631567505dd3e70cc
+  version: 1.5.26
+  resolution: "electron-to-chromium@npm:1.5.26"
+  checksum: b2d85be3b77e20cbe94297d7c3d0fe280df07cf31491f8d0f4e0cb73b75b710ce32fc0bd7b3c73b9a376db0ec50ce236d26795d431e60dedb090293110c65163
   languageName: node
   linkType: hard
 
@@ -15584,8 +15584,8 @@ __metadata:
   linkType: hard
 
 "tailwindcss@npm:^3.0.2":
-  version: 3.4.11
-  resolution: "tailwindcss@npm:3.4.11"
+  version: 3.4.12
+  resolution: "tailwindcss@npm:3.4.12"
   dependencies:
     "@alloc/quick-lru": ^5.2.0
     arg: ^5.0.2
@@ -15612,7 +15612,7 @@ __metadata:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 41d7ff8e4d7b8e2df925853b0eb43efa25459462fea29dce0be14fdf32370445c403a2f512e3357ecd800c30ad813dc01ef1ca592fe3c90a2a84d0a1b71e2ba6
+  checksum: 1f113cb8fef36088757d15efd29d9309f31a6106b276448bc8b54fd80815ebfb5bdab004a288f7268195410f9019b6d4f4ef2a9950d065e23e08941e3f13b8d1
   languageName: node
   linkType: hard
 
