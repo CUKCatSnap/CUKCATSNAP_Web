@@ -1,13 +1,39 @@
-//채팅 페이지 입니다.
+//알림 페이지 입니다.
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-
+import {SafeAreaView, Text, ScrollView, StyleSheet} from 'react-native';
+import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
+import AlarmBox from '../../components/Alarm/AlarmBox';
+import * as S from './Style';
 const Alarm = () => {
   return (
-    <SafeAreaView>
-      <Text>Alarm</Text>
+    <SafeAreaView style={styles.container}>
+      <ContentsHeader />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <S.AlarmContainer>
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+          <AlarmBox />
+        </S.AlarmContainer>
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 
 export default Alarm;

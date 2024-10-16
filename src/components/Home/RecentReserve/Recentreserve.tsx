@@ -7,17 +7,19 @@ import * as S from './Style';
 const RecentReserve = () => {
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
-      <S.Shadow />
-      <S.RecentReserveContainer />
-      <S.PosBox />
-      <S.PosText>
-        <S.Point fill="gray" />
-        올림픽 공원
-      </S.PosText>
-      <S.RecentReserveBox>
-        <S.NameText>나 똘똘 작가</S.NameText>
-        <S.Score>평점 4.8★</S.Score>
-      </S.RecentReserveBox>
+      <S.RecentReserve>
+        <S.Shadow />
+        <S.RecentReserveContainer />
+        <S.PosBox />
+        <S.PosText>
+          <S.Point fill="gray" />
+          올림픽 공원
+        </S.PosText>
+        <S.RecentReserveBox>
+          <S.NameText>나 똘똘 작가</S.NameText>
+          <S.Score>평점 4.8★</S.Score>
+        </S.RecentReserveBox>
+      </S.RecentReserve>
     </SafeAreaView>
   );
 };

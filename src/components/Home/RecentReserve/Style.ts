@@ -2,6 +2,10 @@ import styled from 'styled-components/native';
 import {View, Text} from 'react-native';
 import {Svg} from 'react-native-svg';
 
+export const RecentReserve = styled(View)`
+  position: relative;
+`;
+
 //너비와 높이를 %로 정하면 가져올 때 컴포넌트가 합쳐지는 현상 발생
 export const RecentReserveContainer = styled(View)`
   width: 252px;
@@ -53,11 +57,11 @@ export const NameText = styled(Text)`
   font-size: 27px;
   font-weight: bold;
   color: black;
-  right: 5%;
+  left: 5%;
 `;
 
 export const Score = styled(Text)`
   color: gray;
   font-size: 20px;
-  left: 5%;
+  left: 10%;
 `;

@@ -1,25 +1,27 @@
-//홈 화면의 '내 예약' 컴포넌트 입니다.
+//홈 화면의 헤더 컴포넌트 (햄버거, 로고, 알림) 입니다.
 
 import React from 'react';
-import {SafeAreaView, TouchableHighlight} from 'react-native';
+import {SafeAreaView, TouchableHighlight, TouchableOpacity} from 'react-native';
 import * as S from './Style';
 import Bell from '../../icons/alarm.svg';
 import Hamburger from '../../icons/hamburger.svg';
 import CatSnap from '../../icons/CatSnap.svg';
 import Alarm from '../../pages/Alarm/Alarm';
 import Settings from '../../pages/Settings/Settings.tsx';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <S.HeaderContainer>
-        <TouchableHighlight>
+        <TouchableOpacity>
           <Hamburger />
-        </TouchableHighlight>
+        </TouchableOpacity>
         <CatSnap />
-        <TouchableHighlight>
+        <TouchableOpacity onPress={() => navigation.navigate('Alarm')}>
           <Bell />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </S.HeaderContainer>
     </SafeAreaView>
   );

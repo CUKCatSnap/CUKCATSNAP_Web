@@ -8,8 +8,17 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import BottomTabNavigator from './src/components/Navigation/BottomNavigationBar';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
 function App(): React.JSX.Element {
-  return <BottomTabNavigator />;
+  return (
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
+  );
 }
 
 export default App;

@@ -4,13 +4,13 @@ import {SafeAreaView} from 'react-native';
 import MyReserve from '../../components/Home/MyReserve/MyReserve';
 import RecentReserve from '../../components/Home/RecentReserve/Recentreserve';
 import * as S from './Style';
-import {ScrollView} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import QuickIcon from '../../components/Home/Quickicon/QuickIcon';
 import Title from '../../components/Home/Title/Title';
 import Header from '../../components/Header/Header';
 const Home = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <S.Container>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header />
@@ -37,12 +37,18 @@ const Home = () => {
             showsHorizontalScrollIndicator={false}>
             <RecentReserve />
             <RecentReserve />
-            <RecentReserve />
           </S.RecentReserveContainer>
         </ScrollView>
       </S.Container>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f3f3f3',
+  },
+});
 
 export default Home;
