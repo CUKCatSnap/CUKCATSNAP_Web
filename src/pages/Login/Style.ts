@@ -6,18 +6,21 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import Svg from 'react-native-svg';
+
+interface LoginTextProps {
+  isError: boolean;
+}
 
 export const LoginContainer = styled(View)`
   margin: auto 7%;
   margin-top: 1%;
 `;
 
-export const LoginText = styled(Text)`
-  color: black;
+export const LoginText = styled.Text<LoginTextProps>`
+  color: ${props => (props.isError ? 'red' : 'black')};
   font-weight: bold;
   font-size: 14px;
-  margin: 3%;
+  margin: 2% 2%;
 `;
 
 export const LoginInputBox = styled(TextInput)`
@@ -26,21 +29,26 @@ export const LoginInputBox = styled(TextInput)`
   padding: 15px;
 `;
 
+export const LoginCenterBar = styled(View)`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2%;
+`;
+
 export const LoginUnderbar = styled(View)`
   background-color: #bebebe;
   height: 1px;
-  width: 200%;
-  margin: 10px;
+  width: 45%;
 `;
 
 export const LoginText2 = styled(Text)`
   color: #bebebe;
   font-weight: bold;
   font-size: 14px;
-`;
-
-export const LoginCenterBar = styled(ScrollView)`
-  margin: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
 `;
 
 export const LoginWithNaverContent = styled(TouchableOpacity)`

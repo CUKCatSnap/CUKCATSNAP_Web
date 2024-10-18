@@ -6,18 +6,21 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import Svg from 'react-native-svg';
+
+interface LoginTextProps {
+  isError: boolean;
+}
 
 export const LoginContainer = styled(View)`
   margin: auto 7%;
   margin-top: 1%;
 `;
 
-export const LoginText = styled(Text)`
-  color: black;
+export const LoginText = styled.Text<LoginTextProps>`
+  color: ${props => (props.isError ? 'red' : 'black')};
   font-weight: bold;
   font-size: 14px;
-  margin: 3%;
+  margin: 2% 2%;
 `;
 
 export const LoginInputBox = styled(TextInput)`
@@ -47,4 +50,15 @@ export const LoginNewText = styled(Text)`
 
 export const LoginNewBox = styled(View)`
   margin-top: 10px;
+`;
+
+export const IconBox = styled(View)``;
+
+export const IconCheck = styled(View)`
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  left: 90%;
+  top: 40%;
 `;
