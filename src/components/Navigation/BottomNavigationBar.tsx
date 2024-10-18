@@ -7,9 +7,8 @@ import Search from '../../pages/Search/Search';
 import Mypage from '../../pages/Mypage/Mypage';
 import MyCalendar from '../../pages/MyCalendar/MyCalendar';
 import Alarm from '../../pages/Alarm/Alarm';
-
-import LoginNewPageOne from '../../pages/LoginNewPageOne/LoginNewPageOne';
-import LoginNewPageTwo from '../../pages/LoginNewPageTwo/LoginNewPageTwo';
+import LoginNewPageOne from '../../pages/Login/LoginNewPageOne/LoginNewPageOne';
+import LoginNewPageTwo from '../../pages/Login/LoginNewPageTwo/LoginNewPageTwo';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -23,7 +22,7 @@ const Stack = createNativeStackNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home" // 기본으로 보여줄 화면 설정
+      initialRouteName="Search" // 기본으로 보여줄 화면 설정
       screenOptions={{
         tabBarStyle: {
           height: 70,

@@ -2,9 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import * as S from './Style';
-import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useNavigation} from '@react-navigation/native';
-import Check from '../../icons/check.svg';
+import Check from '../../../icons/check.svg';
 
 const LoginNewPageTwo = () => {
   const [name, setName] = useState('');
