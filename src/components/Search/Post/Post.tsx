@@ -1,17 +1,24 @@
 //게시글 컴포넌트 입니다.
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
-import * as S from './style';
-import Heart from '../../icons/heart.svg';
-import Chat from '../../icons/chat.svg';
-
+import * as S from './Style';
+import Settings from '../../../icons/settings.svg';
+import Icon from 'react-native-vector-icons/Ionicons';
 const Post = () => {
   return (
     <SafeAreaView>
       <S.PostComponent>
         <S.PostImageBox />
-
         <S.PostTextBox>
+          <S.IconBox>
+            <S.IconSize>
+              <Icon name={'heart-outline'} size={30} color={'black'} />
+              <Icon name={'chatbubble-outline'} size={27} color={'black'} />
+            </S.IconSize>
+            <S.IconSize>
+              <Settings />
+            </S.IconSize>
+          </S.IconBox>
           <S.Title>나 똘똘 작가</S.Title>
           <S.ProfileBox>
             <S.Profile />

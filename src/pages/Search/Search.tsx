@@ -1,13 +1,15 @@
 //검색 페이지 입니다.
 import React from 'react';
-import {SafeAreaView, Text, ScrollView} from 'react-native';
-import Post from '../../components/Search/Post';
+import {SafeAreaView, Text, ScrollView, StyleSheet} from 'react-native';
+import Post from '../../components/Search/Post/Post';
+import SearchBar from '../../components/Search/SearchBar/SearchBar';
 
 const Search = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Search</Text>
+        <SearchBar />
+        <Post />
         <Post />
         <Post />
         <Post />
@@ -17,5 +19,12 @@ const Search = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 
 export default Search;

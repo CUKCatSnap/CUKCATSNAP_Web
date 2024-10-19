@@ -19,10 +19,20 @@ export const PostTextBox = styled(View)`
   border-bottom-left-radius: 15px;
 `;
 
-export const IconBox = styled(View)``;
+export const IconBox = styled(View)`
+  max-width: 100%;
+  flex-direction: row;
+  gap: 15px;
+  padding: 10px 10px;
+  padding-bottom: 0px;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const IconSize = styled(View)`
-  width: 10px;
+  flex-direction: row;
+  gap: 15px;
+  padding: 0px 5px;
 `;
 
 export const Title = styled(Text)`
