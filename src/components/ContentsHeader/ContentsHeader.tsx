@@ -10,6 +10,7 @@ const ContentsHeader = () => {
   const navigation = useNavigation();
   const handleGoBack = () => {
     navigation.goBack();
+    return true;
   };
 
   return (

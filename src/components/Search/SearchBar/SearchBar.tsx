@@ -4,21 +4,27 @@ import {SafeAreaView, Text, Style} from 'react-native';
 import * as S from './Style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchDetail from '../../../icons/searchdetail.svg';
-import {useNavigation} from '@react-navigation/native'; // 네비게이션 훅 가져오기
 
-const SearchBar = () => {
-  const navigation = useNavigation();
+interface SearchBarProps {
+  onChangeText: (text: string) => void; // 텍스트 입력 변경 핸들러
+  onFocus: () => void; // 포커스 핸들러
+  onSubmitEditing: () => void; // 엔터 키 입력 처리 핸들러
+}
 
-  // 검색창에 포커스하면 검색창 페이지 팝업
-  const handleFocus = () => {
-    navigation.navigate('SearchPage');
-  };
+const SearchBar: React.FC<SearchBarProps> = ({
+  onChangeText,
+  onFocus,
+  onSubmitEditing,
+}) => {
   return (
     <SafeAreaView>
       <S.SearchBarContainer>
         <S.SearchInputBox
           placeholder="검색어를 입력하세요"
-          onFocus={handleFocus}
+          onChangeText={onChangeText} // 부모에게 입력값 전달
+          onFocus={onFocus} // 포커스 시 핸들러 호출
+          onSubmitEditing={onSubmitEditing} // 엔터 키 입력 시 핸들러 호출
+          returnKeyType="search" // 엔터 키를 검색으로 설정
         />
         <S.IconBox pointerEvents="none">
           <Icon name={'search'} size={30} color={'#C2C2C2'} />

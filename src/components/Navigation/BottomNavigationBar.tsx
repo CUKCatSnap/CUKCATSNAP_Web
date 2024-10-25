@@ -3,7 +3,7 @@ import React from 'react';
 
 import Home from '../../pages/Home/Home';
 import Chat from '../../pages/Chat/Chat';
-import Search from '../../pages/Search/Search';
+import Search from '../../pages/Search/SearchPage/SearchPage';
 import Mypage from '../../pages/Mypage/Mypage';
 import MyCalendar from '../../pages/MyCalendar/MyCalendar';
 import Alarm from '../../pages/Alarm/Alarm';
@@ -16,6 +16,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Subscribe from '../../pages/Subscribe/Subscribe';
 import Login from '../../pages/Login/Login';
 import SearchPage from '../../pages/Search/SearchPage/SearchPage';
+
+// 네비게이션 타입 정의
+type RootStackParamList = {
+  LoginNewPageOne: undefined; // 첫 번째 페이지는 파라미터가 없음
+  LoginNewPageTwo: {
+    identifier: string;
+    password: string;
+    nickname: string;
+  }; // 두 번째 페이지는 파라미터가 있음
+};
+
+// Navigator 생성
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

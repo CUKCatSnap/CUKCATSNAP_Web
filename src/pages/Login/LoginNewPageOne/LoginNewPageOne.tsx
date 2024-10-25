@@ -3,24 +3,35 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import * as S from './Style';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
+import {createUserData} from '../../../apis/utility/createUserData';
+import {registerUser} from '../../../apis/getNewLogin';
+// 네비게이션 타입 정의
+type RootStackParamList = {
+  LoginNewPageOne: undefined; // 첫 번째 페이지는 파라미터가 없음
+  LoginNewPageTwo: {
+    identifier: string;
+    password: string;
+    nickname: string;
+  }; // 두 번째 페이지는 파라미터가 있음
+};
 
 const LoginNewPageOne = () => {
-  const [id, setId] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
-  const [idError, setIdError] = useState(false); // 아이디 상태
+  const [identifierError, setIdentifierError] = useState(false); // 아이디 상태
   const [passwordError, setPasswordError] = useState(false); // 비밀번호 상태
   const [passwordRepeatError, setPasswordRepeatError] = useState(false); // 비밀번호 재입력 상태
   const [isButtonDisabled, setIsButtonDisabled] = useState(true); // 버튼 활성화 상태
 
   //아이디 칸 상태
   const handleId = () => {
-    if (id === '') {
-      setIdError(true); // 입력이 없으면 에러를 활성화
+    if (identifier === '') {
+      setIdentifierError(true); // 입력이 없으면 에러를 활성화
     } else {
-      setIdError(false); // 입력이 있으면 에러를 비활성화
+      setIdentifierError(false); // 입력이 있으면 에러를 비활성화
     }
   };
 
@@ -45,7 +56,7 @@ const LoginNewPageOne = () => {
   //다음 버튼 활성화
   useEffect(() => {
     if (
-      id !== '' &&
+      identifier !== '' &&
       password !== '' &&
       passwordRepeat !== '' &&
       password === passwordRepeat
@@ -54,30 +65,30 @@ const LoginNewPageOne = () => {
     } else {
       setIsButtonDisabled(true); // 하나라도 없으면 버튼 비활성화
     }
-  }, [id, password, passwordRepeat]); // id와 password의 상태를 감시
+  }, [identifier, password, passwordRepeat]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader />
         <S.LoginContainer>
-          <S.LoginText isError={idError}>
-            {idError ? '아이디를 입력하세요' : '아이디'}
+          <S.LoginText isError={identifierError}>
+            {identifierError ? '아이디를 입력하세요' : '아이디'}
           </S.LoginText>
 
           <S.IconBox>
             <S.LoginInputBox
               placeholder="아이디"
               keyboardType="default"
-              value={id}
+              value={identifier}
               onChangeText={text => {
-                setId(text);
-                setIdError(text === '');
+                setIdentifier(text);
+                setIdentifierError(text === '');
               }} // 입력값 변경
               onBlur={handleId}
             />
-            {id !== '' && (
+            {identifier !== '' && (
               <S.IconCheck>
                 <Check />
               </S.IconCheck>

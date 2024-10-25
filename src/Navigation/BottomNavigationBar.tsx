@@ -3,26 +3,31 @@ import React from 'react';
 
 import Home from '../pages/Home/Home';
 import Chat from '../pages/Chat/Chat';
-import Search from '../pages/Search/Search';
+import Search from '../pages/Search/SearchPage/SearchPage';
 import Mypage from '../pages/Mypage/Mypage';
 import MyCalendar from '../pages/MyCalendar/MyCalendar';
 import Alarm from '../pages/Alarm/Alarm';
 import LoginNewPageOne from '../pages/Login/LoginNewPageOne/LoginNewPageOne';
 import LoginNewPageTwo from '../pages/Login/LoginNewPageTwo/LoginNewPageTwo';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Subscribe from '../pages/Subscribe/Subscribe';
 import Login from '../pages/Login/Login';
+import SearchPage from '../pages/Search/SearchPage/SearchPage';
+import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
 
+export type RootStackParam = {
+  Home: undefined;
+  Test: undefined;
+};
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Search" // 기본으로 보여줄 화면 설정
+      initialRouteName="Home" // 기본으로 보여줄 화면 설정
       screenOptions={{
         tabBarStyle: {
           height: 70,
@@ -45,7 +50,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -59,7 +64,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -89,6 +94,47 @@ const BottomTabNavigator = () => {
   );
 };
 
+//홈 창에서 이동할 수 있는 곳
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomePage"
+        component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Alarm"
+        component={Alarm}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}} // 로그인 화면이 처음에 나타나는 경우
+      />
+    </Stack.Navigator>
+  );
+};
+
+//서치 창에서 이동할 수 있는 곳
+const SearchStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SearchPage"
+        component={SearchPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SearchResultPage"
+        component={SearchResultPage}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
 // 마이페이지 -> 로그인 창으로
 const AuthStack = () => {
   return (
@@ -106,11 +152,6 @@ const AuthStack = () => {
       <Stack.Screen
         name="LoginNewPageTwo"
         component={LoginNewPageTwo}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Alarm"
-        component={Alarm}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

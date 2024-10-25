@@ -18,6 +18,7 @@ const LoginNewPageTwo = () => {
 
   const [phoneNumber, setPhoneNumber] = useState(''); // 비밀번호 상태
   const [phoneNumberError, setPhoneNumberError] = useState(false); // 비밀번호 상태
+  const [isAgree, setIsAgree] = useState(true); // 약관 동의 여부 (기본적으로True로 보낼것, 추후수정)
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true); // 버튼 활성화 상태
   const navigation = useNavigation();

@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {View, Text} from 'react-native';
 
 export const PostComponent = styled(View)`
-  padding: 5%;
+  padding: 3%;
 `;
 
 export const PostImageBox = styled(View)`
