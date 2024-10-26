@@ -1,0 +1,116 @@
+import styled from 'styled-components';
+import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+
+export const AuthorProfileContainer = styled(View)`
+  margin: 7%;
+  justify-content: center;
+`;
+
+export const ProfileContainer = styled(View)`
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 5%;
+  align-items: center;
+`;
+
+export const Profile = styled(View)`
+  background-color: black;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+`;
+
+export const ProfileBox = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 80%;
+`;
+
+export const ProfileTextBox = styled(View)``;
+
+export const AuthorNickName = styled(Text)`
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+`;
+export const AuthorName = styled(Text)`
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+`;
+export const AuthorScore = styled(Text)`
+  color: #a1a1a1;
+  font-size: 13px;
+`;
+export const AuthorRecentReserve = styled(Text)`
+  color: #a1a1a1;
+  font-size: 13px;
+`;
+
+export const ProfilePostBox = styled(View)``;
+
+export const AuthorFeedImage = styled(View)`
+  width: 100%;
+  height: 213px;
+  background-color: black;
+  border-radius: 15px;
+`;
+export const AuthorFeedProfile = styled(Text)`
+  color: black;
+  margin: 1% 0;
+  font-size: 12px;
+`;
+
+export const ContentsBox = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1% 0;
+`;
+
+export const Contents = styled(Text)`
+  color: #747272;
+`;
+export const Price = styled(Text)`
+  color: black;
+  font-weight: bold;
+`;
+
+export const IntersectionContainer = styled(View)`
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin: 5% 0%;
+`;
+
+export const IntersectionText = styled(Text)`
+  color: black;
+  font-size: 10px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+`;
+export const IntersectionChatting = styled(View)`
+  width: 33%;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+`;
+export const IntersectionReserve = styled(View)`
+  width: 33%;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #423cd2;
+`;
+export const IntersectionBlock = styled(View)`
+  width: 33%;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+`;
+
+//2열 정렬 및 간격 일정하게
+export const PostContainer = styled(View)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;

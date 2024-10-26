@@ -3,7 +3,6 @@ import React from 'react';
 
 import Home from '../../pages/Home/Home';
 import Chat from '../../pages/Chat/Chat';
-import Search from '../../pages/Search/SearchPage/SearchPage';
 import Mypage from '../../pages/Mypage/Mypage';
 import MyCalendar from '../../pages/MyCalendar/MyCalendar';
 import Alarm from '../../pages/Alarm/Alarm';
@@ -16,6 +15,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Subscribe from '../../pages/Subscribe/Subscribe';
 import Login from '../../pages/Login/Login';
 import SearchPage from '../../pages/Search/SearchPage/SearchPage';
+import SearchResultPage from '../../pages/Search/SearchResultPage/SearchResultPage';
+import AuthorProfile from '../../pages/AuthorProfile/AuthorProfile';
 
 // 네비게이션 타입 정의
 type RootStackParamList = {
@@ -107,13 +108,18 @@ const SearchStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Search"
-        component={Search}
+        name="SearchPage"
+        component={SearchPage}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="SearchPage"
-        component={SearchPage}
+        name="SearchResultPage"
+        component={SearchResultPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorProfile"
+        component={AuthorProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

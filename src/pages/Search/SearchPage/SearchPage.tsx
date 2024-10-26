@@ -54,8 +54,8 @@ const Search = () => {
 
   // 리뷰 탭 항목 터치 시 항목 출력
   const handleReviewTab = () => {
-    setIsAuthorActive(false); // 작가 탭 활성화
-    setIsReviewActive(true); // 리뷰 탭 비활성화
+    setIsAuthorActive(false);
+    setIsReviewActive(true);
     setShowAuthor(false);
     setShowReview(true);
   };

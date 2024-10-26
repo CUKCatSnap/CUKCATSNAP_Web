@@ -16,6 +16,7 @@ import Subscribe from '../pages/Subscribe/Subscribe';
 import Login from '../pages/Login/Login';
 import SearchPage from '../pages/Search/SearchPage/SearchPage';
 import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
+import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
 
 export type RootStackParam = {
   Home: undefined;
@@ -129,6 +130,11 @@ const SearchStack = () => {
       <Stack.Screen
         name="SearchResultPage"
         component={SearchResultPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorProfile"
+        component={AuthorProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

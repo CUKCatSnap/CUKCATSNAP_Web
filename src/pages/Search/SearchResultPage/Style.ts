@@ -16,22 +16,21 @@ export const SearchLankingContainer = styled(View)`
   height: 100%;
 `;
 
-export const SearchListContainer = styled(View)``;
+export const SearchListContainer = styled(View)`
+  width: 100%;
+`;
 
 export const SearchTabContainer = styled(View)`
   flex-direction: row;
-  justify-content: center;
-  gap: 10px;
+  justify-content: left;
   margin: 1% 5%;
+  gap: 10px;
 `;
 
-export const SearchTab = styled(Pressable)`
-  align-items: center;
-  width: 50%;
-`;
+export const SearchTab = styled(Pressable)``;
 
 export const SearchTabText = styled(Text)`
-  color: #bebebe;
+  color: black;
   font-size: 14px;
   margin-bottom: 5px;
 `;
@@ -40,28 +39,6 @@ export const SearchTabBox = styled(View)<TabProps>`
   width: 100%;
   height: 3px;
   background-color: ${props => (props.isActive ? '#423CD2' : '#BEBEBE')};
-`;
-
-export const SearchSort = styled(View)`
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  margin: 2% 5%;
-`;
-export const SearchSortText = styled(Text)`
-  color: black;
-  font-size: 14px;
-`;
-
-export const SearchSortIcon = styled(TouchableOpacity)`
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  background-color: #f8f7f7;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
 `;
 
 export const HotPlace = styled(Text)`
@@ -104,4 +81,11 @@ export const SearchRecentText = styled(Text)`
   font-size: 20px;
   margin: 10px;
   color: black;
+`;
+
+export const SearchListAuthorBox = styled(View)`
+  margin: 3%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 5%;
 `;
