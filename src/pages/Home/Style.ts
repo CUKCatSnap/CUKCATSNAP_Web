@@ -11,6 +11,8 @@ export const MyReserveContainer = styled(ScrollView)`
 export const RecentReserveContainer = styled(ScrollView)`
   margin-bottom: 10%;
 `;
-export const QuickIconContainer = styled(ScrollView)`
+export const QuickIconContainer = styled(View)`
   margin-bottom: 10%;
+  flex-direction: row;
+  justify-content: center;
 `;

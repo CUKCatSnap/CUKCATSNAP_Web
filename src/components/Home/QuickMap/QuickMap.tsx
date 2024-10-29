@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
 
-const QuickIcon = () => {
+const QuickMap = () => {
   const navigation = useNavigation();
   const handleNavigate = () => {
     navigation.navigate('Subscribe');
@@ -13,9 +13,9 @@ const QuickIcon = () => {
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
       <S.QuickIconContainer onPress={handleNavigate} />
-      <S.QuickText>구독</S.QuickText>
+      <S.QuickText>장소 찾기</S.QuickText>
     </SafeAreaView>
   );
 };
 
-export default QuickIcon;
+export default QuickMap;

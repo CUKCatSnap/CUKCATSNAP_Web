@@ -8,6 +8,9 @@ import {ScrollView, StyleSheet} from 'react-native';
 import QuickIcon from '../../components/Home/Quickicon/QuickIcon';
 import Title from '../../components/Home/Title/Title';
 import Header from '../../components/Header/Header';
+import QuickCalendar from '../../components/Home/QuickCalendar/QuickCalendar';
+import QuickMap from '../../components/Home/QuickMap/QuickMap';
+
 const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -22,14 +25,10 @@ const Home = () => {
             <MyReserve />
             <MyReserve />
           </S.MyReserveContainer>
-          <S.QuickIconContainer
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}>
+          <S.QuickIconContainer>
+            <QuickMap />
             <QuickIcon />
-            <QuickIcon />
-            <QuickIcon />
-            <QuickIcon />
-            <QuickIcon />
+            <QuickCalendar />
           </S.QuickIconContainer>
           <Title />
           <S.RecentReserveContainer

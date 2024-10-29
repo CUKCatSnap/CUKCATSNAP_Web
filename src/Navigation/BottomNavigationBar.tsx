@@ -37,7 +37,7 @@ const BottomTabNavigator = () => {
       }}>
       <Tab.Screen
         name="Chat"
-        component={Subscribe}
+        component={Chat}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -113,6 +113,16 @@ const HomeStack = () => {
         name="Login"
         component={Login}
         options={{headerShown: false}} // 로그인 화면이 처음에 나타나는 경우
+      />
+      <Stack.Screen
+        name="Subscribe"
+        component={Subscribe}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MyCalendar"
+        component={MyCalendar}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

@@ -1,12 +1,28 @@
 //다른 사람의 프로필을 보여주는 페이지 입니다.
 //사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.
-import React from 'react';
-import {SafeAreaView, Text, ScrollView, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, Text, ScrollView, StyleSheet, Alert} from 'react-native';
 import * as S from './Style';
 import SmallPost from '../../components/Subscribe/SmallPost/SmallPost';
 import SearchTag from '../../components/Search/SearchTag.tsx/SearchTag';
+import {useNavigation} from '@react-navigation/native';
 
 const AuthorProfile = () => {
+  const navigation = useNavigation(); // 네비게이션 객체 가져오기
+  const [isTouchOne, setIsTouchOne] = useState(false);
+  const [isTouchTwo, setIsTouchTwo] = useState(true);
+  const [isTouchThree, setIsTouchThree] = useState(false);
+  // 작가 탭 항목 터치 시 항목 출력
+  const handleChat = () => {
+    navigation.navigate('Chat');
+    setIsTouchOne(prevState => !prevState); // 상태를 토글
+  };
+
+  const handleBlock = () => {
+    setIsTouchThree(prevState => !prevState); // 상태를 토글
+    Alert.alert('작가를 차단하였습니다.');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -46,18 +62,39 @@ const AuthorProfile = () => {
           </S.ContentsBox>
 
           <S.IntersectionContainer>
-            <S.IntersectionChatting>
-              <S.IntersectionText>채팅하기</S.IntersectionText>
-            </S.IntersectionChatting>
-            <S.IntersectionReserve>
-              <S.IntersectionText>예약하기</S.IntersectionText>
-            </S.IntersectionReserve>
-            <S.IntersectionBlock>
-              <S.IntersectionText>차단하기</S.IntersectionText>
-            </S.IntersectionBlock>
+            <S.Intersection
+              onPress={handleChat}
+              onPressIn={() => setIsTouchOne(prevState => !prevState)}
+              isPress={isTouchOne}>
+              <S.IntersectionText
+                onPress={handleChat}
+                onPressIn={() => setIsTouchOne(prevState => !prevState)}
+                isPress={isTouchOne}>
+                채팅하기
+              </S.IntersectionText>
+            </S.Intersection>
+            <S.Intersection
+              onPressIn={() => setIsTouchTwo(prevState => !prevState)}
+              isPress={isTouchTwo}>
+              <S.IntersectionText
+                onPressIn={() => setIsTouchTwo(prevState => !prevState)}
+                isPress={isTouchTwo}>
+                예약하기
+              </S.IntersectionText>
+            </S.Intersection>
+            <S.Intersection
+              onPress={handleBlock}
+              onPressIn={() => setIsTouchThree(prevState => !prevState)}
+              isPress={isTouchThree}>
+              <S.IntersectionText
+                onPress={handleBlock}
+                onPressIn={() => setIsTouchThree(prevState => !prevState)}
+                isPress={isTouchThree}>
+                차단하기
+              </S.IntersectionText>
+            </S.Intersection>
           </S.IntersectionContainer>
-
-          <SearchTag />
+          {isTouchTwo && <SearchTag />}
         </S.AuthorProfileContainer>
       </ScrollView>
     </SafeAreaView>

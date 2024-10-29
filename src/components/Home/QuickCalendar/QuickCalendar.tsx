@@ -5,17 +5,17 @@ import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
 
-const QuickIcon = () => {
+const QuickCalendar = () => {
   const navigation = useNavigation();
   const handleNavigate = () => {
-    navigation.navigate('Subscribe');
+    navigation.navigate('MyCalendar');
   };
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
       <S.QuickIconContainer onPress={handleNavigate} />
-      <S.QuickText>구독</S.QuickText>
+      <S.QuickText>캘린더</S.QuickText>
     </SafeAreaView>
   );
 };
 
-export default QuickIcon;
+export default QuickCalendar;

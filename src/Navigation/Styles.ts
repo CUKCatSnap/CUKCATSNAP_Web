@@ -1,6 +1,6 @@
 //하단 네비게이션 바 스타일 컴포넌트 입니다.
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {View} from 'react-native';
 
 export const NavigateContainer = styled(View)`

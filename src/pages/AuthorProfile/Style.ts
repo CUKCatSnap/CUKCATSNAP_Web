@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+
+interface PressProps {
+  isPress: boolean;
+}
 
 export const AuthorProfileContainer = styled(View)`
   margin: 7%;
@@ -82,30 +86,21 @@ export const IntersectionContainer = styled(View)`
   margin: 5% 0%;
 `;
 
-export const IntersectionText = styled(Text)`
-  color: black;
-  font-size: 10px;
+export const IntersectionText = styled.Text<PressProps>`
+  color: ${props => (props.isPress ? 'white' : 'black')};
+  font-size: 13px;
   font-weight: bold;
+  padding-bottom: 2px;
   justify-content: center;
   align-items: center;
 `;
-export const IntersectionChatting = styled(View)`
+export const Intersection = styled.Pressable<PressProps>`
   width: 33%;
   height: 25px;
   border-radius: 5px;
-  background-color: #f3f3f3;
-`;
-export const IntersectionReserve = styled(View)`
-  width: 33%;
-  height: 25px;
-  border-radius: 5px;
-  background-color: #423cd2;
-`;
-export const IntersectionBlock = styled(View)`
-  width: 33%;
-  height: 25px;
-  border-radius: 5px;
-  background-color: #f3f3f3;
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => (props.isPress ? '#423cd2' : '#f3f3f3')};
 `;
 
 //2열 정렬 및 간격 일정하게
