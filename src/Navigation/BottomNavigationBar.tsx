@@ -17,6 +17,7 @@ import Login from '../pages/Login/Login';
 import SearchPage from '../pages/Search/SearchPage/SearchPage';
 import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
 import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
+import Map from '../pages/Map/Map';
 
 export type RootStackParam = {
   Home: undefined;
@@ -114,6 +115,7 @@ const HomeStack = () => {
         component={Login}
         options={{headerShown: false}} // 로그인 화면이 처음에 나타나는 경우
       />
+      <Stack.Screen name="Map" component={Map} options={{headerShown: false}} />
       <Stack.Screen
         name="Subscribe"
         component={Subscribe}

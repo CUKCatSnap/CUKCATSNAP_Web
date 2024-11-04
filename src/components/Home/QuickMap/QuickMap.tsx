@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const QuickMap = () => {
   const navigation = useNavigation();
   const handleNavigate = () => {
-    navigation.navigate('Subscribe');
+    navigation.navigate('Map');
   };
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
