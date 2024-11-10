@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import TextInputMask from 'react-native-text-input-mask';
+
 interface LoginTextProps {
   isError: boolean;
 }
@@ -24,6 +26,18 @@ export const LoginText = styled.Text<LoginTextProps>`
 `;
 
 export const LoginInputBox = styled(TextInput)`
+  background-color: #f3f3f3;
+  border-radius: 15px;
+  padding: 15px;
+`;
+
+export const LoginInputBoxForBirthDay = styled(TextInputMask)`
+  background-color: #f3f3f3;
+  border-radius: 15px;
+  padding: 15px;
+`;
+
+export const LoginInputBoxForPhone = styled(TextInputMask)`
   background-color: #f3f3f3;
   border-radius: 15px;
   padding: 15px;

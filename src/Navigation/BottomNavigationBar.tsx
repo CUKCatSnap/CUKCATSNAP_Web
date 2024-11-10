@@ -1,6 +1,6 @@
 // BottomTabNavigator.tsx
 import React from 'react';
-
+import {useSelector} from 'react-redux'; // 로그인 상태 가져오기
 import Home from '../pages/Home/Home';
 import Chat from '../pages/Chat/Chat';
 import Search from '../pages/Search/SearchPage/SearchPage';
@@ -18,6 +18,7 @@ import SearchPage from '../pages/Search/SearchPage/SearchPage';
 import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
 import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
 import Map from '../pages/Map/Map';
+import ReplyPage from '../pages/Reply/ReplyPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -27,6 +28,8 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const BottomTabNavigator = () => {
+  // 로그인 상태 가져오기
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   return (
     <Tab.Navigator
       initialRouteName="Home" // 기본으로 보여줄 화면 설정
@@ -80,7 +83,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Mypage"
-        component={AuthStack}
+        component={isAuthenticated ? Mypage : AuthStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -149,6 +152,11 @@ const SearchStack = () => {
         component={AuthorProfile}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="ReplyPage"
+        component={ReplyPage}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -173,6 +181,17 @@ const AuthStack = () => {
         options={{headerShown: false}}
       />
     </Stack.Navigator>
+  );
+};
+
+//피드 컴포넌트
+const FeedStack = () => {
+  return (
+    <Stack.Screen
+      name="Reply"
+      component={Reply}
+      options={{headerShown: false}}
+    />
   );
 };
 export default BottomTabNavigator;

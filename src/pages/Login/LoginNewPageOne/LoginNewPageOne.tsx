@@ -7,14 +7,15 @@ import {useNavigation, NavigationProp} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
 import {createUserData} from '../../../apis/utility/createUserData';
 import {registerUser} from '../../../apis/getNewLogin';
+import {NaverIcon} from '../Style';
+
 // 네비게이션 타입 정의
 type RootStackParamList = {
-  LoginNewPageOne: undefined; // 첫 번째 페이지는 파라미터가 없음
+  LoginNewPageOne: undefined;
   LoginNewPageTwo: {
     identifier: string;
     password: string;
-    nickname: string;
-  }; // 두 번째 페이지는 파라미터가 있음
+  };
 };
 
 const LoginNewPageOne = () => {
@@ -33,6 +34,17 @@ const LoginNewPageOne = () => {
     } else {
       setIdentifierError(false); // 입력이 있으면 에러를 비활성화
     }
+  };
+
+  const handleNavigation = () => {
+    // 첫 번째 페이지에서 입력한 데이터
+    const userData = {
+      identifier: identifier, // 예시 아이디
+      password: password, // 예시 비밀번호
+    };
+
+    // 두 번째 페이지로 데이터 전달
+    navigation.navigate('LoginNewPageTwo', userData);
   };
 
   //비밀번호 칸 상태
@@ -68,6 +80,7 @@ const LoginNewPageOne = () => {
   }, [identifier, password, passwordRepeat]);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -153,9 +166,7 @@ const LoginNewPageOne = () => {
             style={{
               backgroundColor: isButtonDisabled ? '#f3f3f3' : '#423cd2',
             }}
-            onPress={() =>
-              !isButtonDisabled && navigation.navigate('LoginNewPageTwo')
-            }>
+            onPress={handleNavigation}>
             <S.LoginNewText
               style={{
                 color: isButtonDisabled ? '#bebebe' : '#ffffff',

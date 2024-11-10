@@ -14176,6 +14176,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-responsive-screen@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "react-native-responsive-screen@npm:1.4.2"
+  peerDependencies:
+    react-native: ">=0.35"
+  checksum: f854d42e2fdfde80f31b9d3eab3bc9665cf312e5b3953b4a14dc36dc27b2dbe03b8520880ea267376eea7b664af7eb900ae88ef4004a65820b48ad9ac2fc5feb
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:^4.11.0":
   version: 4.11.0
   resolution: "react-native-safe-area-context@npm:4.11.0"
@@ -14251,6 +14260,15 @@ __metadata:
   version: 1.0.5
   resolution: "react-native-swipe-gestures@npm:1.0.5"
   checksum: d637bc40baa50fa0ce3b6cf2b494efeceaea03cc3875cb7cf7d76922914a21d5e6b098d4a084fb291ce61bfbb0a241c03cff24b15bebf0cfae1c146f4ad10d92
+  languageName: node
+  linkType: hard
+
+"react-native-text-input-mask@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "react-native-text-input-mask@npm:3.2.0"
+  peerDependencies:
+    react-native: ">=0.69.0"
+  checksum: 43f509bd2631514182bd1c24a118afc8e47d4e7d7ea2c6e945edae67e9a2c4bff397caacd90fb6743d3c1f720ac58feb21ca1f3baadddbf7b66d988e1fed7596
   languageName: node
   linkType: hard
 
@@ -15427,12 +15445,14 @@ __metadata:
     react-native-gesture-handler: ^2.19.0
     react-native-linear-gradient: ^2.8.3
     react-native-reanimated: ^3.15.3
+    react-native-responsive-screen: ^1.4.2
     react-native-safe-area-context: ^4.11.0
     react-native-screen: ^1.0.1
     react-native-screens: ^3.34.0
     react-native-shadow-2: ^7.1.0
     react-native-svg: ^15.7.1
     react-native-svg-transformer: ^1.5.0
+    react-native-text-input-mask: ^3.2.0
     react-native-vector-icons: ^10.2.0
     react-native-web: ^0.19.12
     react-navigation: ^5.0.0

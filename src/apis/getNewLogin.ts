@@ -5,7 +5,7 @@ import axios from 'axios';
 export const registerUser = async userData => {
   try {
     const response = await axios.post(
-      'https://api.example.com/register',
+      'https://api.catsnap.net/member/signup/catsnap',
       userData,
     );
     return response.data; // 성공 시 서버의 응답 데이터를 반환

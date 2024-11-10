@@ -5,8 +5,13 @@ import * as S from './Style';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useNavigation} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
+import {registerUser} from '../../../apis/getNewLogin';
 
-const LoginNewPageTwo = () => {
+const LoginNewPageTwo = ({route}) => {
+  const {identifier, password} = route.params;
+  // 예시로 받은 첫 번째 페이지 데이터 출력
+  console.log(identifier, password);
+
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
 
@@ -51,7 +56,7 @@ const LoginNewPageTwo = () => {
 
   //휴대전화 번호 칸 상태
   const handlePhoneNumber = () => {
-    if (phoneNumber === '') {
+    if (phoneNumber === '' || phoneNumber.length !== 13) {
       setPhoneNumberError(true);
     } else {
       setPhoneNumberError(false);
@@ -63,14 +68,35 @@ const LoginNewPageTwo = () => {
     if (
       name !== '' &&
       nickName !== '' &&
-      birthday !== '' &&
-      phoneNumber !== ''
+      birthday.length === 10 &&
+      phoneNumber.length === 13
     ) {
       setIsButtonDisabled(false); // 입력이 모두 있을 경우 버튼 활성화
     } else {
       setIsButtonDisabled(true); // 하나라도 없으면 버튼 비활성화
     }
   }, [name, nickName, birthday, phoneNumber]);
+
+  const handleSubmit = async () => {
+    const userData = {
+      identifier,
+      password,
+      nickname: nickName,
+      birthday,
+      phoneNumber,
+      termsAgreementList: [{termsId: '1', isAgree: isAgree}],
+    };
+
+    try {
+      const response = await registerUser(userData);
+      if (response) {
+        // 성공 시 홈 화면으로 이동
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      console.log('회원가입 실패', error.message || '알 수 없는 오류 발생');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -125,39 +151,50 @@ const LoginNewPageTwo = () => {
               : '생년월일'}
           </S.LoginText>
           <S.IconBox>
-            <S.LoginInputBox
-              placeholder="예)20010101"
+            <S.LoginInputBoxForBirthDay
+              mask="[0000]-[00]-[00]"
+              onChangeText={(formatted, extracted) => {
+                setBirthday(formatted); // 포맷된 번호를 phoneNumber에 저장
+                setBirthdayError(
+                  extracted === '' ||
+                    extracted.length < 8 ||
+                    extracted.length > 8,
+                ); // 숫자 값이 비어있으면 에러 표시
+              }}
+              placeholder="예)2001-01-01"
               keyboardType="numeric"
               value={birthday}
-              onChangeText={text => {
-                setBirthday(text);
-                setBirthdayError(
-                  text === '' || text.length < 8 || text.length > 8,
-                );
-              }}
               onBlur={handleBirthday}
             />
-            {birthday !== '' && birthday.length === 8 && (
+            {birthday !== '' && birthday.length === 10 && (
               <S.IconCheck>
                 <Check />
               </S.IconCheck>
             )}
           </S.IconBox>
           <S.LoginText isError={phoneNumberError}>
-            {phoneNumberError ? '휴대전화 번호를 입력하세요.' : '휴대전화 번호'}
+            {phoneNumberError
+              ? '휴대전화 번호를 입력하세요.'
+              : phoneNumber.length < 13
+              ? '휴대전화 번호를 입력하세요.'
+              : '휴대전화 번호'}
           </S.LoginText>
           <S.IconBox>
-            <S.LoginInputBox
+            <S.LoginInputBoxForPhone
               placeholder="휴대전화 번호"
               keyboardType="phone-pad"
+              mask="[000]-[0000]-[0000]"
               value={phoneNumber}
-              onChangeText={text => {
-                setPhoneNumber(text);
-                setPhoneNumberError(text === '');
+              onChangeText={(formatted, extracted) => {
+                setPhoneNumber(formatted); // 포맷된 번호를 phoneNumber에 저장
+                setPhoneNumberError(
+                  extracted === '' || extracted?.length !== 13,
+                ); // 숫자 값이 비어있으면 에러 표시, 조건을 잘 설정해야 색도 변한다
               }}
               onBlur={handlePhoneNumber}
             />
-            {phoneNumber !== '' && (
+
+            {phoneNumber.length === 13 && (
               <S.IconCheck>
                 <Check />
               </S.IconCheck>
@@ -174,7 +211,7 @@ const LoginNewPageTwo = () => {
               style={{
                 backgroundColor: isButtonDisabled ? '#f3f3f3' : '#423cd2',
               }}
-              onPress={() => !isButtonDisabled && navigation.navigate('Home')}>
+              onPress={handleSubmit}>
               <S.LoginNewText
                 style={{
                   color: isButtonDisabled ? '#bebebe' : '#ffffff',

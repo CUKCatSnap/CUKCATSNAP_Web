@@ -6,6 +6,10 @@ import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import LoginBtn from '../../components/Login/LoginBtn';
 import Naver from '../../icons/naver.svg';
 import {useNavigation} from '@react-navigation/native';
+import {LoginUser} from '../../apis/getLogin';
+import {useDispatch} from 'react-redux';
+// 로그인 성공 시 상태를 업데이트하는 액션
+import {loginSuccess} from '../../store/authSlice';
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -14,6 +18,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState(false); // 비밀번호 상태
   const [isButtonDisabled, setIsButtonDisabled] = useState(true); // 버튼 활성화 상태
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   //아이디 칸 상태
   const handleId = () => {
@@ -42,6 +47,25 @@ const Login = () => {
     }
   }, [id, password]); // id와 password의 상태를 감시
 
+  const handleSubmit = async () => {
+    const userLogin = {
+      identifier: id,
+      password,
+    };
+
+    try {
+      const response = await LoginUser(userLogin);
+      if (response) {
+        dispatch(loginSuccess(response)); // 로그인 성공 액션을 dispatch하여 상태 업데이트
+
+        // 성공 시 홈 화면으로 이동
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      console.log('로그인 실패', error.message || '알 수 없는 오류 발생');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -68,6 +92,7 @@ const Login = () => {
             onBlur={handlePassword}
           />
           <LoginBtn
+            onPress={handleSubmit}
             disabled={idError || passwordError || id === '' || password === ''}
           />
           <S.LoginCenterBar
