@@ -4,7 +4,14 @@ import {SafeAreaView, Text} from 'react-native';
 import * as S from './Style';
 import Settings from '../../../icons/settings.svg';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
+
 const Post = () => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('ReplyPage');
+  };
   return (
     <SafeAreaView>
       <S.PostComponent>
@@ -13,7 +20,9 @@ const Post = () => {
           <S.IconBox>
             <S.IconSize>
               <Icon name={'heart-outline'} size={30} color={'black'} />
-              <Icon name={'chatbubble-outline'} size={27} color={'black'} />
+              <S.IconPress onPress={handlePress}>
+                <Icon name={'chatbubble-outline'} size={27} color={'black'} />
+              </S.IconPress>
             </S.IconSize>
             <S.IconSize>
               <Settings />

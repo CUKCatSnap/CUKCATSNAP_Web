@@ -55,15 +55,11 @@ const MyCalendar = props => {
       const items =
         response.data?.response?.result?.featureCollection?.features || [];
 
-      console.log('Items:', items); // items 배열 확인
-
       if (Array.isArray(items)) {
         const locdateArray = items.map(item => {
-          console.log('Item:', item); // 각 item 출력
           return formatDate(item.properties.locdate); // locdate를 변환
         });
         setSpecificDates(locdateArray);
-        console.log('Specific Dates:', locdateArray);
       } else {
         console.error('items is not an array', items);
       }
@@ -146,8 +142,6 @@ const MyCalendar = props => {
           : styles.headerText;
       }
     }
-
-    console.log('Specific Dates:', specificDates);
   };
 
   const renderCalendar = () => {

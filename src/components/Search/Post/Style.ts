@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 
 export const PostComponent = styled(View)`
   padding: 3%;
@@ -28,6 +28,7 @@ export const IconBox = styled(View)`
   align-items: center;
   justify-content: space-between;
 `;
+export const IconPress = styled(TouchableOpacity)``;
 
 export const IconSize = styled(View)`
   flex-direction: row;
