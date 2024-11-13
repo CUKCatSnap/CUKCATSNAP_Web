@@ -6,7 +6,11 @@ import * as S from './Style';
 import Arrow from '../../icons/arrow.svg';
 import {useNavigation} from '@react-navigation/native';
 
-const ContentsHeader = () => {
+interface ContentHeaderProps {
+  text: string;
+}
+
+const ContentsHeader: React.FC<ContentHeaderProps> = ({text}) => {
   const navigation = useNavigation();
   const handleGoBack = () => {
     navigation.goBack();
@@ -19,7 +23,7 @@ const ContentsHeader = () => {
         <S.BackArrow onPress={handleGoBack}>
           <Arrow />
         </S.BackArrow>
-        <S.HeaderText>알림</S.HeaderText>
+        <S.HeaderText>{text}</S.HeaderText>
       </S.ContextHeaderContainer>
     </SafeAreaView>
   );

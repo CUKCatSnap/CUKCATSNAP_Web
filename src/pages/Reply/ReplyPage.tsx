@@ -21,7 +21,7 @@ const ReplyPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader />
+        <ContentsHeader text="댓글" />
         <S.ReplyPageContainer>
           <S.PostContainer>
             <S.PostBox>

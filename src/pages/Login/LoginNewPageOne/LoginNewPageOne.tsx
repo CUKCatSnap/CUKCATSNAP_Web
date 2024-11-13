@@ -5,20 +5,20 @@ import * as S from './Style';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
-import {createUserData} from '../../../apis/utility/createUserData';
-import {registerUser} from '../../../apis/getNewLogin';
-import {NaverIcon} from '../Style';
 
 // 네비게이션 타입 정의
 type RootStackParamList = {
-  LoginNewPageOne: undefined;
+  LoginNewPageOne: {isAuthor: boolean}; // isAuthor 추가
   LoginNewPageTwo: {
     identifier: string;
     password: string;
+    isAuthor: boolean;
   };
 };
 
-const LoginNewPageOne = () => {
+const LoginNewPageOne = ({route}) => {
+  const {isAuthor} = route.params;
+
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -41,6 +41,7 @@ const LoginNewPageOne = () => {
     const userData = {
       identifier: identifier, // 예시 아이디
       password: password, // 예시 비밀번호
+      isAuthor: isAuthor, // 작가 여부
     };
 
     // 두 번째 페이지로 데이터 전달
@@ -84,7 +85,7 @@ const LoginNewPageOne = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader />
+        <ContentsHeader text="회원 가입" />
         <S.LoginContainer>
           <S.LoginText isError={identifierError}>
             {identifierError ? '아이디를 입력하세요' : '아이디'}

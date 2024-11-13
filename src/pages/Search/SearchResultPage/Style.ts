@@ -7,7 +7,7 @@ interface TabProps {
 }
 
 export const SearchContainer = styled(View)`
-  margin: 5%;
+  margin: -7% 5%;
 `;
 
 export const SearchLankingContainer = styled(View)`

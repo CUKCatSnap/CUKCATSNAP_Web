@@ -1,16 +1,15 @@
 //회원가입 두번째 페이지 입니다.
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, Alert} from 'react-native';
 import * as S from './Style';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useNavigation} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
-import {registerUser} from '../../../apis/getNewLogin';
+import {registerUser} from '../../../apis/postNewLogin';
+import {registerAuthor} from '../../../apis/postAuthorNewLogin';
 
 const LoginNewPageTwo = ({route}) => {
-  const {identifier, password} = route.params;
-  // 예시로 받은 첫 번째 페이지 데이터 출력
-  console.log(identifier, password);
+  const {identifier, password, isAuthor} = route.params;
 
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -87,11 +86,29 @@ const LoginNewPageTwo = ({route}) => {
       termsAgreementList: [{termsId: '1', isAgree: isAgree}],
     };
 
+    const AuthorData = {
+      identifier,
+      password,
+      nickname: nickName,
+      birthday,
+      phoneNumber,
+      termsAgreementList: [{termsId: '1', isAgree: isAgree}],
+    };
+
     try {
-      const response = await registerUser(userData);
+      let response;
+      if (isAuthor) {
+        // 작가로 가입 시 registerAuthor API 호출
+        response = await registerAuthor(AuthorData);
+      } else {
+        // 일반 사용자로 가입 시 registerUser API 호출
+        response = await registerUser(userData);
+      }
+
       if (response) {
-        // 성공 시 홈 화면으로 이동
-        navigation.navigate('Home');
+        Alert.alert('회원가입 성공', '환영합니다! 홈 화면으로 이동합니다.', [
+          {text: '확인', onPress: () => navigation.navigate('Home')},
+        ]);
       }
     } catch (error) {
       console.log('회원가입 실패', error.message || '알 수 없는 오류 발생');
@@ -101,7 +118,7 @@ const LoginNewPageTwo = ({route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader />
+        <ContentsHeader text="회원 가입" />
         <S.LoginContainer>
           <S.LoginText isError={nameError}>
             {nameError ? '이름을 입력해주세요.' : '이름'}

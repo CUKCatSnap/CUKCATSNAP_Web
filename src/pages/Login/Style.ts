@@ -16,6 +16,16 @@ export const LoginContainer = styled(View)`
   margin-top: 1%;
 `;
 
+export const LoginBtnBox = styled(View)`
+  flex-direction: row;
+  gap: 10px;
+`;
+
+export const LoginBtn = styled(View)`
+  justify-content: space-evenly;
+  flex: 1;
+`;
+
 export const LoginText = styled.Text<LoginTextProps>`
   color: ${props => (props.isError ? 'red' : 'black')};
   font-weight: bold;
@@ -61,6 +71,7 @@ export const LoginWithNaverContent = styled(TouchableOpacity)`
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 export const NaverIcon = styled(View)`
@@ -70,10 +81,15 @@ export const NaverIcon = styled(View)`
 export const LoginWithNaverText = styled(Text)`
   font-weight: bold;
 `;
-
+export const LoginNewBox = styled(View)`
+  justify-content: space-evenly;
+  flex-direction: row;
+  gap: 10px;
+`;
 export const LoginNew = styled(TouchableOpacity)`
   width: 100%;
-  background-color: transparent;
+  flex: 1;
+  background-color: #423cd2;
   border-radius: 15px;
   padding: 20px;
   font-size: 14px;
@@ -81,10 +97,11 @@ export const LoginNew = styled(TouchableOpacity)`
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 export const LoginNewText = styled(Text)`
-  color: #423cd2;
+  color: #ffffff;
   font-size: 14px;
   font-weight: bold;
 `;

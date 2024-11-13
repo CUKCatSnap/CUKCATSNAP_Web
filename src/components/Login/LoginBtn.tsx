@@ -7,16 +7,17 @@ import * as S from './Style';
 interface LoginBtnProps {
   disabled?: boolean; // disabled prop 추가
   onPress?: () => void; // onPress prop 추가
+  text: string; // 버튼 텍스트를 위한 prop 추가
 }
 
-const LoginBtn: React.FC<LoginBtnProps> = ({disabled, onPress}) => {
+const LoginBtn: React.FC<LoginBtnProps> = ({disabled, onPress, text}) => {
   return (
     <SafeAreaView>
       <S.LoginBtnContainer
         disabled={disabled}
         style={{backgroundColor: disabled ? '#cccccc' : '#423cd2'}}
         onPress={onPress}>
-        <S.BtnText>{disabled ? '로그인' : '로그인'}</S.BtnText>
+        <S.BtnText>{disabled ? text : text}</S.BtnText>
       </S.LoginBtnContainer>
     </SafeAreaView>
   );

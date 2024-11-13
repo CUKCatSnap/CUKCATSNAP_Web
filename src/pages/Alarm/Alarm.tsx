@@ -7,7 +7,7 @@ import * as S from './Style';
 const Alarm = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ContentsHeader />
+      <ContentsHeader text="알림" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <S.AlarmContainer>
           <AlarmBox />

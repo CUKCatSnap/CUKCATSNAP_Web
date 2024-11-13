@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import * as S from './Style';
 import X from '../../../icons/x.svg';
 import SmallPost2 from '../../../components/Search/SmallPost2/SmallPost2';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const SearchResultPage = () => {
   const [inputText, setInputText] = useState(''); // 입력 상태 추가
@@ -79,6 +80,7 @@ const SearchResultPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text="검색 결과" />
         <S.SearchContainer>
           <SearchBar
             onChangeText={handleSearchInput} // 텍스트 입력 처리

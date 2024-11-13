@@ -4,13 +4,17 @@ import React from 'react';
 import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 
-const RecentReserve = () => {
+interface TitleProps {
+  text: string;
+}
+
+const RecentReserve: React.FC<TitleProps> = ({text}) => {
   return (
     <SafeAreaView style={{alignItems: 'flex-start'}}>
       <S.TitleContainer
         horizontal={false}
         showsHorizontalScrollIndicator={false}>
-        <S.TitleText>내 예약</S.TitleText>
+        <S.TitleText>{text}</S.TitleText>
         <S.TitleLine />
       </S.TitleContainer>
     </SafeAreaView>

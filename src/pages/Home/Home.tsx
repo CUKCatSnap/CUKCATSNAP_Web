@@ -17,7 +17,7 @@ const Home = () => {
       <S.Container>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header />
-          <Title />
+          <Title text="내 예약" />
           <S.MyReserveContainer
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
@@ -30,7 +30,7 @@ const Home = () => {
             <QuickIcon />
             <QuickCalendar />
           </S.QuickIconContainer>
-          <Title />
+          <Title text="최근 예약" />
           <S.RecentReserveContainer
             horizontal={true}
             showsHorizontalScrollIndicator={false}>

@@ -37,7 +37,7 @@ const Subscribe = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader />
+        <ContentsHeader text="구독" />
         <S.SearchTabContainer>
           <S.SearchTab onPress={handleAuthorTab}>
             <S.SearchTabText>Photographer</S.SearchTabText>
