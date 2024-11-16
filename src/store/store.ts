@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import authReducer from './authSlice'; // 위에서 만든 authSlice 불러오기
+import authReducer from './authSlice'; //authSlice 불러오기
 
 const store = configureStore({
   reducer: {

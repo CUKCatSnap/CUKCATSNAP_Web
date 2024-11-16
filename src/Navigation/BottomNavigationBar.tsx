@@ -19,6 +19,8 @@ import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage'
 import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
 import Map from '../pages/Map/Map';
 import ReplyPage from '../pages/Reply/ReplyPage';
+import MyReservePage from '../pages/MyReserve/MyReservePage';
+import RecentReservePage from '../pages/RecentReserve/RecentReservePage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -114,6 +116,11 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="MyReserve"
+        component={MyReservePage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{headerShown: false}} // 로그인 화면이 처음에 나타나는 경우
@@ -127,6 +134,11 @@ const HomeStack = () => {
       <Stack.Screen
         name="MyCalendar"
         component={MyCalendar}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RecentReserve"
+        component={RecentReservePage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
@@ -189,7 +201,7 @@ const FeedStack = () => {
   return (
     <Stack.Screen
       name="Reply"
-      component={Reply}
+      component={ReplyPage}
       options={{headerShown: false}}
     />
   );

@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
+export const MyReserveContainer = styled(TouchableOpacity)``;
 
 //너비와 높이를 %로 정하면 가져올 때 컴포넌트가 합쳐지는 현상 발생
 export const MyReserveBox = styled(LinearGradient)`

@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Svg} from 'react-native-svg';
 
-export const RecentReserve = styled(View)`
+export const RecentReserve = styled(TouchableOpacity)`
   position: relative;
 `;
 

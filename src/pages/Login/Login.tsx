@@ -60,7 +60,7 @@ const Login = () => {
     try {
       const response = await LoginUser(userLogin);
       if (response) {
-        dispatch(loginSuccess(response)); // 로그인 성공 액션을 dispatch하여 상태 업데이트
+        dispatch(loginSuccess({...response, isAuthor: false}));
         Alert.alert(
           '', // 제목
           '로그인 되었습니다.', // 메시지
@@ -83,7 +83,9 @@ const Login = () => {
     try {
       const response = await LoginAuthor(AuthorLogin);
       if (response) {
-        dispatch(loginSuccess(response)); // 로그인 성공 액션을 dispatch하여 상태 업데이트
+        // 로그인 성공 액션을 dispatch하여 상태 업데이트
+        // 즉, 이게 전역 상태를 업데이트 함 (redux)
+        dispatch(loginSuccess({...response, isAuthor: true}));
         Alert.alert(
           '', // 제목
           '작가로 로그인 되었습니다.', // 메시지
@@ -99,21 +101,23 @@ const Login = () => {
 
   //회원 가입
   const handleUserNewLogin = () => {
-    navigation.navigate('LoginNewPageOne');
+    navigation.navigate('LoginNewPageOne', {isAuthor: false});
   };
-  //작가로 회원 가입
-  useEffect(() => {
-    if (Author) {
-      // author가 true일 때만 navigate 호출
-      navigation.navigate('LoginNewPageOne', {isAuthor: true});
-    } else {
-      navigation.navigate('LoginNewPageOne', {isAuthor: false});
-    }
-  }, [navigation, Author]);
 
+  //회원 가입
   const handleAuthorNewLogin = () => {
-    setAuthor(true); // 상태 변경
+    navigation.navigate('LoginNewPageOne', {isAuthor: true});
   };
+  /*setAuthor이 변경된 후에 navigate해야 함 -> promise 사용
+  //그러나 반드시 필요한 것은 아님 (setAuthor이)
+  const handleAuthorNewLogin = () => {
+    new Promise(resolve => {
+      setAuthor(true);
+      resolve();
+    }).then(() => {
+      navigation.navigate('LoginNewPageOne', {isAuthor: true});
+    });
+  };*/
 
   return (
     <SafeAreaView style={styles.container}>

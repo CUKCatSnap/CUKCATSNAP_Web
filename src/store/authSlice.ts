@@ -5,7 +5,7 @@ import {createSlice} from '@reduxjs/toolkit';
 // 초기 상태 정의
 const initialState = {
   isAuthenticated: false, // 로그인 여부
-  user: null, // 로그인한 사용자 정보
+  user: null, // 로그인한 사용자 정보, 작가인지 유저인지 여부도 들어감
 };
 
 // 슬라이스 생성

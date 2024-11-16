@@ -3,11 +3,17 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import * as S from './Style';
+import {useNavigation} from '@react-navigation/native';
 
 const RecentReserve = () => {
+  const navigation = useNavigation();
+  const handleRecentReserve = () => {
+    navigation.navigate('RecentReserve');
+  };
+
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
-      <S.RecentReserve>
+      <S.RecentReserve onPress={handleRecentReserve}>
         <S.Shadow />
         <S.RecentReserveContainer />
         <S.PosBox />
