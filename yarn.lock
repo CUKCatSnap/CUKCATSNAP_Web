@@ -2880,6 +2880,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-cookies/cookies@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@react-native-cookies/cookies@npm:6.2.1"
+  dependencies:
+    invariant: ^2.2.4
+  peerDependencies:
+    react-native: ">= 0.60.2"
+  checksum: 65ec7485952b719191cc3d131b1befdebdb0b422baaf655fd37ad6455ac05582a81b9d7f023ffa375a8787c30d33d1195dea46f633fb6cc09ccd2ae810795ce2
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.75.3":
   version: 0.75.3
   resolution: "@react-native/assets-registry@npm:0.75.3"
@@ -14155,6 +14166,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-encrypted-storage@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "react-native-encrypted-storage@npm:4.0.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 9d2999c58559f1e4f66d1baf2c3edeff96cf42027900850d94c6bbea24ac9715047ce69bf6e8a73b68aff4508cf35dd88ac494ad5905933286ef3b75cd123e30
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:^2.19.0":
   version: 2.19.0
   resolution: "react-native-gesture-handler@npm:2.19.0"
@@ -15448,6 +15469,7 @@ __metadata:
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
     "@react-native-async-storage/async-storage": ^2.0.0
+    "@react-native-cookies/cookies": ^6.2.1
     "@react-native/babel-preset": 0.75.3
     "@react-native/eslint-config": 0.75.3
     "@react-native/metro-config": 0.75.3
@@ -15470,6 +15492,7 @@ __metadata:
     react-dom: ^18.3.1
     react-native: 0.75.3
     react-native-calendars: ^1.1307.0
+    react-native-encrypted-storage: ^4.0.3
     react-native-gesture-handler: ^2.19.0
     react-native-linear-gradient: ^2.8.3
     react-native-reanimated: ^3.15.3

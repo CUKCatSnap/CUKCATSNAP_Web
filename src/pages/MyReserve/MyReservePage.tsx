@@ -22,8 +22,12 @@ const MyReservePage = () => {
 
         // 예약 데이터 요청
         setLoading(true);
-        const fetchedReservations = await fetchReservations(token); // fetchReservations 함수 호출
-        setReservations(fetchedReservations); // 가져온 예약 데이터를 상태에 저장
+        const fetchedReservations = await fetchReservations('ALL'); // "ALL" 또는 "UPCOMING"을 넘길 수 있음
+        if (fetchedReservations) {
+          setReservations(fetchedReservations); // 가져온 예약 데이터를 상태에 저장
+        } else {
+          setError('No reservations found');
+        }
       } catch (error) {
         setError('Failed to fetch reservations');
       } finally {
