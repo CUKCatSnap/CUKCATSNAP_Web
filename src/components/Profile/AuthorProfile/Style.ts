@@ -8,7 +8,6 @@ interface PressProps {
 export const AuthorProfileContainer = styled(View)`
   margin: 0 7%;
   justify-content: center;
-  margin-top: -10%;
 `;
 
 export const ProfileContainer = styled(View)`
@@ -82,8 +81,8 @@ export const Price = styled(Text)`
 
 export const IntersectionContainer = styled(View)`
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
   margin: 5% 0%;
 `;
 
@@ -96,10 +95,11 @@ export const IntersectionText = styled.Text<PressProps>`
   align-items: center;
 `;
 export const Intersection = styled.Pressable<PressProps>`
-  width: 33%;
+  width: 50%;
   height: 25px;
   border-radius: 5px;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex: 1;
   align-items: center;
   background-color: ${props => (props.isPress ? '#423cd2' : '#f3f3f3')};
 `;

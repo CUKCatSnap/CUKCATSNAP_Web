@@ -12,6 +12,11 @@ const Post = () => {
   const handlePress = () => {
     navigation.navigate('ReplyPage');
   };
+
+  const handleAuthorProfile = () => {
+    navigation.navigate('AuthorProfile');
+  };
+
   return (
     <SafeAreaView>
       <S.PostComponent>
@@ -28,7 +33,7 @@ const Post = () => {
               <Settings />
             </S.IconSize>
           </S.IconBox>
-          <S.Title>나 똘똘 작가</S.Title>
+          <S.Title onPress={handleAuthorProfile}>나 똘똘 작가</S.Title>
           <S.ProfileBox>
             <S.Profile />
             <S.Name>Imsamrt</S.Name>

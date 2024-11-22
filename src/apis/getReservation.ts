@@ -7,6 +7,8 @@ export const fetchReservations = async (type = 'UPCOMING') => {
     if (!accessToken) {
       console.error('액세스 토큰이 없습니다.');
       return null;
+    } else {
+      console.log(accessToken);
     }
 
     // 요청 파라미터 설정
@@ -15,23 +17,24 @@ export const fetchReservations = async (type = 'UPCOMING') => {
       pageable: {
         page: 0,
         size: 1,
-        sort: 'string',
+        sort: 'string', //이걸 파라미터로 같이 보내면 오류가 생김
       },
     };
 
     // axios 요청 보내기
+    //수정 필요
     const response = await axios.get(
       'https://api.catsnap.net/reservation/member/my',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+
         params: {
           type: params.type,
           page: params.pageable.page,
           size: params.pageable.size,
-          sort: params.pageable.sort,
-        }, // URL 파라미터로 추가
+        },
       },
     );
 

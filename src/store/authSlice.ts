@@ -9,6 +9,7 @@ const initialState = {
 };
 
 // 슬라이스 생성
+//여기에 액션을 정의해주면 된다.
 const authSlice = createSlice({
   name: 'auth',
   initialState,

@@ -29,7 +29,7 @@ const months = [
   '12',
 ];
 
-const MyCalendar = () => {
+const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [checkDate, setCheckDate] = useState('');
@@ -125,10 +125,6 @@ const MyCalendar = () => {
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <S.MyCalendar>
-            <ContentsHeader text={'캘린더'} />
-            <S.CalendarHeader>
-              <Title text={'내 예약'} />
-            </S.CalendarHeader>
             <S.CalendarHeader>
               <S.MonthText>
                 {currentMonth.getFullYear()}년 {months[currentMonth.getMonth()]}
@@ -191,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyCalendar;
+export default Calendar;

@@ -3,9 +3,9 @@
 import React, {useState} from 'react';
 import {SafeAreaView, Text, ScrollView, StyleSheet, Alert} from 'react-native';
 import * as S from './Style';
-import SmallPost from '../../components/Subscribe/SmallPost/SmallPost';
 import SearchTag from '../../components/Search/SearchTag.tsx/SearchTag';
 import {useNavigation} from '@react-navigation/native';
+import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 
 const AuthorProfile = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
@@ -26,6 +26,7 @@ const AuthorProfile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text={'작가 정보'} />
         <S.AuthorProfileContainer>
           <S.ProfileContainer>
             <S.Profile />
