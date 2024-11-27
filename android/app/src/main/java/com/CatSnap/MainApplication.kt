@@ -1,4 +1,4 @@
-package com.snap
+package com.CatSnap
 
 import android.app.Application
 import com.facebook.react.PackageList

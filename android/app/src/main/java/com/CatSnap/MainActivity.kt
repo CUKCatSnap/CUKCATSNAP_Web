@@ -1,4 +1,4 @@
-package com.snap
+package com.CatSnap
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
