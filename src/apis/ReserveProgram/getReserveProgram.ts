@@ -1,7 +1,9 @@
+//작가가 자신의 예약 프로그램을 조회
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const fetchReservations = async (type = 'UPCOMING') => {
+export const fetchReservationPrograms = async () => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -11,28 +13,12 @@ export const fetchReservations = async (type = 'UPCOMING') => {
       console.log(accessToken);
     }
 
-    // 요청 파라미터 설정
-    const params = {
-      type: type, // 'UPCOMING' 또는 'ALL' 선택
-      pageable: {
-        page: 0,
-        size: 1,
-        sort: 'string', //이걸 파라미터로 같이 보내면 오류가 생김
-      },
-    };
-
     // axios 요청 보내기
     const response = await axios.get(
-      'https://api.catsnap.net/reservation/member/my',
+      'https://api.catsnap.net/reservation/photographer/my/program',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-        },
-
-        params: {
-          type: params.type,
-          page: params.pageable.page,
-          size: params.pageable.size,
         },
       },
     );

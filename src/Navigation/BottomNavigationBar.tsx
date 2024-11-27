@@ -21,6 +21,8 @@ import Map from '../pages/Map/Map';
 import ReplyPage from '../pages/Reply/ReplyPage';
 import MyReservePage from '../pages/MyReserve/MyReservePage';
 import RecentReservePage from '../pages/RecentReserve/RecentReservePage';
+import ReserveProgramPage from '../pages/ReserveProgramPage/ReserveProgramPage';
+import CreateProgramPage from '../pages/CreateProgram/CreateProgramPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -84,8 +86,8 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Mypage"
-        component={isAuthenticated ? Mypage : AuthStack}
+        name="MypageStack"
+        component={isAuthenticated ? MypageStack : AuthStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -190,6 +192,29 @@ const AuthStack = () => {
       <Stack.Screen
         name="LoginNewPageTwo"
         component={LoginNewPageTwo}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// 마이페이지 -> 로그인 창으로
+const MypageStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Mypage"
+        component={Mypage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ReserveProgramPage"
+        component={ReserveProgramPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateProgramPage"
+        component={CreateProgramPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

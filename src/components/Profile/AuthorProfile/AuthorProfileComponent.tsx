@@ -1,16 +1,28 @@
 //다른 사람의 프로필을 보여주는 페이지 입니다.
 //사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.
-import React, {useState} from 'react';
-import {SafeAreaView, Text, ScrollView, StyleSheet, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Alert,
+  View,
+  Button,
+} from 'react-native';
 import * as S from './Style';
 import SearchTag from '../../Search/SearchTag.tsx/SearchTag';
 import {useNavigation} from '@react-navigation/native';
+import {fetchReservationPrograms} from '../../../apis/ReserveProgram/getReserveProgram';
+import LoginBtn from '../../Login/LoginBtn';
 
 const AuthorProfileComponent = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const [isTouchOne, setIsTouchOne] = useState(false);
   const [isTouchTwo, setIsTouchTwo] = useState(true);
   const [isTouchThree, setIsTouchThree] = useState(false);
+  const [programs, setPrograms] = useState([]); // 프로그램 데이터를 저장할 상태
+
   // 작가 탭 항목 터치 시 항목 출력
   const handleChat = () => {
     Alert.alert('피드 편집 페이지');
@@ -21,6 +33,27 @@ const AuthorProfileComponent = () => {
     setIsTouchThree(prevState => !prevState); // 상태를 토글
     Alert.alert('프로필 공유 페이지');
   };
+
+  const handleProgram = () => {
+    navigation.navigate('ReserveProgramPage');
+  };
+
+  const handleCreateProgram = () => {
+    navigation.navigate('CreateProgramPage');
+  };
+
+  // API 호출로 프로그램 데이터 가져오기
+  useEffect(() => {
+    const loadPrograms = async () => {
+      const response = await fetchReservationPrograms();
+      if (response?.data?.photographerProgramList) {
+        setPrograms(response.data.photographerProgramList);
+      } else {
+        console.error('프로그램 데이터를 불러오지 못했습니다.');
+      }
+    };
+    loadPrograms();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,18 +79,26 @@ const AuthorProfileComponent = () => {
           </S.AuthorFeedProfile>
         </S.ProfilePostBox>
 
-        <S.ContentsBox>
-          <S.Contents>공원 스냅</S.Contents>
-          <S.Price>50,000원</S.Price>
-        </S.ContentsBox>
-        <S.ContentsBox>
-          <S.Contents>우정 스냅</S.Contents>
-          <S.Price>80,000원</S.Price>
-        </S.ContentsBox>
-        <S.ContentsBox>
-          <S.Contents>가족 스냅</S.Contents>
-          <S.Price>100,000원</S.Price>
-        </S.ContentsBox>
+        {/* 프로그램 리스트 렌더링 */}
+        {programs.length === 0 ? (
+          <View>
+            <S.ProgramView>
+              <S.ProgramText>등록된 프로그램이 없습니다.</S.ProgramText>
+            </S.ProgramView>
+            <LoginBtn
+              disabled={false}
+              onPress={handleCreateProgram}
+              text={'프로그램 추가하기'}
+            />
+          </View>
+        ) : (
+          programs.map(program => (
+            <S.ContentsBox key={program.programId} onPress={handleProgram}>
+              <S.Contents>{program.title}</S.Contents>
+              <S.Price>{program.price.toLocaleString()}원</S.Price>
+            </S.ContentsBox>
+          ))
+        )}
 
         <S.IntersectionContainer>
           <S.Intersection
