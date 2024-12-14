@@ -5,8 +5,8 @@ import * as S from './Style';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useNavigation} from '@react-navigation/native';
 import Check from '../../../icons/check.svg';
-import {registerUser} from '../../../apis/postNewLogin';
-import {registerAuthor} from '../../../apis/postAuthorNewLogin';
+import {registerUser} from '../../../apis/Login/postNewLogin';
+import {registerAuthor} from '../../../apis/Login/postAuthorNewLogin';
 
 const LoginNewPageTwo = ({route}) => {
   const {identifier, password, isAuthor} = route.params;
@@ -106,8 +106,8 @@ const LoginNewPageTwo = ({route}) => {
       }
 
       if (response) {
-        Alert.alert('회원가입 성공', '환영합니다! 홈 화면으로 이동합니다.', [
-          {text: '확인', onPress: () => navigation.navigate('Home')},
+        Alert.alert('회원가입 성공', '로그인 페이지로 이동합니다.', [
+          {text: '확인', onPress: () => navigation.navigate('Login')},
         ]);
       }
     } catch (error) {

@@ -1,10 +1,10 @@
-//작가가 자신의 예약 프로그램을 조회
+//작가가 자신의 예약 설정을 조회하는 API
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchReservationPrograms = async () => {
+export const fetchSettings = async () => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -14,7 +14,7 @@ export const fetchReservationPrograms = async () => {
 
     // axios 요청 보내기
     const response = await apiClient.get(
-      'https://api.catsnap.net/reservation/photographer/my/program',
+      'https://api.catsnap.net/photographer/my/setting',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -14,6 +14,7 @@ export const ProfileContainer = styled(View)`
   flex-direction: row;
   justify-content: space-evenly;
   padding: 5%;
+  padding-top: 0px;
   align-items: center;
 `;
 

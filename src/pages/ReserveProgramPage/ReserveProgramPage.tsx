@@ -5,16 +5,25 @@ import {SafeAreaView, Text, ScrollView, StyleSheet, Alert} from 'react-native';
 import * as S from './Style';
 import ReserveProgram from '../../components/Program/ReserveProgram';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
+import LoginBtn from '../../components/Login/LoginBtn';
+import {deleteReservations} from '../../apis/ReserveProgram/deleteReserveProgram';
+import {useNavigation} from '@react-navigation/native';
 
-const ReserveProgramPage = () => {
+const ReserveProgramPage = ({route}) => {
+  const navigation = useNavigation();
+  const {programId} = route.params;
+
+  const handleDeleteProgram = async () => {
+    await deleteReservations(programId);
+    navigation.goBack();
+  };
   return (
     <SafeAreaView>
       <ScrollView>
-        <ContentsHeader text={''} />
+        <ContentsHeader text={'프로그램 세부내용'} />
         <ReserveProgram />
-        <ReserveProgram />
-        <ReserveProgram />
-        <ReserveProgram />
+        <Text>{programId}</Text>
+        <LoginBtn text={'삭제하기'} onPress={handleDeleteProgram} />
       </ScrollView>
     </SafeAreaView>
   );
