@@ -1,6 +1,5 @@
-//다른 사람의 프로필을 보여주는 페이지 입니다.
-//사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.
-import React, {useState, useEffect} from 'react';
+//작가의 마이페이지를 보여주는 컴포넌트
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -12,30 +11,47 @@ import {
 } from 'react-native';
 import * as S from './Style';
 import SearchTag from '../../Search/SearchTag.tsx/SearchTag';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {fetchReservationPrograms} from '../../../apis/ReserveProgram/getReserveProgram';
 import LoginBtn from '../../Login/LoginBtn';
 
 const AuthorProfileComponent = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const [isTouchOne, setIsTouchOne] = useState(false);
-  const [isTouchTwo, setIsTouchTwo] = useState(true);
+  const [isTouchTwo, setIsTouchTwo] = useState(false);
   const [isTouchThree, setIsTouchThree] = useState(false);
+  const [isTouchFour, setIsTouchFour] = useState(false);
+  const [isTouchFive, setIsTouchFive] = useState(false);
   const [programs, setPrograms] = useState([]); // 프로그램 데이터를 저장할 상태
 
   // 작가 탭 항목 터치 시 항목 출력
-  const handleChat = () => {
+  const handleFeed = () => {
     Alert.alert('피드 편집 페이지');
     setIsTouchOne(prevState => !prevState); // 상태를 토글
   };
 
-  const handleBlock = () => {
-    setIsTouchThree(prevState => !prevState); // 상태를 토글
+  const handleProfile = () => {
+    setIsTouchTwo(prevState => !prevState); // 상태를 토글
     Alert.alert('프로필 공유 페이지');
   };
 
-  const handleProgram = () => {
-    navigation.navigate('ReserveProgramPage');
+  const handleSetting = () => {
+    navigation.navigate('AuthorReserveSettingPage');
+    setIsTouchThree(prevState => !prevState); // 상태를 토글
+  };
+
+  const handleAlarm = () => {
+    navigation.navigate('AuthorReserveAlarmPage');
+    setIsTouchFour(prevState => !prevState); // 상태를 토글
+  };
+
+  const handlePlace = () => {
+    navigation.navigate('AuthorReservePlacePage');
+    setIsTouchFive(prevState => !prevState); // 상태를 토글
+  };
+
+  const handleProgram = (programId: Number) => {
+    navigation.navigate('ReserveProgramPage', {programId});
   };
 
   const handleCreateProgram = () => {
@@ -43,17 +59,27 @@ const AuthorProfileComponent = () => {
   };
 
   // API 호출로 프로그램 데이터 가져오기
-  useEffect(() => {
-    const loadPrograms = async () => {
+  const loadPrograms = async () => {
+    try {
       const response = await fetchReservationPrograms();
       if (response?.data?.photographerProgramList) {
         setPrograms(response.data.photographerProgramList);
       } else {
         console.error('프로그램 데이터를 불러오지 못했습니다.');
       }
-    };
-    loadPrograms();
-  }, []);
+    } catch (error) {
+      console.error('프로그램 데이터를 불러오는 중 오류 발생:', error);
+    }
+  };
+
+  // 페이지가 focus될 때마다 프로그램 데이터를 다시 로드
+  //이렇게 해야 새로 만든 프로그램이 바로 업데이트가 된다
+
+  useFocusEffect(
+    useCallback(() => {
+      loadPrograms();
+    }, []),
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -85,28 +111,30 @@ const AuthorProfileComponent = () => {
             <S.ProgramView>
               <S.ProgramText>등록된 프로그램이 없습니다.</S.ProgramText>
             </S.ProgramView>
-            <LoginBtn
-              disabled={false}
-              onPress={handleCreateProgram}
-              text={'프로그램 추가하기'}
-            />
           </View>
         ) : (
           programs.map(program => (
-            <S.ContentsBox key={program.programId} onPress={handleProgram}>
+            <S.ContentsBox
+              key={program.programId}
+              onPress={() => handleProgram(program.programId)}>
               <S.Contents>{program.title}</S.Contents>
-              <S.Price>{program.price.toLocaleString()}원</S.Price>
+              <S.Price>{program.price}원</S.Price>
             </S.ContentsBox>
           ))
         )}
+        <LoginBtn
+          disabled={false}
+          onPress={handleCreateProgram}
+          text={'프로그램 추가하기'}
+        />
 
         <S.IntersectionContainer>
           <S.Intersection
-            onPress={handleChat}
+            onPress={handleFeed}
             onPressIn={() => setIsTouchOne(prevState => !prevState)}
             isPress={isTouchOne}>
             <S.IntersectionText
-              onPress={handleChat}
+              onPress={handleFeed}
               onPressIn={() => setIsTouchOne(prevState => !prevState)}
               isPress={isTouchOne}>
               피드 편집
@@ -114,18 +142,54 @@ const AuthorProfileComponent = () => {
           </S.Intersection>
 
           <S.Intersection
-            onPress={handleBlock}
-            onPressIn={() => setIsTouchThree(prevState => !prevState)}
-            isPress={isTouchThree}>
+            onPress={handleProfile}
+            onPressIn={() => setIsTouchTwo(prevState => !prevState)}
+            isPress={isTouchTwo}>
             <S.IntersectionText
-              onPress={handleBlock}
-              onPressIn={() => setIsTouchThree(prevState => !prevState)}
-              isPress={isTouchThree}>
+              onPress={handleProfile}
+              onPressIn={() => setIsTouchTwo(prevState => !prevState)}
+              isPress={isTouchTwo}>
               프로필 공유
             </S.IntersectionText>
           </S.Intersection>
+
+          <S.Intersection
+            onPress={handleSetting}
+            onPressIn={() => setIsTouchThree(prevState => !prevState)}
+            isPress={isTouchThree}>
+            <S.IntersectionText
+              onPress={handleSetting}
+              onPressIn={() => setIsTouchThree(prevState => !prevState)}
+              isPress={isTouchThree}>
+              환경 설정
+            </S.IntersectionText>
+          </S.Intersection>
+
+          <S.Intersection
+            onPress={handleAlarm}
+            onPressIn={() => setIsTouchFour(prevState => !prevState)}
+            isPress={isTouchFour}>
+            <S.IntersectionText
+              onPress={handleAlarm}
+              onPressIn={() => setIsTouchFour(prevState => !prevState)}
+              isPress={isTouchFour}>
+              예약 알림 조회
+            </S.IntersectionText>
+          </S.Intersection>
+
+          <S.Intersection
+            onPress={handlePlace}
+            onPressIn={() => setIsTouchFive(prevState => !prevState)}
+            isPress={isTouchFive}>
+            <S.IntersectionText
+              onPress={handlePlace}
+              onPressIn={() => setIsTouchFive(prevState => !prevState)}
+              isPress={isTouchFive}>
+              예약 장소 조회
+            </S.IntersectionText>
+          </S.Intersection>
         </S.IntersectionContainer>
-        {isTouchTwo && <SearchTag />}
+        <SearchTag />
       </S.AuthorProfileContainer>
     </SafeAreaView>
   );

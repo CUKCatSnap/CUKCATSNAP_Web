@@ -6,8 +6,8 @@ import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import LoginBtn from '../../components/Login/LoginBtn';
 import Naver from '../../icons/naver.svg';
 import {useNavigation} from '@react-navigation/native';
-import {LoginUser} from '../../apis/postLogin';
-import {LoginAuthor} from '../../apis/postAuthorLogin';
+import {LoginUser} from '../../apis/Login/postLogin';
+import {LoginAuthor} from '../../apis/Login/postAuthorLogin';
 import {useDispatch} from 'react-redux';
 // 로그인 성공 시 상태를 업데이트하는 액션
 import {loginSuccess} from '../../store/authSlice';

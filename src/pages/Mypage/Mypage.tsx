@@ -1,11 +1,12 @@
 //내정보 페이지 입니다.
 import React from 'react';
-import {SafeAreaView, Text, View, ScrollView} from 'react-native';
+import {SafeAreaView, Text, View, ScrollView, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import AuthorProfileComponent from '../../components/Profile/AuthorProfile/AuthorProfileComponent';
 import LogoutBtn from '../../components/Logout/LogoutBtn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 
 const Mypage = () => {
   // Redux에서 상태 가져오기
@@ -15,8 +16,9 @@ const Mypage = () => {
   //1. 토큰이 있어야 함
   //2. 유저인지? 작가인지?
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
+        <ContentsHeader text={'마이페이지'} />
         {isAuthor ? (
           <AuthorProfileComponent />
         ) : (
@@ -29,5 +31,10 @@ const Mypage = () => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default Mypage;

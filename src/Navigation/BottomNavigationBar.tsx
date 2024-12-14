@@ -23,7 +23,9 @@ import MyReservePage from '../pages/MyReserve/MyReservePage';
 import RecentReservePage from '../pages/RecentReserve/RecentReservePage';
 import ReserveProgramPage from '../pages/ReserveProgramPage/ReserveProgramPage';
 import CreateProgramPage from '../pages/CreateProgram/CreateProgramPage';
-
+import AuthorReserveSettingPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveSettingPage';
+import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveAlarmPage';
+import AuthorReservePlacePage from '../pages/Settings/AuthorReserveSetting/AuthorReservePlacePage';
 export type RootStackParam = {
   Home: undefined;
   Test: undefined;
@@ -215,6 +217,21 @@ const MypageStack = () => {
       <Stack.Screen
         name="CreateProgramPage"
         component={CreateProgramPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorReserveSettingPage"
+        component={AuthorReserveSettingPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorReserveAlarmPage"
+        component={AuthorReserveAlarmPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorReservePlacePage"
+        component={AuthorReservePlacePage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
