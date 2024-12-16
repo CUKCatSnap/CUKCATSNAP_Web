@@ -1,12 +1,9 @@
-//작가가 자신의 예약 설정을 수정하는 api(POST)
+//작가가 자신이 예약을 받을 장소를 수정하는 api(POST)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-//reservationData를 만들어서 여기까지 가져오고
-//가져온 데이터를 post요청으로 보내면 된다
-
-export const updateSettings = async editedSettings => {
+export const updatePlaceSettings = async contents => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -15,8 +12,8 @@ export const updateSettings = async editedSettings => {
     }
 
     const response = await apiClient.post(
-      'https://api.catsnap.net/photographer/my/setting',
-      editedSettings, // 요청 본문에 포함할 데이터
+      'https://api.catsnap.net/photographer/my/reservation/location',
+      contents, // 요청 본문에 포함할 데이터
       {
         headers: {
           Authorization: `Bearer ${accessToken}`, // 액세스 토큰 헤더에 추가
@@ -31,3 +28,5 @@ export const updateSettings = async editedSettings => {
     return null;
   }
 };
+
+export default updatePlaceSettings;
