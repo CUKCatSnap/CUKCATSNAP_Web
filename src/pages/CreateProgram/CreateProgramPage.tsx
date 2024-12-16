@@ -25,12 +25,12 @@ const ReserveProgram = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
   const handleSubmitAuthor = async () => {
-    navigation.navigate('Mypage');
+    navigation.replace('Mypage');
     const reservationData = {
       title,
       content,
-      price: Number(price), // Ensure price is a number
-      durationMinutes: Number(durationMinutes), // Ensure durationMinutes is a number
+      price: Number(price),
+      durationMinutes: Number(durationMinutes),
     };
 
     const result = await createReservation(reservationData);
