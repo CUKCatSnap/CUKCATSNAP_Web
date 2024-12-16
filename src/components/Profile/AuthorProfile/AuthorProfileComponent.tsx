@@ -19,9 +19,7 @@ const AuthorProfileComponent = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const [isTouchOne, setIsTouchOne] = useState(false);
   const [isTouchTwo, setIsTouchTwo] = useState(false);
-  const [isTouchThree, setIsTouchThree] = useState(false);
-  const [isTouchFour, setIsTouchFour] = useState(false);
-  const [isTouchFive, setIsTouchFive] = useState(false);
+
   const [programs, setPrograms] = useState([]); // 프로그램 데이터를 저장할 상태
 
   // 작가 탭 항목 터치 시 항목 출력
@@ -33,21 +31,6 @@ const AuthorProfileComponent = () => {
   const handleProfile = () => {
     setIsTouchTwo(prevState => !prevState); // 상태를 토글
     Alert.alert('프로필 공유 페이지');
-  };
-
-  const handleSetting = () => {
-    navigation.navigate('AuthorReserveSettingPage');
-    setIsTouchThree(prevState => !prevState); // 상태를 토글
-  };
-
-  const handleAlarm = () => {
-    navigation.navigate('AuthorReserveAlarmPage');
-    setIsTouchFour(prevState => !prevState); // 상태를 토글
-  };
-
-  const handlePlace = () => {
-    navigation.navigate('AuthorReservePlacePage');
-    setIsTouchFive(prevState => !prevState); // 상태를 토글
   };
 
   const handleProgram = (programId: Number) => {
@@ -150,42 +133,6 @@ const AuthorProfileComponent = () => {
               onPressIn={() => setIsTouchTwo(prevState => !prevState)}
               isPress={isTouchTwo}>
               프로필 공유
-            </S.IntersectionText>
-          </S.Intersection>
-
-          <S.Intersection
-            onPress={handleSetting}
-            onPressIn={() => setIsTouchThree(prevState => !prevState)}
-            isPress={isTouchThree}>
-            <S.IntersectionText
-              onPress={handleSetting}
-              onPressIn={() => setIsTouchThree(prevState => !prevState)}
-              isPress={isTouchThree}>
-              환경 설정
-            </S.IntersectionText>
-          </S.Intersection>
-
-          <S.Intersection
-            onPress={handleAlarm}
-            onPressIn={() => setIsTouchFour(prevState => !prevState)}
-            isPress={isTouchFour}>
-            <S.IntersectionText
-              onPress={handleAlarm}
-              onPressIn={() => setIsTouchFour(prevState => !prevState)}
-              isPress={isTouchFour}>
-              예약 알림 조회
-            </S.IntersectionText>
-          </S.Intersection>
-
-          <S.Intersection
-            onPress={handlePlace}
-            onPressIn={() => setIsTouchFive(prevState => !prevState)}
-            isPress={isTouchFive}>
-            <S.IntersectionText
-              onPress={handlePlace}
-              onPressIn={() => setIsTouchFive(prevState => !prevState)}
-              isPress={isTouchFive}>
-              예약 장소 조회
             </S.IntersectionText>
           </S.Intersection>
         </S.IntersectionContainer>

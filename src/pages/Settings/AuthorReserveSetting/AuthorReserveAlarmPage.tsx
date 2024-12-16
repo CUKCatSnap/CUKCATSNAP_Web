@@ -5,6 +5,7 @@ import {fetchAuthorReservationAlarm} from '../../../apis/AuthorReserve/getAuthor
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
 import {updateAlarmSettings} from '../../../apis/AuthorReserve/postAlarmSetting';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const AuthorReserveAlarmPage = () => {
   const [alarmSettings, setAlarmSettings] = useState(null); // 설정 데이터를 저장할 상태
@@ -77,6 +78,7 @@ const AuthorReserveAlarmPage = () => {
 
   return (
     <SafeAreaView>
+      <ContentsHeader text={'예약 알림 설정'} />
       <Text>작가 예약 전 알림 페이지</Text>
       <Text>내용 :</Text>
       {isEditingAlarm ? (

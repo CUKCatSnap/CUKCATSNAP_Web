@@ -5,6 +5,7 @@ import {fetchSettings} from '../../../apis/AuthorReserve/getSetting';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {updateSettings} from '../../../apis/AuthorReserve/postSetting';
 import {useNavigation} from '@react-navigation/native';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const AuthorReserveSettingPage = () => {
   const [settings, setSettings] = useState(null); // 설정 데이터를 저장할 상태
@@ -105,7 +106,8 @@ const AuthorReserveSettingPage = () => {
 
   return (
     <SafeAreaView>
-      <Text>작가 예약 환경설정 페이지</Text>
+      <ContentsHeader text={'예약 환경 설정'} />
+      <Text>작가 예약 환경 설정 페이지</Text>
       <View>
         <Text>자동 예약 수락: {isEnabledOne ? '활성화' : '비활성화'}</Text>
         <Switch value={isEnabledOne} onValueChange={switchAutoReserve} />

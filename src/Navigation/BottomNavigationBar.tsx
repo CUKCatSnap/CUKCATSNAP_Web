@@ -26,6 +26,8 @@ import CreateProgramPage from '../pages/CreateProgram/CreateProgramPage';
 import AuthorReserveSettingPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveSettingPage';
 import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveAlarmPage';
 import AuthorReservePlacePage from '../pages/Settings/AuthorReserveSetting/AuthorReservePlacePage';
+import Settings from '../pages/Settings/Settings';
+
 export type RootStackParam = {
   Home: undefined;
   Test: undefined;
@@ -220,6 +222,35 @@ const MypageStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="Settings"
+        component={SettingStack}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+//피드 컴포넌트
+const FeedStack = () => {
+  return (
+    <Stack.Screen
+      name="Reply"
+      component={ReplyPage}
+      options={{headerShown: false}}
+    />
+  );
+};
+
+//설정 페이지
+const SettingStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SettingHome"
+        component={Settings}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="AuthorReserveSettingPage"
         component={AuthorReserveSettingPage}
         options={{headerShown: false}}
@@ -235,17 +266,6 @@ const MypageStack = () => {
         options={{headerShown: false}}
       />
     </Stack.Navigator>
-  );
-};
-
-//피드 컴포넌트
-const FeedStack = () => {
-  return (
-    <Stack.Screen
-      name="Reply"
-      component={ReplyPage}
-      options={{headerShown: false}}
-    />
   );
 };
 export default BottomTabNavigator;

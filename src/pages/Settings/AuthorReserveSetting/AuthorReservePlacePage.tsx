@@ -5,12 +5,14 @@ import {fetchAuthorReservationPlace} from '../../../apis/AuthorReserve/getAuthor
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
 import {updatePlaceSettings} from '../../../apis/AuthorReserve/postPlaceSetting';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const AuthorReserveAlarmPage = () => {
   const [placeSettings, setPlaceSettings] = useState(null); // 설정 데이터를 저장할 상태
   const [contents, setContents] = useState('');
   const [isEditingPlace, setisEditingPlace] = useState(false); // 알람 수정 여부
   const navigation = useNavigation();
+
   // API 호출로 설정 가져오기
   const loadSettings = async () => {
     try {
@@ -77,6 +79,7 @@ const AuthorReserveAlarmPage = () => {
 
   return (
     <SafeAreaView>
+      <ContentsHeader text={'예약 장소 설정'} />
       <Text>작가 자신이 예약을 받을 장소를 조회/수정하는 페이지</Text>
       <Text>내용 :</Text>
       {isEditingPlace ? (
