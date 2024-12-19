@@ -10,7 +10,7 @@ import {LoginUser} from '../../apis/Login/postLogin';
 import {LoginAuthor} from '../../apis/Login/postAuthorLogin';
 import {useDispatch} from 'react-redux';
 // 로그인 성공 시 상태를 업데이트하는 액션
-import {loginSuccess} from '../../store/authSlice';
+import {loginSuccess} from '../../store/slices/authSlice';
 
 const Login = () => {
   const [id, setId] = useState('');

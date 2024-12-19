@@ -5,8 +5,11 @@ export const QuickIconContainer = styled(TouchableOpacity)`
   width: 94px;
   height: 94px;
   border-radius: 20px;
-  background-color: gray;
+  background-color: #f3f3f3;
   margin: 10px;
+  z-index: 0;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const QuickText = styled(Text)`

@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux'; // Redux 상태 및 액션 디스패치
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {logout} from '../../store/authSlice';
+import {logout} from '../../store/slices/authSlice';
 
 const LogoutBtn = () => {
   const dispatch = useDispatch(); // Redux 액션 디스패치

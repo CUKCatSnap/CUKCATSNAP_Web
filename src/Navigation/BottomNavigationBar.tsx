@@ -27,6 +27,8 @@ import AuthorReserveSettingPage from '../pages/Settings/AuthorReserveSetting/Aut
 import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveAlarmPage';
 import AuthorReservePlacePage from '../pages/Settings/AuthorReserveSetting/AuthorReservePlacePage';
 import Settings from '../pages/Settings/Settings';
+import AuthorTimeFormatPage from '../pages/MyCalendar/AuthorTimeFormatPage/AuthorTimeFormat';
+import CreateAuthorTimeFormatPage from '../pages/MyCalendar/CreateTimeFormat/CreateAuthorTimeFormat';
 
 export type RootStackParam = {
   Home: undefined;
@@ -138,8 +140,8 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="MyCalendar"
-        component={MyCalendar}
+        name="Calendar"
+        component={CalendarStack}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -202,7 +204,7 @@ const AuthStack = () => {
   );
 };
 
-// 마이페이지 -> 로그인 창으로
+// 마이페이지 -> 작가일 경우 프로그램 목록 조회
 const MypageStack = () => {
   return (
     <Stack.Navigator>
@@ -238,6 +240,29 @@ const FeedStack = () => {
       component={ReplyPage}
       options={{headerShown: false}}
     />
+  );
+};
+
+//캘린더 페이지
+const CalendarStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MyCalendar"
+        component={MyCalendar}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorTimeFormatPage"
+        component={AuthorTimeFormatPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateAuthorTimeFormatPage"
+        component={CreateAuthorTimeFormatPage}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
   );
 };
 
