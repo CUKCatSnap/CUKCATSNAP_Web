@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import {TouchableOpacity, View, Text} from 'react-native';
 
-export const LoginBtnContainer = styled(TouchableOpacity)`
+export const CalendarBtnContainer = styled(TouchableOpacity)`
   width: 100%;
-  background-color: #423cd2;
+  background-color: rgb(226, 226, 226);
   border-radius: 15px;
   padding: 20px;
   font-size: 14px;
@@ -13,6 +13,7 @@ export const LoginBtnContainer = styled(TouchableOpacity)`
 `;
 
 export const BtnText = styled(Text)`
-  color: white;
-  font-size: 14px;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
 `;

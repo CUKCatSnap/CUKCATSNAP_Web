@@ -4,15 +4,19 @@ import React from 'react';
 import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
+import Calendar from '../../../icons/calendar.svg';
 
 const QuickCalendar = () => {
   const navigation = useNavigation();
   const handleNavigate = () => {
-    navigation.navigate('MyCalendar');
+    navigation.navigate('Calendar');
   };
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
-      <S.QuickIconContainer onPress={handleNavigate} />
+      <S.QuickIconContainer onPress={handleNavigate}>
+        <Calendar />
+      </S.QuickIconContainer>
+
       <S.QuickText>캘린더</S.QuickText>
     </SafeAreaView>
   );

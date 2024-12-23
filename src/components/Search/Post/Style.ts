@@ -28,6 +28,7 @@ export const IconBox = styled(View)`
   align-items: center;
   justify-content: space-between;
 `;
+
 export const IconPress = styled(TouchableOpacity)``;
 
 export const IconSize = styled(View)`

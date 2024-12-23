@@ -1,10 +1,11 @@
 //작가 알람설정 페이지 입니다.
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, TextInput, Alert} from 'react-native';
+import {SafeAreaView, Text, TextInput, Alert, StyleSheet} from 'react-native';
 import {fetchAuthorReservationAlarm} from '../../../apis/AuthorReserve/getAuthorReservationAlarm';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
 import {updateAlarmSettings} from '../../../apis/AuthorReserve/postAlarmSetting';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const AuthorReserveAlarmPage = () => {
   const [alarmSettings, setAlarmSettings] = useState(null); // 설정 데이터를 저장할 상태
@@ -76,7 +77,8 @@ const AuthorReserveAlarmPage = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <ContentsHeader text={'예약 알림 설정'} />
       <Text>작가 예약 전 알림 페이지</Text>
       <Text>내용 :</Text>
       {isEditingAlarm ? (
@@ -98,5 +100,10 @@ const AuthorReserveAlarmPage = () => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default AuthorReserveAlarmPage;

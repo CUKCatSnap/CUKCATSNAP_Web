@@ -1,10 +1,20 @@
 //작가 예약 설정 페이지 입니다.
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, View, Switch, Alert, TextInput} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  View,
+  Switch,
+  Alert,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import {fetchSettings} from '../../../apis/AuthorReserve/getSetting';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {updateSettings} from '../../../apis/AuthorReserve/postSetting';
 import {useNavigation} from '@react-navigation/native';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 
 const AuthorReserveSettingPage = () => {
   const [settings, setSettings] = useState(null); // 설정 데이터를 저장할 상태
@@ -104,35 +114,45 @@ const AuthorReserveSettingPage = () => {
   };
 
   return (
-    <SafeAreaView>
-      <Text>작가 예약 환경설정 페이지</Text>
-      <View>
-        <Text>자동 예약 수락: {isEnabledOne ? '활성화' : '비활성화'}</Text>
-        <Switch value={isEnabledOne} onValueChange={switchAutoReserve} />
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text={'예약 환경 설정'} />
+        <Text>작가 예약 환경 설정 페이지</Text>
+        <View>
+          <Text>예약 자동 확정: {isEnabledOne ? '활성화' : '비활성화'}</Text>
+          <Switch value={isEnabledOne} onValueChange={switchAutoReserve} />
 
-        <Text>오버북킹 허용: {isEnabledTwo ? '활성화' : '비활성화'}</Text>
-        <Switch value={isEnabledTwo} onValueChange={switchOverBooking} />
-
-        <Text>예약 가능 일수:</Text>
-        {isEditingReserveDate ? (
-          <TextInput
-            value={reserveDate}
-            onChangeText={handleReserveDateChange}
-            keyboardType="numeric"
-            autoFocus
-            onBlur={() => setIsEditingReserveDate(false)} // 포커스가 벗어나면 편집 모드 종료
-          />
-        ) : (
-          <Text
-            onPress={() => setIsEditingReserveDate(true)} // 텍스트 클릭 시 편집 모드로 전환
-          >
-            {reserveDate}일
+          <Text>
+            에약시 자동 시간 계산: {isEnabledTwo ? '활성화' : '비활성화'}
           </Text>
-        )}
-        <LoginBtn text={'설정 변경하기'} onPress={handleSetting} />
-      </View>
+          <Switch value={isEnabledTwo} onValueChange={switchOverBooking} />
+
+          <Text>미리 받을 예약 일수:</Text>
+          {isEditingReserveDate ? (
+            <TextInput
+              value={reserveDate}
+              onChangeText={handleReserveDateChange}
+              keyboardType="numeric"
+              autoFocus
+              onBlur={() => setIsEditingReserveDate(false)} // 포커스가 벗어나면 편집 모드 종료
+            />
+          ) : (
+            <Text
+              onPress={() => setIsEditingReserveDate(true)} // 텍스트 클릭 시 편집 모드로 전환
+            >
+              {reserveDate}일
+            </Text>
+          )}
+          <LoginBtn text={'설정 변경하기'} onPress={handleSetting} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default AuthorReserveSettingPage;

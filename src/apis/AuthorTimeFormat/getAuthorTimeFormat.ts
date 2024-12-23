@@ -1,9 +1,10 @@
-//작가가 자신의 예약 프로그램을 삭제 (delete)
+//작가가 자신의 예약 시간 형식을 조회
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const deleteReservations = async (programid: Number) => {
+export const fetchTimeFormat = async () => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -11,21 +12,12 @@ export const deleteReservations = async (programid: Number) => {
       return null;
     }
 
-    // 요청 파라미터 설정
-    const params = {
-      programs: programid,
-    };
-
     // axios 요청 보내기
-    const response = await apiClient.delete(
-      'https://api.catsnap.net/reservation/photographer/my/program',
+    const response = await apiClient.get(
+      'https://api.catsnap.net/reservation/photographer/my/timeformat',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-        },
-
-        params: {
-          programId: params.programs,
         },
       },
     );
