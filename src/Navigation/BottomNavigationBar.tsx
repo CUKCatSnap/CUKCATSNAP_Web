@@ -27,8 +27,9 @@ import AuthorReserveSettingPage from '../pages/Settings/AuthorReserveSetting/Aut
 import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveAlarmPage';
 import AuthorReservePlacePage from '../pages/Settings/AuthorReserveSetting/AuthorReservePlacePage';
 import Settings from '../pages/Settings/Settings';
-import AuthorTimeFormatPage from '../pages/MyCalendar/AuthorTimeFormatPage/AuthorTimeFormat';
-import CreateAuthorTimeFormatPage from '../pages/MyCalendar/CreateTimeFormat/CreateAuthorTimeFormat';
+import AuthorTimeFormatPage from '../pages/Settings/AuthorTimeFormatPage/AuthorTimeFormat';
+import CreateAuthorTimeFormatPage from '../pages/Settings/CreateTimeFormat/CreateAuthorTimeFormat';
+import AuthorWeekFormatPage from '../pages/Settings/AuthorWeekFormat/AuthorWeekFormatPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -252,16 +253,6 @@ const CalendarStack = () => {
         component={MyCalendar}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="AuthorTimeFormatPage"
-        component={AuthorTimeFormatPage}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="CreateAuthorTimeFormatPage"
-        component={CreateAuthorTimeFormatPage}
-        options={{headerShown: false}}
-      />
     </Stack.Navigator>
   );
 };
@@ -288,6 +279,21 @@ const SettingStack = () => {
       <Stack.Screen
         name="AuthorReservePlacePage"
         component={AuthorReservePlacePage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorWeekFormatPage"
+        component={AuthorWeekFormatPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorTimeFormatPage"
+        component={AuthorTimeFormatPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateAuthorTimeFormatPage"
+        component={CreateAuthorTimeFormatPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

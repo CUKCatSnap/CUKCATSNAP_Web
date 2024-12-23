@@ -24,6 +24,7 @@ export const LoginBtnBox = styled(View)`
 export const LoginBtn = styled(View)`
   justify-content: space-evenly;
   flex: 1;
+  margin-top: 3%;
 `;
 
 export const LoginText = styled.Text<LoginTextProps>`

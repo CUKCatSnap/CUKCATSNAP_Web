@@ -10,10 +10,9 @@ export const LoginBtnContainer = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  margin-top: 10px;
 `;
 
 export const BtnText = styled(Text)`
   color: white;
-  font-size: 18px;
+  font-size: 14px;
 `;

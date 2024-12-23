@@ -14,13 +14,9 @@ const MyCalendar = () => {
   const user = useSelector(state => state.auth.user);
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
-  const handleTimeFormat = () => {
-    navigation.navigate('AuthorTimeFormatPage');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'캘린더'} />
         <S.CalendarHeader>
           <Title text={'내 예약'} />
@@ -30,10 +26,6 @@ const MyCalendar = () => {
           {isAuthor ? (
             <S.CalendarContainer>
               <Text>작가입니다.</Text>
-              <CalendarBtn
-                text="내 예약 시간 형식"
-                onPress={handleTimeFormat}
-              />
             </S.CalendarContainer>
           ) : (
             <View>

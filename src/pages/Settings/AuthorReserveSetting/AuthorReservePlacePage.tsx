@@ -1,6 +1,6 @@
 //작가가 예약을 받을 장소를 조회하는 페이지 입니다.
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, TextInput, Alert} from 'react-native';
+import {SafeAreaView, Text, TextInput, Alert, StyleSheet} from 'react-native';
 import {fetchAuthorReservationPlace} from '../../../apis/AuthorReserve/getAuthorReservationPlace';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
@@ -78,7 +78,7 @@ const AuthorReserveAlarmPage = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ContentsHeader text={'예약 장소 설정'} />
       <Text>작가 자신이 예약을 받을 장소를 조회/수정하는 페이지</Text>
       <Text>내용 :</Text>
@@ -101,5 +101,10 @@ const AuthorReserveAlarmPage = () => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default AuthorReserveAlarmPage;
