@@ -24,12 +24,14 @@ import RecentReservePage from '../pages/RecentReserve/RecentReservePage';
 import ReserveProgramPage from '../pages/ReserveProgramPage/ReserveProgramPage';
 import CreateProgramPage from '../pages/CreateProgram/CreateProgramPage';
 import AuthorReserveSettingPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveSettingPage';
-import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveSetting/AuthorReserveAlarmPage';
-import AuthorReservePlacePage from '../pages/Settings/AuthorReserveSetting/AuthorReservePlacePage';
+import AuthorReserveAlarmPage from '../pages/Settings/AuthorReserveAlarm/AuthorReserveAlarmPage';
+import AuthorReservePlacePage from '../pages/Settings/AuthorReservePlace/AuthorReservePlacePage';
 import Settings from '../pages/Settings/Settings';
 import AuthorTimeFormatPage from '../pages/Settings/AuthorTimeFormatPage/AuthorTimeFormat';
 import CreateAuthorTimeFormatPage from '../pages/Settings/CreateTimeFormat/CreateAuthorTimeFormat';
 import AuthorWeekFormatPage from '../pages/Settings/AuthorWeekFormat/AuthorWeekFormatPage';
+import UserReservePage from '../pages/Reserve/UserReservePage';
+import CreateReviewPage from '../pages/Review/CreateReviewPage/CreateReviewPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -171,6 +173,21 @@ const SearchStack = () => {
       <Stack.Screen
         name="AuthorProfile"
         component={AuthorProfile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ReserveProgramPage"
+        component={ReserveProgramPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="UserReservePage"
+        component={UserReservePage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateReviewPage"
+        component={CreateReviewPage}
         options={{headerShown: false}}
       />
       <Stack.Screen

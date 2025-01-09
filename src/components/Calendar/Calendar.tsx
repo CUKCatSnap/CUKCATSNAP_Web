@@ -29,7 +29,7 @@ const months = [
   '12',
 ];
 
-const Calendar = () => {
+const Calendar = ({onDateSelect}) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [checkDate, setCheckDate] = useState('');
@@ -50,11 +50,12 @@ const Calendar = () => {
     const matrix = [days];
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const maxDays = new Date(year, month + 1, 0).getDate();
-    let counter = -firstDay + 1;
+    const firstDay = new Date(year, month, 1).getDay(); // 해당 월의 첫날 요일
+    const maxDays = new Date(year, month + 1, 0).getDate(); // 해당 월의 마지막 날
+    let counter = -firstDay + 1; // 첫 번째 주 시작 숫자
 
-    for (let row = 1; row < 7; row++) {
+    for (let row = 1; counter <= maxDays; row++) {
+      // 마지막 날짜까지 동적으로 행(row) 추가
       matrix[row] = [];
       for (let col = 0; col < 7; col++) {
         matrix[row][col] = {
@@ -80,6 +81,10 @@ const Calendar = () => {
 
     setSelectedDay(day);
     setCheckDate(formattedDate);
+    // 날짜를 부모 컴포넌트로 전달
+    if (onDateSelect) {
+      onDateSelect(formattedDate);
+    }
   };
 
   const renderCalendar = () => {
@@ -132,11 +137,15 @@ const Calendar = () => {
               </S.MonthText>
             </S.CalendarHeader>
             <S.CalendarContainer>{renderCalendar()}</S.CalendarContainer>
-            {checkDate && (
+            {checkDate ? (
               <S.CalendarText>
                 {checkDate.split('-')[0]}년 {checkDate.split('-')[1]}월{' '}
                 {checkDate.split('-')[2]}일
               </S.CalendarText>
+            ) : (
+              <S.DateView>
+                <S.DateText>날짜를 선택해 주세요.</S.DateText>
+              </S.DateView>
             )}
           </S.MyCalendar>
         </ScrollView>
@@ -152,7 +161,8 @@ const styles = StyleSheet.create({
   },
 
   cell: {
-    flex: 1,
+    width: '14.28%', // 한 줄에 7칸이므로 너비를 14.28%로 설정
+    aspectRatio: 1, // 셀의 가로 세로 비율을 1:1로 고정
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',

@@ -15,6 +15,7 @@ import LoginBtn from '../../../components/Login/LoginBtn';
 import {updateSettings} from '../../../apis/AuthorReserve/postSetting';
 import {useNavigation} from '@react-navigation/native';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
+import * as S from './Style';
 
 const AuthorReserveSettingPage = () => {
   const [settings, setSettings] = useState(null); // 설정 데이터를 저장할 상태
@@ -117,34 +118,38 @@ const AuthorReserveSettingPage = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'예약 환경 설정'} />
-        <Text>작가 예약 환경 설정 페이지</Text>
-        <View>
-          <Text>예약 자동 확정: {isEnabledOne ? '활성화' : '비활성화'}</Text>
-          <Switch value={isEnabledOne} onValueChange={switchAutoReserve} />
+        <S.SettingContainer>
+          <S.SettingBox>
+            <S.SettingText>예약 자동 확정</S.SettingText>
+            <Switch value={isEnabledOne} onValueChange={switchAutoReserve} />
+          </S.SettingBox>
 
-          <Text>
-            에약시 자동 시간 계산: {isEnabledTwo ? '활성화' : '비활성화'}
-          </Text>
-          <Switch value={isEnabledTwo} onValueChange={switchOverBooking} />
-
-          <Text>미리 받을 예약 일수:</Text>
-          {isEditingReserveDate ? (
-            <TextInput
-              value={reserveDate}
-              onChangeText={handleReserveDateChange}
-              keyboardType="numeric"
-              autoFocus
-              onBlur={() => setIsEditingReserveDate(false)} // 포커스가 벗어나면 편집 모드 종료
-            />
-          ) : (
-            <Text
-              onPress={() => setIsEditingReserveDate(true)} // 텍스트 클릭 시 편집 모드로 전환
-            >
-              {reserveDate}일
-            </Text>
-          )}
-          <LoginBtn text={'설정 변경하기'} onPress={handleSetting} />
-        </View>
+          <S.SettingBox>
+            <S.SettingText>예약시 자동 시간 계산</S.SettingText>
+            <Switch value={isEnabledTwo} onValueChange={switchOverBooking} />
+          </S.SettingBox>
+          <S.SettingBox>
+            <S.SettingText>미리 받을 예약 일수:</S.SettingText>
+            {isEditingReserveDate ? (
+              <S.SettingTextInput
+                value={reserveDate}
+                onChangeText={handleReserveDateChange}
+                keyboardType="numeric"
+                autoFocus
+                onBlur={() => setIsEditingReserveDate(false)} // 포커스가 벗어나면 편집 모드 종료
+              />
+            ) : (
+              <S.SettingText
+                onPress={() => setIsEditingReserveDate(true)} // 텍스트 클릭 시 편집 모드로 전환
+              >
+                {reserveDate}일
+              </S.SettingText>
+            )}
+          </S.SettingBox>
+          <S.SettingView>
+            <LoginBtn text={'설정 변경하기'} onPress={handleSetting} />
+          </S.SettingView>
+        </S.SettingContainer>
       </ScrollView>
     </SafeAreaView>
   );

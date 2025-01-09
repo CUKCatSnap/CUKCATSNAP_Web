@@ -1,30 +1,95 @@
-//홈 화면 페이지 입니다.
-import React from 'react';
-import {SafeAreaView} from 'react-native';
+// 홈 화면 페이지
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import MyReserve from '../../components/Home/MyReserve/MyReserve';
 import RecentReserve from '../../components/Home/RecentReserve/Recentreserve';
 import * as S from './Style';
-import {ScrollView, StyleSheet} from 'react-native';
 import QuickIcon from '../../components/Home/Quickicon/QuickIcon';
 import Title from '../../components/Home/Title/Title';
 import Header from '../../components/Header/Header';
 import QuickCalendar from '../../components/Home/QuickCalendar/QuickCalendar';
 import QuickMap from '../../components/Home/QuickMap/QuickMap';
+import {fetchReservations} from '../../apis/UserReserve/getReservation';
+import {useSelector} from 'react-redux';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Home = () => {
+  const [reservations, setReservations] = useState([]); // 예약 데이터를 저장할 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태 관리
+  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
+  const isUser = useSelector(state => state.auth.user);
+
+  // 예약 데이터를 가져오는 함수
+  const getReservations = async () => {
+    try {
+      const response = await fetchReservations('UPCOMING', 0, 5);
+      console.log(response); // 응답 데이터 확인
+      const newReservations =
+        response?.data?.slicedData?.memberReservationInformationResponseList;
+      setReservations(newReservations || []); // 데이터 저장
+    } catch (err) {
+      setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false); // 로딩 상태 해제
+    }
+  };
+
+  // 화면이 포커스될 때마다 예약 데이터 새로 가져오기
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true); // 로딩 상태 초기화
+      getReservations(); // 데이터 새로 가져오기
+    }, []),
+  );
+
+  // 렌더링 조건 설정
+  let content;
+  if (isAuthor) {
+    content = (
+      <S.ReserveView>
+        <S.ReserveText>작가의 예약 목록입니다.</S.ReserveText>
+      </S.ReserveView>
+    );
+  } else if (isUser) {
+    content = loading ? (
+      <ActivityIndicator size="large" color="#232074" />
+    ) : error ? (
+      <S.ReserveView>{error}</S.ReserveView>
+    ) : reservations.length > 0 ? (
+      <S.MyReserveContainer
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}>
+        {reservations.map((reservation, index) => (
+          <MyReserve key={index} reservation={reservation} />
+        ))}
+      </S.MyReserveContainer>
+    ) : (
+      <S.ReserveView>
+        <S.ReserveText>예약이 없습니다.</S.ReserveText>
+      </S.ReserveView>
+    );
+  } else {
+    content = (
+      <S.ReserveView>
+        <S.ReserveText>로그인이 필요합니다.</S.ReserveText>
+      </S.ReserveView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <S.Container>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header />
           <Title text="내 예약" />
-          <S.MyReserveContainer
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}>
-            <MyReserve />
-            <MyReserve />
-            <MyReserve />
-          </S.MyReserveContainer>
+          {content}
           <S.QuickIconContainer>
             <QuickMap />
             <QuickIcon />

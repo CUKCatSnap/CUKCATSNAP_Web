@@ -71,7 +71,9 @@ export const ContentsBox = styled(TouchableOpacity)`
   justify-content: space-between;
   margin: 1% 0;
 `;
-
+export const Box = styled(View)`
+  margin-top: 5%;
+`;
 export const Contents = styled(Text)`
   color: #747272;
 `;

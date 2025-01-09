@@ -20,7 +20,7 @@ const refreshAccessToken = async () => {
       const tokenWithoutBearer = newAccessToken.replace('Bearer ', '');
       await AsyncStorage.setItem('accessToken', tokenWithoutBearer);
       console.log('새로운 액세스 토큰 저장 완료');
-      return tokenWithoutBearer;
+      return;
     } else {
       throw new Error('새로운 액세스 토큰을 받지 못했습니다.');
     }

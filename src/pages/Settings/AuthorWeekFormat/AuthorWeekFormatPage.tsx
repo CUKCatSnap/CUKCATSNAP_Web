@@ -1,3 +1,4 @@
+//작가의 요일별 예약 설정을 조회하는 페이지 입니다.
 import React, {useState} from 'react';
 import {
   SafeAreaView,
