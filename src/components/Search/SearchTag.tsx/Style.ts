@@ -33,5 +33,5 @@ export const SearchListContainer = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 3% 0;
+  margin: 3% 1%;
 `;

@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 
-export const MyCalendar = styled(View)``;
+export const MyCalendar = styled(View)`
+  flex: 1;
+`;
 
 export const CalendarContainer = styled(View)`
   background-color: '#ffffff';
@@ -17,7 +19,7 @@ export const CalendarText = styled(Text)`
   font-size: 22px;
   font-weight: bold;
   color: black;
-  margin: 0 5%;
+  margin: 3% 7%;
 `;
 
 export const MonthText = styled(Text)`
@@ -29,7 +31,6 @@ export const MonthText = styled(Text)`
 
 export const Calendar = styled(View)`
   margin: 0 5%;
-  margin-bottom: -10%;
 `;
 
 export const Row = styled(View)`
@@ -37,4 +38,13 @@ export const Row = styled(View)`
 `;
 export const RowText = styled(Text)`
   color: black;
+`;
+export const DateText = styled(Text)`
+  font-size: 25px;
+
+  color: #bebebe;
+`;
+export const DateView = styled(View)`
+  align-items: left;
+  margin: 3% 7%;
 `;

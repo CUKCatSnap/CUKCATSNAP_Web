@@ -31,7 +31,7 @@ export const TimeBtn = styled(View)`
 export const Line = styled(View)`
   width: 90%;
   align-items: center;
-  height: 3px;
+  height: 2px;
   margin: 5%;
   background-color: rgb(209, 219, 231);
 `;

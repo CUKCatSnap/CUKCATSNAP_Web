@@ -33,14 +33,14 @@ const Post = () => {
               <Settings />
             </S.IconSize>
           </S.IconBox>
-          <S.Title onPress={handleAuthorProfile}>나 똘똘 작가</S.Title>
+          <S.Title onPress={handleAuthorProfile}>나똘똘 모델</S.Title>
           <S.ProfileBox>
             <S.Profile />
             <S.Name>Imsamrt</S.Name>
             <S.Score>평점 4.8★</S.Score>
           </S.ProfileBox>
           <S.Contents>
-            <S.Date>2024/9/20 18:00</S.Date>
+            <S.Date>2024/9/20</S.Date>
             <S.TextContents>
               아래 사진은 제가 올림픽공원에서 찍은 사진인데요. 모델이 있으면 더
               예쁘게 나올 것 같아요. 제 이름을 클릭하시면 저에 대한 상세

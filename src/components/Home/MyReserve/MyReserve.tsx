@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
 
-const MyReserve = () => {
+const MyReserve = ({reservation}) => {
   const navigation = useNavigation();
   const handleReserve = () => {
     navigation.navigate('MyReserve');
@@ -21,8 +21,12 @@ const MyReserve = () => {
           end={{x: 0, y: 0}}
           style={{borderRadius: 20}}
         />
-        <S.DateText>9/4 18:00~19:00</S.DateText>
-        <S.NameText>나 똘똘 작가</S.NameText>
+        <S.DateText>
+          {new Date(reservation.startTime).toLocaleString()}
+        </S.DateText>
+        <S.NameText>
+          {reservation.photographerTinyInformationResponse.nickname} 작가
+        </S.NameText>
       </S.MyReserveContainer>
     </SafeAreaView>
   );

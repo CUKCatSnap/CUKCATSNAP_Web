@@ -66,7 +66,7 @@ export const AuthorFeedProfile = styled(Text)`
   font-size: 12px;
 `;
 
-export const ContentsBox = styled(View)`
+export const ContentsBox = styled(TouchableOpacity)`
   flex-direction: row;
   justify-content: space-between;
   margin: 1% 0;
@@ -109,4 +109,13 @@ export const PostContainer = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+`;
+
+export const ProgramText = styled(Text)`
+  margin: 10% 0;
+  color: gray;
+  font-size: 20px;
+`;
+export const ProgramView = styled(View)`
+  align-items: center;
 `;

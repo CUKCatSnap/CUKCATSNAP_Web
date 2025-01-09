@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 
 // isActive props 타입 정의
@@ -104,4 +104,15 @@ export const SearchRecentText = styled(Text)`
   font-size: 20px;
   margin: 10px;
   color: black;
+`;
+
+//2열 정렬 및 간격 일정하게
+export const SubscribeBox = styled(View)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+export const SubscribeContainer = styled(View)`
+  margin: 3%;
+  justify-content: center;
 `;

@@ -105,12 +105,13 @@ const AuthorProfileComponent = () => {
             </S.ContentsBox>
           ))
         )}
-        <LoginBtn
-          disabled={false}
-          onPress={handleCreateProgram}
-          text={'프로그램 추가하기'}
-        />
-
+        <S.Box>
+          <LoginBtn
+            disabled={false}
+            onPress={handleCreateProgram}
+            text={'프로그램 추가하기'}
+          />
+        </S.Box>
         <S.IntersectionContainer>
           <S.Intersection
             onPress={handleFeed}

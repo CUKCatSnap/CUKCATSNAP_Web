@@ -1,25 +1,25 @@
-//작가가 예약을 받을 장소를 조회하는 페이지 입니다.
+//작가 알람설정 페이지 입니다.
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, TextInput, Alert, StyleSheet} from 'react-native';
-import {fetchAuthorReservationPlace} from '../../../apis/AuthorReserve/getAuthorReservationPlace';
+import {fetchAuthorReservationAlarm} from '../../../apis/AuthorReserve/getAuthorReservationAlarm';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
-import {updatePlaceSettings} from '../../../apis/AuthorReserve/postPlaceSetting';
+import {updateAlarmSettings} from '../../../apis/AuthorReserve/postAlarmSetting';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
+import * as S from './Style';
 
 const AuthorReserveAlarmPage = () => {
-  const [placeSettings, setPlaceSettings] = useState(null); // 설정 데이터를 저장할 상태
+  const [alarmSettings, setAlarmSettings] = useState(null); // 설정 데이터를 저장할 상태
   const [contents, setContents] = useState('');
-  const [isEditingPlace, setisEditingPlace] = useState(false); // 알람 수정 여부
+  const [isEditingAlarm, setisEditingAlarm] = useState(false); // 알람 수정 여부
   const navigation = useNavigation();
-
   // API 호출로 설정 가져오기
   const loadSettings = async () => {
     try {
-      const response = await fetchAuthorReservationPlace();
+      const response = await fetchAuthorReservationAlarm();
       const {content} = response.data;
       if (response && response.data) {
-        setPlaceSettings(response.data);
+        setAlarmSettings(response.data);
         setContents(content || ''); // content가 빈 문자열일 경우, 기본값을 빈 문자열로 설정
       }
     } catch (error) {
@@ -30,7 +30,7 @@ const AuthorReserveAlarmPage = () => {
     loadSettings();
   }, []);
 
-  if (!placeSettings) {
+  if (!alarmSettings) {
     return (
       <SafeAreaView>
         <Text>로딩 중...</Text>
@@ -48,7 +48,7 @@ const AuthorReserveAlarmPage = () => {
       const requestData = {
         content: contents, // 알림 내용
       };
-      const response = await updatePlaceSettings(requestData); // 변경된 설정을 POST 요청
+      const response = await updateAlarmSettings(requestData); // 변경된 설정을 POST 요청
       if (response) {
         setContents(contents); // 기존 설정을 업데이트
         Alert.alert(
@@ -73,31 +73,36 @@ const AuthorReserveAlarmPage = () => {
     }
   };
 
-  const handlePlaceChange = (text: string) => {
+  const handleAlarmChange = (text: string) => {
     setContents(text);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ContentsHeader text={'예약 장소 설정'} />
-      <Text>작가 자신이 예약을 받을 장소를 조회/수정하는 페이지</Text>
-      <Text>내용 :</Text>
-      {isEditingPlace ? (
-        <TextInput
-          value={contents}
-          onChangeText={handlePlaceChange}
-          keyboardType="default"
-          autoFocus
-          onBlur={() => setisEditingPlace(false)} // 포커스가 벗어나면 편집 모드 종료
-        />
-      ) : (
-        <Text
-          onPress={() => setisEditingPlace(true)} // 텍스트 클릭 시 편집 모드로 전환
-        >
-          {contents}
-        </Text>
-      )}
-      <LoginBtn text="장소 수정하기" onPress={handleSetting} />
+      <ContentsHeader text={'예약 알림 설정'} />
+      <S.SettingBox>
+        {isEditingAlarm ? (
+          <S.SettingTextInput
+            value={contents}
+            onChangeText={handleAlarmChange}
+            numberOfLines={5}
+            keyboardType="default"
+            placeholder=""
+            multiline={true}
+            textAlignVertical="top" // 텍스트 위쪽 정렬
+            autoFocus
+            onBlur={() => setisEditingAlarm(false)} // 포커스가 벗어나면 편집 모드 종료
+          />
+        ) : (
+          <S.SettingText
+            onPress={() => setisEditingAlarm(true)} // 텍스트 클릭 시 편집 모드로 전환
+          >
+            {contents}
+          </S.SettingText>
+        )}
+
+        <LoginBtn text="예약 전 알림 수정하기" onPress={handleSetting} />
+      </S.SettingBox>
     </SafeAreaView>
   );
 };

@@ -8,6 +8,8 @@ import * as S from './Style';
 import X from '../../../icons/x.svg';
 import Postrow from '../../../icons/postrow.svg';
 import PostSquare from '../../../icons/postsquare.svg';
+import SmallPost from '../../../components/Subscribe/SmallPost/SmallPost';
+import SmallPost2 from '../../../components/Search/SmallPost2/SmallPost2';
 const Search = () => {
   const [inputText, setInputText] = useState(''); // 입력 상태 추가
   const [searchText, setSearchText] = useState(''); // 검색어 상태 추가
@@ -119,11 +121,18 @@ const Search = () => {
           </S.SearchSort>
 
           {showAuthor && (
-            <S.SearchListContainer>
-              <Post />
-              <Post />
-              <Post />
-            </S.SearchListContainer>
+            <S.SubscribeContainer>
+              <S.SubscribeBox>
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+                <SmallPost2 />
+              </S.SubscribeBox>
+            </S.SubscribeContainer>
           )}
           {showReview && (
             <S.SearchListContainer>

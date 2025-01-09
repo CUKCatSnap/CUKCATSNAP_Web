@@ -6,7 +6,7 @@ export const LoginBtnContainer = styled(TouchableOpacity)`
   background-color: #423cd2;
   border-radius: 15px;
   padding: 20px;
-  font-size: 14px;
+  font-size: 18px;
   align-items: center;
   justify-content: center;
   font-weight: bold;
@@ -14,5 +14,5 @@ export const LoginBtnContainer = styled(TouchableOpacity)`
 
 export const BtnText = styled(Text)`
   color: white;
-  font-size: 14px;
+  font-size: 18px;
 `;
