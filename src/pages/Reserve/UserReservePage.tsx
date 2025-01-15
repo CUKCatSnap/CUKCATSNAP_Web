@@ -31,6 +31,7 @@ const UserReservePage = ({route}) => {
   const navigation = useNavigation();
 
   const [availableTimes, setAvailableTimes] = useState([]); // 날짜별 예약 가능한 시간 목록
+  const [monthReserve, setMonthReserve] = useState([]); // monthReserve를 빈 배열로 설정
 
   useEffect(() => {
     // startTime이 없으면 실행하지 않음
@@ -73,7 +74,11 @@ const UserReservePage = ({route}) => {
       console.log('선택된 시간:', time);
     }
   };
-
+  const onMonthChange = () => {
+    if (monthReserve.length === 0) {
+      return; // monthReserve가 빈 배열일 때 아무 작업도 하지 않음
+    }
+  };
   const handleSubmit = async () => {
     if (!selectedTime) {
       Alert.alert('', '예약 시간을 선택해 주세요.');
@@ -114,7 +119,7 @@ const UserReservePage = ({route}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text="예약하기" />
-        <Calendar onDateSelect={setStartTime} />
+        <Calendar onDateSelect={setStartTime} onMonthChange={onMonthChange} />
 
         <S.TimeView>
           <Title text="예약 가능한 시간" />
