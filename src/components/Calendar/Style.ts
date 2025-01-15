@@ -73,6 +73,7 @@ export const CellText = styled.Text<{
   selectedDay: number | null;
   todayDay: number | null;
   itemDay: number | null;
+  isHoliday: boolean; // 공휴일 여부를 위한 prop 추가
 }>`
   color: #000;
   font-size: 17px;
@@ -128,5 +129,11 @@ export const CellText = styled.Text<{
       font-size: 15px;
       font-weight: bold;
       color: #555; /* 요일 헤더 스타일 */
+    `}
+
+    ${({isHoliday}) =>
+    isHoliday &&
+    css`
+      color: red; /* 공휴일 텍스트 색 빨간색 */
     `}
 `;
