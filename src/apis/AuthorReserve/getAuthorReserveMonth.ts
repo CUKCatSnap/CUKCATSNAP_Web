@@ -1,9 +1,9 @@
-//특정 일의 예약 유무를 조회(Get)
+//작가의 특정 월의 예약 유무를 일별로 조회(Get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchReserveDay = async day => {
+export const fetchAuthorReserveMonth = async month => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -12,11 +12,11 @@ export const fetchReserveDay = async day => {
     }
 
     const params = {
-      day: day,
+      month: month,
     };
     // axios 요청 보내기
     const response = await apiClient.get(
-      'https://api.catsnap.net/reservation/member/my/day',
+      'https://api.catsnap.net/reservation/photographer/my/month',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

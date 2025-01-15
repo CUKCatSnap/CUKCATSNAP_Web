@@ -8,7 +8,10 @@ import {
   Button,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {fetchTimeFormat} from '../../../apis/AuthorTimeFormat/getAuthorTimeFormat';
 import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
@@ -35,19 +38,25 @@ const AuthorTimeFormatPage = () => {
     }
   };
 
-  useEffect(() => {
-    loadTimeFormat();
-  }, []);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      loadTimeFormat(); // 화면이 포커스될 때 데이터 새로고침
+    }, []),
+  );
   const handleTimeFormat = () => {
     navigation.navigate('CreateAuthorTimeFormatPage');
   };
 
   //예약 시간 형식 삭제
   const handleDelete = async (reservationTimeFormatId: string) => {
-    console.log(reservationTimeFormatId);
-    await deleteAuthorTimeFormat(reservationTimeFormatId);
-    loadTimeFormat(); // 목록 새로고침
+    try {
+      await deleteAuthorTimeFormat(reservationTimeFormatId); // 삭제 API 호출
+      Alert.alert('삭제 완료', '예약 시간 형식을 삭제했습니다.');
+      loadTimeFormat(); // 삭제 후 목록 새로고침
+    } catch (error) {
+      Alert.alert('삭제 실패', '삭제하는 중 오류가 발생했습니다.');
+      console.error('삭제 오류:', error);
+    }
   };
 
   return (
@@ -64,10 +73,12 @@ const AuthorTimeFormatPage = () => {
           ListFooterComponent={
             <>
               <S.TimeBtnView>
-                <CalendarBtn
-                  text="예약 시간 생성하기"
-                  onPress={handleTimeFormat}
-                />
+                <S.BtnView>
+                  <CalendarBtn
+                    text="예약 시간 생성하기"
+                    onPress={handleTimeFormat}
+                  />
+                </S.BtnView>
               </S.TimeBtnView>
             </>
           }
@@ -82,7 +93,14 @@ const AuthorTimeFormatPage = () => {
           <S.TimeTextView>
             <S.TimeText>생성된 예약 시간이 없습니다.</S.TimeText>
           </S.TimeTextView>
-          <CalendarBtn text="예약 시간 생성하기" onPress={handleTimeFormat} />
+          <S.TimeBtnView>
+            <S.BtnView>
+              <CalendarBtn
+                text="예약 시간 생성하기"
+                onPress={handleTimeFormat}
+              />
+            </S.BtnView>
+          </S.TimeBtnView>
         </View>
       )}
     </SafeAreaView>

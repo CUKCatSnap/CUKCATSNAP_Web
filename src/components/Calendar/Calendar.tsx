@@ -1,4 +1,3 @@
-//캘린더 페이지 입니다.
 import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
@@ -9,9 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import * as S from './Style';
-import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import Title from '../../components/Home/Title/Title';
 
 const days = ['일', '월', '화', '수', '목', '금', '토'];
 const months = [
@@ -29,21 +26,58 @@ const months = [
   '12',
 ];
 
-const Calendar = ({onDateSelect}) => {
+const Calendar = ({onDateSelect, onMonthChange, monthReserve}) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [checkDate, setCheckDate] = useState('');
+  const [todayDay, setTodayDay] = useState(null);
+
+  useEffect(() => {
+    const today = new Date();
+    const day = today.getDate();
+    setTodayDay(day); // 오늘 날짜 저장
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+    setCheckDate(`${year}-${formattedMonth}-${formattedDay}`);
+    // 아무것도 선택되지 않았을 때 checkDate는 빈 문자열로 설정
+    setCheckDate('');
+    // 현재 월로 돌아오면 오늘 날짜 체크
+    if (month === currentMonth.getMonth()) {
+      setTodayDay(day); // 오늘 날짜 저장
+    } else {
+      setTodayDay(null); // 다른 달로 넘어가면 오늘 날짜를 초기화
+    }
+  }, [currentMonth]);
 
   const goToNextMonth = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1),
+    const newMonth = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + 1,
+      1,
     );
+    setCurrentMonth(newMonth);
+    setSelectedDay(''); // 날짜 초기화
+
+    if (onMonthChange) {
+      onMonthChange(newMonth); // 부모 컴포넌트에 새로운 월을 전달
+    }
   };
 
   const goToPreviousMonth = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1),
+    const newMonth = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() - 1,
+      1,
     );
+
+    setCurrentMonth(newMonth);
+    setSelectedDay(''); // 날짜 초기화
+
+    if (onMonthChange) {
+      onMonthChange(newMonth); // 부모 컴포넌트에 새로운 월을 전달
+    }
   };
 
   const generateMatrix = () => {
@@ -55,13 +89,26 @@ const Calendar = ({onDateSelect}) => {
     let counter = -firstDay + 1; // 첫 번째 주 시작 숫자
 
     for (let row = 1; counter <= maxDays; row++) {
-      // 마지막 날짜까지 동적으로 행(row) 추가
       matrix[row] = [];
       for (let col = 0; col < 7; col++) {
         matrix[row][col] = {
           day: counter > 0 && counter <= maxDays ? counter : '',
           isInCurrentMonth: counter > 0 && counter <= maxDays,
+          isReserved: false, // 기본값 false로 설정
         };
+
+        // 해당 날짜가 monthReserve에 있는지 확인
+        const formattedDate = `${year}-${(month + 1)
+          .toString()
+          .padStart(2, '0')}-${counter.toString().padStart(2, '0')}`;
+        const reservation = monthReserve.find(
+          item => item.reservationDate === formattedDate,
+        );
+
+        if (reservation) {
+          matrix[row][col].isReserved = true; // 예약된 날짜는 true로 설정
+        }
+
         counter++;
       }
     }
@@ -81,7 +128,6 @@ const Calendar = ({onDateSelect}) => {
 
     setSelectedDay(day);
     setCheckDate(formattedDate);
-    // 날짜를 부모 컴포넌트로 전달
     if (onDateSelect) {
       onDateSelect(formattedDate);
     }
@@ -94,27 +140,26 @@ const Calendar = ({onDateSelect}) => {
         {matrix.map((row, rowIndex) => (
           <S.Row key={rowIndex}>
             {row.map((item, colIndex) => (
-              <TouchableOpacity
-                style={styles.cell}
+              <S.Cell
                 key={colIndex}
                 onPress={() =>
                   rowIndex > 0 &&
                   handleDayPress(item.day, item.isInCurrentMonth)
-                }>
-                <Text
-                  style={[
-                    styles.cellText,
-                    colIndex === 0 && styles.cellTextRed, // 일요일
-                    colIndex === 6 && styles.cellTextBlue, // 토요일
-                    !item.isInCurrentMonth && styles.cellTextGray, // 현재 월 외 날짜
-                    selectedDay === item.day &&
-                      item.isInCurrentMonth &&
-                      styles.selectedDay, // 선택된 날짜
-                    rowIndex === 0 && styles.dayHeader, // 요일 스타일
-                  ]}>
-                  {rowIndex === 0 ? item : item.day}
-                </Text>
-              </TouchableOpacity>
+                }
+                isReserved={item.isReserved} // isReserved를 전달
+              >
+                <S.CellBackground isReserved={item.isReserved}>
+                  <S.CellText
+                    colIndex={colIndex}
+                    rowIndex={rowIndex}
+                    isInCurrentMonth={item.isInCurrentMonth}
+                    selectedDay={selectedDay}
+                    todayDay={todayDay}
+                    itemDay={item.day}>
+                    {rowIndex === 0 ? item : item.day}
+                  </S.CellText>
+                </S.CellBackground>
+              </S.Cell>
             ))}
           </S.Row>
         ))}
@@ -125,9 +170,8 @@ const Calendar = ({onDateSelect}) => {
   return (
     <SafeAreaView style={styles.container}>
       <GestureRecognizer
-        onSwipeLeft={goToNextMonth} // 스와이프 왼쪽
-        onSwipeRight={goToPreviousMonth} // 스와이프 오른쪽
-      >
+        onSwipeLeft={goToNextMonth}
+        onSwipeRight={goToPreviousMonth}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <S.MyCalendar>
             <S.CalendarHeader>
@@ -158,42 +202,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-
-  cell: {
-    width: '14.28%', // 한 줄에 7칸이므로 너비를 14.28%로 설정
-    aspectRatio: 1, // 셀의 가로 세로 비율을 1:1로 고정
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cellText: {
-    color: '#000',
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  cellTextRed: {
-    color: '#FF0000',
-  },
-  cellTextBlue: {
-    color: '#007BA4',
-  },
-  cellTextGray: {
-    color: '#D3D3D3',
-  },
-  selectedDay: {
-    backgroundColor: '#E6EEF5',
-    borderRadius: 10,
-    width: 40,
-    height: 40,
-    textAlign: 'center',
-    lineHeight: 40,
-    color: '#000',
-  },
-  dayHeader: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#555',
   },
 });
 

@@ -6,11 +6,12 @@ export const SettingContainer = styled(View)`
   padding: 0;
 `;
 
-export const SettingContents = styled(Pressable)`
+export const SettingContents = styled(TouchableOpacity)`
   width: 100%;
   background-color: transparent;
   align-items: flex-start;
   padding: 5%;
+  margin: 1% 2%;
   padding-bottom: 5%;
   flex-direction: row;
   justify-content: space-between;

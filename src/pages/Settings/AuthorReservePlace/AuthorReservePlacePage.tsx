@@ -1,6 +1,13 @@
 //작가가 예약을 받을 장소를 조회하는 페이지 입니다.
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, TextInput, Alert, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  TextInput,
+  Alert,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {fetchAuthorReservationPlace} from '../../../apis/AuthorReserve/getAuthorReservationPlace';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
@@ -80,27 +87,29 @@ const AuthorReserveAlarmPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ContentsHeader text={'예약 장소 설정'} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text={'예약 장소 설정'} />
 
-      <S.SettingContainer>
-        <S.SettingText>예약을 받을 장소</S.SettingText>
-        {isEditingPlace ? (
-          <S.SettingTextInput
-            value={contents}
-            onChangeText={handlePlaceChange}
-            keyboardType="default"
-            autoFocus
-            onBlur={() => setisEditingPlace(false)} // 포커스가 벗어나면 편집 모드 종료
-          />
-        ) : (
-          <S.SettingBoxText
-            onPress={() => setisEditingPlace(true)} // 텍스트 클릭 시 편집 모드로 전환
-          >
-            {contents}
-          </S.SettingBoxText>
-        )}
-        <LoginBtn text="장소 수정하기" onPress={handleSetting} />
-      </S.SettingContainer>
+        <S.SettingContainer>
+          <S.SettingText>예약을 받을 장소</S.SettingText>
+          {isEditingPlace ? (
+            <S.SettingTextInput
+              value={contents}
+              onChangeText={handlePlaceChange}
+              keyboardType="default"
+              autoFocus
+              onBlur={() => setisEditingPlace(false)} // 포커스가 벗어나면 편집 모드 종료
+            />
+          ) : (
+            <S.SettingBoxText
+              onPress={() => setisEditingPlace(true)} // 텍스트 클릭 시 편집 모드로 전환
+            >
+              {contents}
+            </S.SettingBoxText>
+          )}
+          <LoginBtn text="장소 수정하기" onPress={handleSetting} />
+        </S.SettingContainer>
+      </ScrollView>
     </SafeAreaView>
   );
 };

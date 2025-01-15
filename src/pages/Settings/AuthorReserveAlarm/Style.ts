@@ -19,4 +19,5 @@ export const SettingTextInput = styled(TextInput)`
 `;
 export const SettingBox = styled(View)`
   margin: 0% 10%;
+  margin-bottom: 5%;
 `;

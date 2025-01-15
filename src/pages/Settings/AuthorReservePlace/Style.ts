@@ -3,6 +3,7 @@ import {View, Text, Pressable, TouchableOpacity, TextInput} from 'react-native';
 
 export const SettingContainer = styled(View)`
   margin: 0% 10%;
+  margin-bottom: 5%;
 `;
 export const SettingView = styled(View)`
   margin: 5% 0%;

@@ -1,5 +1,12 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
-import {SafeAreaView, Text, FlatList, View, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  FlatList,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import * as S from './Style'; // 스타일링 파일
 import {fetchReservations} from '../../apis/UserReserve/getReservation';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 추가
@@ -59,7 +66,7 @@ const MyReservePage = () => {
   if (loading && page === 0) {
     return (
       <SafeAreaView>
-        <Text>로딩 중...</Text>
+        <ActivityIndicator size="large" color="#232074" />
       </SafeAreaView>
     );
   }

@@ -69,11 +69,17 @@ export const AuthorFeedProfile = styled(Text)`
 export const ContentsBox = styled(TouchableOpacity)`
   flex-direction: row;
   justify-content: space-between;
-  margin: 1% 0;
+  margin: 1% 3%;
+`;
+export const ContentsBoxContainer = styled(View)`
+  background-color: #f3f3f3;
+  margin: 3% 0%;
+  padding: 3% 3%;
+  border-radius: 15px;
 `;
 
 export const Contents = styled(Text)`
-  color: #747272;
+  color: black;
 `;
 export const Price = styled(Text)`
   color: black;
@@ -114,8 +120,51 @@ export const PostContainer = styled(View)`
 export const ProgramText = styled(Text)`
   margin: 10% 0;
   color: gray;
-  font-size: 20px;
+  font-size: 18px;
 `;
 export const ProgramView = styled(View)`
   align-items: center;
+`;
+export const ContentsAreaBox = styled(View)`
+  background-color: #f3f3f3;
+  border-radius: 15px;
+  padding: 3%;
+  margin: 2% 0%;
+  flex-direction: row;
+  align-items: center;
+`;
+export const ContentsAreaText = styled(Text)`
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 2% 2%;
+  width: 25%;
+`;
+export const ContentsAreaText2 = styled(Text)`
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 2% 2%;
+`;
+
+export const ContentsAreaText3 = styled(Text)`
+  color: black;
+  font-size: 18px;
+  margin: 2% 2%;
+`;
+export const Line = styled(View)`
+  width: 3px;
+  height: 100%;
+  background-color: #423cd2;
+  margin: 0% 3%;
+`;
+
+export const Line2 = styled(View)`
+  width: 100%;
+  height: 3px;
+  margin: 3% 0%;
+  background-color: #423cd2;
+`;
+export const Box = styled(View)`
+  width: 65%;
 `;

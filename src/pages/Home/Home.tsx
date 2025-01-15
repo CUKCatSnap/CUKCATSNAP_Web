@@ -28,6 +28,11 @@ const Home = () => {
 
   // 예약 데이터를 가져오는 함수
   const getReservations = async () => {
+    if (isAuthor) {
+      return; // 작가일 경우 데이터 요청 중단
+    } else if (!isUser) {
+      return;
+    }
     try {
       const response = await fetchReservations('UPCOMING', 0, 5);
       console.log(response); // 응답 데이터 확인
@@ -44,9 +49,12 @@ const Home = () => {
   // 화면이 포커스될 때마다 예약 데이터 새로 가져오기
   useFocusEffect(
     React.useCallback(() => {
+      if (isAuthor) {
+        return;
+      } // 작가인 경우 예약 데이터를 요청하지 않음
       setLoading(true); // 로딩 상태 초기화
       getReservations(); // 데이터 새로 가져오기
-    }, []),
+    }, [isAuthor]), // isAuthor가 변경될 때마다 실행
   );
 
   // 렌더링 조건 설정

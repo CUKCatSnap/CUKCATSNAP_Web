@@ -1,5 +1,5 @@
 //다른 사람의 프로필을 보여주는 페이지 입니다.
-//사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.
+//사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.(사용자->작가)
 import React, {useState, useCallback, useEffect} from 'react';
 import {
   SafeAreaView,
@@ -39,6 +39,9 @@ const AuthorProfile = () => {
     Alert.alert('작가를 차단하였습니다.');
   };
 
+  //현재 작가 아이디는 하드코딩된 상황, 이후 api 추가시 고칠 것
+  const photographerId = 2;
+
   const handleProgram = (
     programId: Number,
     title: string,
@@ -54,34 +57,21 @@ const AuthorProfile = () => {
     });
   };
 
-  //현재 작가 아이디는 하드코딩된 상황, 이후 api 추가시 고칠 것
-  const photographerId = 2;
-
   // API 호출로 프로그램 데이터 가져오기
   const loadPrograms = async () => {
     try {
       const response = await fetchPrograms(photographerId);
-      if (response?.data?.photographerProgramList) {
-        setPrograms(response.data.photographerProgramList);
-      } else {
-        console.error('프로그램 데이터를 불러오지 못했습니다.');
-      }
+      setPrograms(response.data.photographerProgramList);
     } catch (error) {
       console.error('프로그램 데이터를 불러오는 중 오류 발생:', error);
     }
   };
 
-  // API 호출로 프로그램 데이터 가져오기
+  // API 호출로 장소와 주의사항 데이터 가져오기
   const loadGuide = async () => {
     try {
       const response2 = await fetchReserveGuide(photographerId);
-      //두 요소개 비어있으면 에러출력
-      if (
-        response2?.data?.photographerLocation &&
-        response2?.data?.photographerNotification
-      ) {
-        setGuide(response2.data);
-      }
+      setGuide(response2.data);
     } catch (error) {
       console.error('가이드 데이터를 불러오는 중 오류 발생:', error);
     }
@@ -90,7 +80,7 @@ const AuthorProfile = () => {
   useEffect(() => {
     loadPrograms();
     loadGuide();
-  }, []);
+  }, [photographerId]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -120,39 +110,89 @@ const AuthorProfile = () => {
 
           {/* 프로그램 리스트 렌더링 */}
           {programs.length === 0 ? (
-            <View>
+            <S.ContentsBoxContainer>
+              <S.ContentsAreaText2>예약 프로그램</S.ContentsAreaText2>
+              <S.Line2 />
               <S.ProgramView>
                 <S.ProgramText>등록된 프로그램이 없습니다.</S.ProgramText>
               </S.ProgramView>
-            </View>
+            </S.ContentsBoxContainer>
           ) : (
-            programs.map(program => (
-              <S.ContentsBox
-                key={program.programId}
-                onPress={() =>
-                  handleProgram(
-                    program.programId,
-                    program.title,
-                    program.price,
-                    program.content,
-                  )
-                }>
-                <S.Contents>{program.title}</S.Contents>
-                <S.Price>{program.price}원</S.Price>
-              </S.ContentsBox>
-            ))
+            <View>
+              <S.ContentsBoxContainer>
+                <S.ContentsAreaText2>예약 목록</S.ContentsAreaText2>
+                <S.Line2 />
+                {programs.map(program => (
+                  <S.ContentsBox
+                    key={program.programId}
+                    onPress={() =>
+                      handleProgram(
+                        program.programId,
+                        program.title,
+                        program.price,
+                        program.content,
+                      )
+                    }>
+                    <S.Contents>{program.title}</S.Contents>
+                    <S.Price>{program.price}원</S.Price>
+                  </S.ContentsBox>
+                ))}
+              </S.ContentsBoxContainer>
+            </View>
           )}
 
           {!guide ? (
             <View>
               <S.ProgramView>
-                <S.ProgramText>등록된 가이드가 없습니다.</S.ProgramText>
+                <S.ProgramText>등록된 정보가 없습니다.</S.ProgramText>
               </S.ProgramView>
             </View>
           ) : (
             <View>
-              <S.Contents>장소: {guide.photographerLocation}</S.Contents>
-              <S.Contents>{guide.photographerNotification}</S.Contents>
+              {!guide.photographerLocation ? (
+                <S.ContentsAreaBox>
+                  <S.ContentsAreaText>장소</S.ContentsAreaText>
+
+                  <S.Line />
+                  <S.Box>
+                    <S.ProgramView>
+                      <S.ProgramText>등록된 장소가 없습니다.</S.ProgramText>
+                    </S.ProgramView>
+                  </S.Box>
+                </S.ContentsAreaBox>
+              ) : (
+                <S.ContentsAreaBox>
+                  <S.ContentsAreaText>장소</S.ContentsAreaText>
+                  <S.Line />
+                  <S.Box>
+                    <S.ContentsAreaText3>
+                      {guide.photographerLocation}
+                    </S.ContentsAreaText3>
+                  </S.Box>
+                </S.ContentsAreaBox>
+              )}
+              {!guide.photographerNotification ? (
+                <S.ContentsAreaBox>
+                  <S.ContentsAreaText>주의사항</S.ContentsAreaText>
+                  <S.Line />
+                  <S.Box>
+                    <S.ProgramView>
+                      <S.ProgramText>등록된 주의사항이 없습니다.</S.ProgramText>
+                    </S.ProgramView>
+                  </S.Box>
+                </S.ContentsAreaBox>
+              ) : (
+                <S.ContentsAreaBox>
+                  <S.ContentsAreaText>주의사항</S.ContentsAreaText>
+
+                  <S.Line />
+                  <S.Box>
+                    <S.ContentsAreaText3>
+                      {guide.photographerNotification}
+                    </S.ContentsAreaText3>
+                  </S.Box>
+                </S.ContentsAreaBox>
+              )}
             </View>
           )}
 
