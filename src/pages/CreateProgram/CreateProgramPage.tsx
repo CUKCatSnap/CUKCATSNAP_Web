@@ -52,38 +52,45 @@ const ReserveProgram = () => {
   }, [title, content, price]);
 
   return (
-    <SafeAreaView>
-      <ContentsHeader text={'프로그램 생성'} />
-      <Text>
-        예약 프로그램을 생성할 수 있습니다. 이곳은 예약 프로그램을 생성해
-        추가합니다.
-      </Text>
-      <Text>타이틀</Text>
-      <TextInput
-        value={title}
-        onChangeText={setTitle}
-        placeholder="타이틀을 입력하세요"
-      />
-      <Text>내용</Text>
-      <TextInput
-        value={content}
-        onChangeText={setContent}
-        placeholder="내용을 입력하세요"
-      />
-      <Text>가격</Text>
-      <TextInput
-        value={price}
-        onChangeText={setPrice}
-        placeholder="가격을 입력하세요"
-        keyboardType="numeric"
-      />
-      <LoginBtn
-        disabled={isdisabled}
-        onPress={handleSubmitAuthor}
-        text={'프로그램 추가하기'}
-      />
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text={'프로그램 생성'} />
+        <S.ProgramContainer>
+          <S.Title>프로그램명</S.Title>
+          <S.InputBox
+            value={title}
+            onChangeText={setTitle}
+            textAlignVertical="top"
+          />
+          <S.Title>내용</S.Title>
+          <S.InputBox
+            value={content}
+            onChangeText={setContent}
+            textAlignVertical="top"
+            numberOfLines={5}
+          />
+          <S.Title>가격(단위 : 원)</S.Title>
+          <S.InputBox
+            value={price}
+            onChangeText={setPrice}
+            keyboardType="numeric"
+          />
+        </S.ProgramContainer>
+        <S.ProgramContainer>
+          <LoginBtn
+            disabled={isdisabled}
+            onPress={handleSubmitAuthor}
+            text={'프로그램 추가하기'}
+          />
+        </S.ProgramContainer>
+      </ScrollView>
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default ReserveProgram;

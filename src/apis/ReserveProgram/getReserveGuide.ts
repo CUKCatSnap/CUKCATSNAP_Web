@@ -6,12 +6,6 @@ import apiClient from '../getAccessToken';
 
 export const fetchReserveGuide = async (photographerId: number) => {
   try {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.error('액세스 토큰이 없습니다.');
-      return null;
-    }
-
     const params = {
       photographerId: photographerId,
     };
@@ -20,7 +14,7 @@ export const fetchReserveGuide = async (photographerId: number) => {
       'https://api.catsnap.net/reservation/photographer/guidance',
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: 'Bearer ',
         },
         params: params,
       },

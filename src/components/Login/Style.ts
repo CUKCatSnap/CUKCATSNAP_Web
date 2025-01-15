@@ -9,10 +9,10 @@ export const LoginBtnContainer = styled(TouchableOpacity)`
   font-size: 18px;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
 `;
 
 export const BtnText = styled(Text)`
   color: white;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
 `;

@@ -16,11 +16,9 @@ const ReserveProgramPage = ({route}) => {
   const user = useSelector(state => state.auth.user);
 
   const navigation = useNavigation();
-  const {photographerId} = route.params;
-  const {programId} = route.params;
-  const {price} = route.params;
-  const {content} = route.params;
-  const {title} = route.params;
+  const {programId, title, content, price, photographerId} = route.params; // photographerId 추가
+
+  console.log('Program Details:', {programId, title, content, price});
 
   const handleDeleteProgram = async () => {
     await deleteReservations(programId);
@@ -32,9 +30,8 @@ const ReserveProgramPage = ({route}) => {
   };
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'프로그램 세부내용'} />
-
         <S.Container>
           <ReserveProgram title={title} content={content} price={price} />
           {isAuthor ? (

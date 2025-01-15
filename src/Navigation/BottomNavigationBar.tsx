@@ -53,20 +53,6 @@ const BottomTabNavigator = () => {
         headerShown: false, // 상단 바를 없애는 옵션
       }}>
       <Tab.Screen
-        name="Chat"
-        component={Chat}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name={'chatbubbles-outline'}
-              size={30}
-              color={focused ? '#242da1' : 'black'}
-            />
-          ),
-          tabBarLabel: () => null,
-        }}
-      />
-      <Tab.Screen
         name="Home"
         component={HomeStack}
         options={{
@@ -87,6 +73,20 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Icon
               name={'search'}
+              size={30}
+              color={focused ? '#242da1' : 'black'}
+            />
+          ),
+          tabBarLabel: () => null,
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name={'chatbubbles-outline'}
               size={30}
               color={focused ? '#242da1' : 'black'}
             />

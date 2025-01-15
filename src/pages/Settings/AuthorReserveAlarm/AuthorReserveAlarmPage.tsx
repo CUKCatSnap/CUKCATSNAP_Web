@@ -1,6 +1,13 @@
 //작가 알람설정 페이지 입니다.
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, TextInput, Alert, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  TextInput,
+  Alert,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {fetchAuthorReservationAlarm} from '../../../apis/AuthorReserve/getAuthorReservationAlarm';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import {useNavigation} from '@react-navigation/native';
@@ -79,30 +86,32 @@ const AuthorReserveAlarmPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ContentsHeader text={'예약 알림 설정'} />
-      <S.SettingBox>
-        {isEditingAlarm ? (
-          <S.SettingTextInput
-            value={contents}
-            onChangeText={handleAlarmChange}
-            numberOfLines={5}
-            keyboardType="default"
-            placeholder=""
-            multiline={true}
-            textAlignVertical="top" // 텍스트 위쪽 정렬
-            autoFocus
-            onBlur={() => setisEditingAlarm(false)} // 포커스가 벗어나면 편집 모드 종료
-          />
-        ) : (
-          <S.SettingText
-            onPress={() => setisEditingAlarm(true)} // 텍스트 클릭 시 편집 모드로 전환
-          >
-            {contents}
-          </S.SettingText>
-        )}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text={'예약 알림 설정'} />
+        <S.SettingBox>
+          {isEditingAlarm ? (
+            <S.SettingTextInput
+              value={contents}
+              onChangeText={handleAlarmChange}
+              numberOfLines={5}
+              keyboardType="default"
+              placeholder=""
+              multiline={true}
+              textAlignVertical="top" // 텍스트 위쪽 정렬
+              autoFocus
+              onBlur={() => setisEditingAlarm(false)} // 포커스가 벗어나면 편집 모드 종료
+            />
+          ) : (
+            <S.SettingText
+              onPress={() => setisEditingAlarm(true)} // 텍스트 클릭 시 편집 모드로 전환
+            >
+              {contents}
+            </S.SettingText>
+          )}
 
-        <LoginBtn text="예약 전 알림 수정하기" onPress={handleSetting} />
-      </S.SettingBox>
+          <LoginBtn text="예약 전 알림 수정하기" onPress={handleSetting} />
+        </S.SettingBox>
+      </ScrollView>
     </SafeAreaView>
   );
 };
