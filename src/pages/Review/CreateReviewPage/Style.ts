@@ -18,9 +18,10 @@ export const ImageBox = styled(View)`
 `;
 
 export const TitleText = styled(Text)`
-  font-size: 14px;
+  font-size: 18px;
   color: black;
   font-weight: bold;
+  margin: 3% 0%;
 `;
 export const TextInputBox = styled(TextInput)`
   border-radius: 15px;
@@ -30,8 +31,14 @@ export const TextInputBox = styled(TextInput)`
   font-size: 14px;
 `;
 export const Container = styled(View)`
-  margin: 5%;
+  margin: 7%;
 `;
 export const BtnBox = styled(View)`
-  margin: 3%;
+  margin: 3% 0%;
+`;
+
+export const RatingContainer = styled(View)``;
+
+export const RatingBox = styled(View)`
+  align-items: center;
 `;

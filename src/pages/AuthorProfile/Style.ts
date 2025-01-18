@@ -90,7 +90,7 @@ export const IntersectionContainer = styled(View)`
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  margin: 5% 0%;
+  margin: 5% 5%;
 `;
 
 export const IntersectionText = styled.Text<PressProps>`

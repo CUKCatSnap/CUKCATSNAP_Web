@@ -1,6 +1,12 @@
 //검색 페이지 입니다.
 import React, {useState} from 'react';
-import {SafeAreaView, Text, ScrollView, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Post from '../../../components/Search/Post/Post';
 import SearchBar from '../../../components/Search/SearchBar/SearchBar';
 import {useNavigation} from '@react-navigation/native';
@@ -8,10 +14,12 @@ import * as S from './Style';
 import X from '../../../icons/x.svg';
 import SmallPost2 from '../../../components/Search/SmallPost2/SmallPost2';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
+import {useSelector, useDispatch} from 'react-redux';
+import {addSearch, deleteSearch} from '../../../store/slices/searchSlice';
 
-const SearchResultPage = () => {
-  const [inputText, setInputText] = useState(''); // 입력 상태 추가
-  const [searchText, setSearchText] = useState(''); // 검색어 상태 추가
+const SearchResultPage = ({route}) => {
+  const {query} = route.params;
+  const [inputText, setInputText] = useState(query); // 입력 상태 추가
   const [showSuggestions, setShowSuggestions] = useState(false); // 제안 항목 표시 여부
   const [showAuthor, setShowAuthor] = useState(true); // 작가 탭 항목 표시 여부 (초기 상태 : 출력 0)
   const [showFeed, setShowFeed] = useState(false); // 리뷰 탭 항목 표시 여부
@@ -21,6 +29,10 @@ const SearchResultPage = () => {
   const [isReviewActive, setIsReviewActive] = useState(false);
 
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
+  const dispatch = useDispatch();
+
+  // Redux 상태에서 검색어 기록 가져오기
+  const searchTexts = useSelector(state => state.search.history);
 
   // 검색어 입력 처리
   const handleSearchInput = (text: string) => {
@@ -41,10 +53,19 @@ const SearchResultPage = () => {
   // 엔터 키 입력 처리
   const handleSubmitEditing = () => {
     if (inputText.trim()) {
-      setSearchText(inputText); // 엔터 입력 시에만 searchText 업데이트
-      setShowSuggestions(false); // 엔터 입력 후 제안 항목 숨기기
-      navigation.navigate('SearchResultPage', {query: inputText}); // 검색 상세 페이지로 이동
+      // Redux에 검색 기록 추가
+      dispatch(addSearch(inputText.trim())); // Redux 상태 업데이트
+      setShowSuggestions(false); // 제안 항목 숨기기
+      navigation.navigate('SearchResultPage', {
+        query: inputText,
+        recentSearches: searchTexts, // Redux 상태 전달
+      });
     }
+  };
+
+  // 특정 검색 기록 삭제
+  const handleDeleteSearchText = (textToDelete: string) => {
+    dispatch(deleteSearch(textToDelete)); // 리덕스 상태에서 해당 검색어 삭제
   };
 
   // 작가 탭 항목 터치 시 항목 출력
@@ -77,12 +98,24 @@ const SearchResultPage = () => {
     setShowReview(true);
   };
 
+  // 검색어 클릭 시 SearchResultPage로 네비게이션
+  const handleSearchClick = (text: string) => {
+    // 상태 업데이트 후 네비게이션
+    setInputText(text); // 상태 업데이트
+    setTimeout(() => {
+      navigation.replace('SearchResultPage', {
+        query: text, // 클릭된 검색어 전달
+      });
+    }, 0); // 상태 업데이트 후 조금 기다려서 네비게이션 호출
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text="검색 결과" />
         <S.SearchContainer>
           <SearchBar
+            value={inputText} // 검색창에 기본적으로 텍스트 값 표시
             onChangeText={handleSearchInput} // 텍스트 입력 처리
             onFocus={handleFocus} // 포커스 시 제안 항목 표시
             onSubmitEditing={handleSubmitEditing} // 엔터 입력 처리
@@ -109,10 +142,16 @@ const SearchResultPage = () => {
               </S.LankBox>
               <S.SearchUnderBar />
               <S.SearchRecent>
-                <S.SearchRecentText>
-                  {searchText}
-                  {searchText && <X />}
-                </S.SearchRecentText>
+                {searchTexts.map(text => (
+                  <S.SearchBox key={text}>
+                    <TouchableOpacity onPress={() => handleSearchClick(text)}>
+                      <S.SearchRecentText>{text}</S.SearchRecentText>
+                    </TouchableOpacity>
+                    <S.Delete onPress={() => handleDeleteSearchText(text)}>
+                      <X />
+                    </S.Delete>
+                  </S.SearchBox>
+                ))}
               </S.SearchRecent>
             </S.SearchLankingContainer>
           )}

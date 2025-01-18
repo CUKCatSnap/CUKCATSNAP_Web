@@ -1,6 +1,13 @@
 //검색 페이지 입니다.
 import React, {useState} from 'react';
-import {SafeAreaView, Text, ScrollView, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import Post from '../../../components/Search/Post/Post';
 import SearchBar from '../../../components/Search/SearchBar/SearchBar';
 import {useNavigation} from '@react-navigation/native';
@@ -10,16 +17,22 @@ import Postrow from '../../../icons/postrow.svg';
 import PostSquare from '../../../icons/postsquare.svg';
 import SmallPost from '../../../components/Subscribe/SmallPost/SmallPost';
 import SmallPost2 from '../../../components/Search/SmallPost2/SmallPost2';
+import {useSelector, useDispatch} from 'react-redux';
+import {addSearch, deleteSearch} from '../../../store/slices/searchSlice';
+
 const Search = () => {
   const [inputText, setInputText] = useState(''); // 입력 상태 추가
-  const [searchText, setSearchText] = useState(''); // 검색어 상태 추가
   const [showSuggestions, setShowSuggestions] = useState(false); // 제안 항목 표시 여부
   const [showAuthor, setShowAuthor] = useState(true); // 작가 탭 항목 표시 여부 (초기 상태 : 출력 0)
   const [showReview, setShowReview] = useState(false); // 리뷰 탭 항목 표시 여부
   const [isAuthorActive, setIsAuthorActive] = useState(true); // 초기 상태: 작가 탭 활성화
   const [isReviewActive, setIsReviewActive] = useState(false);
 
-  const navigation = useNavigation(); // 네비게이션 객체 가져오기
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  // Redux 상태에서 검색어 기록 가져오기
+  const searchTexts = useSelector(state => state.search.history);
 
   // 검색어 입력 처리
   const handleSearchInput = (text: string) => {
@@ -40,10 +53,18 @@ const Search = () => {
   // 엔터 키 입력 처리
   const handleSubmitEditing = () => {
     if (inputText.trim()) {
-      setSearchText(inputText); // 엔터 입력 시에만 searchText 업데이트
-      setShowSuggestions(false); // 엔터 입력 후 제안 항목 숨기기
-      navigation.navigate('SearchResultPage', {query: inputText}); // 검색 상세 페이지로 이동
+      // Redux에 검색 기록 추가
+      dispatch(addSearch(inputText.trim())); // Redux 상태 업데이트
+      setShowSuggestions(false); // 제안 항목 숨기기
+      navigation.navigate('SearchResultPage', {
+        query: inputText,
+      });
     }
+  };
+
+  // 특정 검색 기록 삭제
+  const handleDeleteSearchText = (textToDelete: string) => {
+    dispatch(deleteSearch(textToDelete)); // 리덕스 상태에서 해당 검색어 삭제
   };
 
   // 작가 탭 항목 터치 시 항목 출력
@@ -64,11 +85,17 @@ const Search = () => {
 
   const handleSortPost = () => {};
 
+  // 검색어 클릭 시 SearchResultPage로 네비게이션
+  const handleSearchClick = (text: string) => {
+    navigation.navigate('SearchResultPage', {query: text}); // 해당 검색어를 query로 전달
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <S.SearchContainer>
           <SearchBar
+            value={inputText}
             onChangeText={handleSearchInput} // 텍스트 입력 처리
             onFocus={handleFocus} // 포커스 시 제안 항목 표시
             onSubmitEditing={handleSubmitEditing} // 엔터 입력 처리
@@ -91,14 +118,20 @@ const Search = () => {
               </S.LankBox>
               <S.LankBox>
                 <S.LankNumber>4</S.LankNumber>
-                <S.Lank>북촌</S.Lank>
+                <S.Lank>영등포</S.Lank>
               </S.LankBox>
               <S.SearchUnderBar />
               <S.SearchRecent>
-                <S.SearchRecentText>
-                  {searchText}
-                  {searchText && <X />}
-                </S.SearchRecentText>
+                {searchTexts.map(text => (
+                  <S.SearchBox key={text}>
+                    <TouchableOpacity onPress={() => handleSearchClick(text)}>
+                      <S.SearchRecentText>{text}</S.SearchRecentText>
+                    </TouchableOpacity>
+                    <S.Delete onPress={() => handleDeleteSearchText(text)}>
+                      <X />
+                    </S.Delete>
+                  </S.SearchBox>
+                ))}
               </S.SearchRecent>
             </S.SearchLankingContainer>
           )}

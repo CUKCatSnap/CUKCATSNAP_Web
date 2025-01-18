@@ -14295,6 +14295,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-star-rating-widget@npm:^1.9.2":
+  version: 1.9.2
+  resolution: "react-native-star-rating-widget@npm:1.9.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-svg: "*"
+  checksum: adcc6b931b12c2fb1aa72a483dc31295de1076dc6406824a62b748a94d38a50657ef6ede56b435e36100c755336df839be3d26f67520be990b9757684beea205
+  languageName: node
+  linkType: hard
+
 "react-native-svg-transformer@npm:^1.5.0":
   version: 1.5.0
   resolution: "react-native-svg-transformer@npm:1.5.0"
@@ -15524,6 +15535,7 @@ __metadata:
     react-native-screen: ^1.0.1
     react-native-screens: ^3.34.0
     react-native-shadow-2: ^7.1.0
+    react-native-star-rating-widget: ^1.9.2
     react-native-svg: ^15.7.1
     react-native-svg-transformer: ^1.5.0
     react-native-swipe-gestures: ^1.0.5

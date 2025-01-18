@@ -6,12 +6,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchDetail from '../../../icons/searchdetail.svg';
 
 interface SearchBarProps {
+  value: string; // 검색어 상태
   onChangeText: (text: string) => void; // 텍스트 입력 변경 핸들러
   onFocus: () => void; // 포커스 핸들러
   onSubmitEditing: () => void; // 엔터 키 입력 처리 핸들러
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
+  value,
   onChangeText,
   onFocus,
   onSubmitEditing,
@@ -21,6 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <S.SearchBarContainer>
         <S.SearchInputBox
           placeholder="검색어를 입력하세요"
+          value={value} // 부모에서 전달된 value를 사용
           onChangeText={onChangeText} // 부모에게 입력값 전달
           onFocus={onFocus} // 포커스 시 핸들러 호출
           onSubmitEditing={onSubmitEditing} // 엔터 키 입력 시 핸들러 호출

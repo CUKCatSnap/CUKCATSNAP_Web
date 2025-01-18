@@ -32,6 +32,7 @@ import CreateAuthorTimeFormatPage from '../pages/Settings/CreateTimeFormat/Creat
 import AuthorWeekFormatPage from '../pages/Settings/AuthorWeekFormat/AuthorWeekFormatPage';
 import UserReservePage from '../pages/Reserve/UserReservePage';
 import CreateReviewPage from '../pages/Review/CreateReviewPage/CreateReviewPage';
+import ReplyAgainPage from '../pages/Reply/ReplyAgainPage/ReplyAgainPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -193,6 +194,11 @@ const SearchStack = () => {
       <Stack.Screen
         name="ReplyPage"
         component={ReplyPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ReplyAgainPage"
+        component={ReplyAgainPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
