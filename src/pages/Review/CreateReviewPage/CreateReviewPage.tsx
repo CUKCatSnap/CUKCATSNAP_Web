@@ -21,6 +21,7 @@ import {
 } from 'react-native-image-picker';
 import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
 import * as S from './Style';
+import RatingStar from '../../../components/Rating/Rating';
 
 const CreateReviewPage = () => {
   const [placeScore, setPlaceScore] = useState('');
@@ -30,7 +31,15 @@ const CreateReviewPage = () => {
   const [reservationId, setReservationId] = useState('');
   const [isdisabled, setDisabled] = useState(false);
   const [images, setImages] = useState<Asset[]>([]); // 선택된 이미지들의 배열
-
+  //별점 상태
+  const [ratingPlace, setRatingPlace] = useState(0);
+  const [ratingAuthor, setRatingAuthor] = useState(0);
+  const handleRatingChangePlace = (newRating: number) => {
+    setRatingPlace(newRating);
+  };
+  const handleRatingChangeAuthor = (newRating: number) => {
+    setRatingAuthor(newRating);
+  };
   // 갤러리에서 이미지 선택
   const pickImage = async () => {
     const result = await launchImageLibrary({
@@ -47,7 +56,13 @@ const CreateReviewPage = () => {
         result.errorMessage || '이미지를 선택할 수 없습니다.',
       );
     } else if (result.assets) {
-      setImages(result.assets); // 선택된 이미지 저장
+      console.log('선택한 이미지들:', result.assets); // 선택된 이미지들 확인
+
+      // 선택한 이미지 파일명만 추출하여 상태에 저장
+      const fileNames = result.assets.map(asset => asset.fileName);
+      setPhotoFileNameList(fileNames); // photoFileNameList 상태 업데이트
+
+      setImages(result.assets); // 선택된 이미지들 저장
     }
   };
 
@@ -55,46 +70,45 @@ const CreateReviewPage = () => {
   const handleSubmitAuthor = async () => {
     const requestBody = {
       reservationId,
-      placeScore: parseFloat(placeScore),
-      photographerScore: parseFloat(photographerScore),
+      placeScore: ratingPlace,
+      photographerScore: ratingAuthor,
       content,
-      photoFileNameList: [],
+      photoFileNameList,
     };
-
+    console.log(requestBody);
+    /*
     const result = await createReview(requestBody);
     if (result) {
       Alert.alert('리뷰가 성공적으로 등록되었습니다.');
     } else {
       Alert.alert('리뷰 등록에 실패했습니다.');
-    }
+    }*/
   };
 
   //리뷰 추가 버튼 활성화
   useEffect(() => {
-    if (!placeScore || !content || !photographerScore || !photoFileNameList) {
+    if (!ratingPlace || !content || !ratingAuthor || !photoFileNameList) {
       setDisabled(true); // 입력이 모두 있을 경우 버튼 활성화
     } else {
       setDisabled(false);
     }
-  }, [placeScore, content, photographerScore, photoFileNameList]);
+  }, [ratingPlace, content, ratingAuthor, photoFileNameList]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'리뷰 작성하기'} />
         <S.Container>
-          <S.TitleText>장소 평점</S.TitleText>
-          <S.TextInputBox
-            value={placeScore}
-            onChangeText={setPlaceScore}
-            placeholder=""
-          />
-          <S.TitleText>작가 평점</S.TitleText>
-          <S.TextInputBox
-            value={photographerScore}
-            onChangeText={setPhotographerScore}
-            placeholder=""
-          />
+          <S.RatingContainer>
+            <S.TitleText>장소 평점</S.TitleText>
+            <S.RatingBox>
+              <RatingStar onRatingChange={handleRatingChangePlace} />
+            </S.RatingBox>
+            <S.TitleText>작가 평점</S.TitleText>
+            <S.RatingBox>
+              <RatingStar onRatingChange={handleRatingChangeAuthor} />
+            </S.RatingBox>
+          </S.RatingContainer>
           <S.TitleText>내용</S.TitleText>
           <S.TextInputBox
             value={content}
@@ -112,7 +126,9 @@ const CreateReviewPage = () => {
               ))}
             </S.ImageBox>
 
-            <CalendarBtn text="갤러리에서 사진 선택" onPress={pickImage} />
+            <S.BtnBox>
+              <CalendarBtn text="갤러리에서 사진 선택" onPress={pickImage} />
+            </S.BtnBox>
             <S.BtnBox>
               <LoginBtn
                 disabled={isdisabled}

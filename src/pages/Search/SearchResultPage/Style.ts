@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 
 // isActive props 타입 정의
@@ -74,7 +74,7 @@ export const SearchUnderBar = styled(View)`
 `;
 
 export const SearchRecent = styled(View)`
-  flex-direction: row;
+  flex: 1;
 `;
 
 export const SearchRecentText = styled(Text)`
@@ -88,4 +88,11 @@ export const SearchListAuthorBox = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 5%;
+`;
+export const Delete = styled(Pressable)``;
+export const SearchBox = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 10%;
+  align-items: center;
 `;

@@ -97,7 +97,7 @@ export const SearchUnderBar = styled(View)`
 `;
 
 export const SearchRecent = styled(View)`
-  flex-direction: row;
+  flex: 1;
 `;
 
 export const SearchRecentText = styled(Text)`
@@ -115,4 +115,11 @@ export const SubscribeBox = styled(View)`
 export const SubscribeContainer = styled(View)`
   margin: 3%;
   justify-content: center;
+`;
+export const Delete = styled(Pressable)``;
+export const SearchBox = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 10%;
+  align-items: center;
 `;
