@@ -14295,6 +14295,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-splash-screen@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "react-native-splash-screen@npm:3.3.0"
+  peerDependencies:
+    react-native: ">=0.57.0"
+  checksum: 14c565d5d4214f55586dcf6f7abd12d99d3e0667f67de3bda7aa24988971567b283a4187fbc0c6269c83b3c21d59d1950335c61bb0780ec2d065e20b3b9199d0
+  languageName: node
+  linkType: hard
+
 "react-native-star-rating-widget@npm:^1.9.2":
   version: 1.9.2
   resolution: "react-native-star-rating-widget@npm:1.9.2"
@@ -15535,6 +15544,7 @@ __metadata:
     react-native-screen: ^1.0.1
     react-native-screens: ^3.34.0
     react-native-shadow-2: ^7.1.0
+    react-native-splash-screen: ^3.3.0
     react-native-star-rating-widget: ^1.9.2
     react-native-svg: ^15.7.1
     react-native-svg-transformer: ^1.5.0
