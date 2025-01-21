@@ -4,55 +4,58 @@ import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import Reply from '../../../components/Reply/Reply';
 import * as S from './Style';
 import Arrow from '../../../icons/arrow.svg';
-import {addReply} from '../../../store/slices/replySlice';
+import {addSubReply} from '../../../store/slices/replySlice';
 import {useSelector, useDispatch} from 'react-redux';
 
 const ReplyAgainPage = ({route}) => {
-  const {reply, parentId} = route.params; // 부모 댓글 정보와 ID
+  const {reply, Id} = route.params; // 부모 댓글 정보와 ID
   const [replyAgain, setReplyAgain] = useState(''); // 대댓글 상태
   const replies = useSelector(state => state.replies.items); // 리덕스 상태에서 댓글 목록 가져오기
   const dispatch = useDispatch(); // 리덕스 디스패치 함수
 
   const handleAddReply = () => {
     if (replyAgain.trim()) {
+      const newReply = {
+        id: Date.now(), // 대댓글 ID
+        text: replyAgain, // 대댓글 내용
+        replies: [], // 대댓글 초기값 (빈 배열)
+      };
+
       dispatch(
-        addReply({
-          id: Date.now(), // 고유 ID 생성
-          text: replyAgain, // 대댓글 내용
-          parentId: parentId, // 부모 댓글의 ID
-          replies: [], // 대댓글 초기값
+        addSubReply({
+          parentId: Id, // 부모 댓글 ID
+          reply: newReply, // 대댓글 내용
         }),
       );
+
+      console.log('전체 댓글 목록:', replies); // 전체 댓글 목록을 출력하여 상태 확인
       setReplyAgain(''); // 입력창 비우기
     }
-  };
-
-  const renderReplies = replies => {
-    return replies.map(item => (
-      <S.ReplyPackage key={item.id}>
-        <Reply
-          reply={item.text} // 댓글 내용 표시
-          onReplyPress={() => {
-            console.log('대댓글 추가 버튼 클릭'); // 필요한 경우 콜백 추가
-          }}
-        />
-        {/* 대댓글 재귀 렌더링 */}
-        {item.replies.length > 0 && renderReplies(item.replies)}
-      </S.ReplyPackage>
-    ));
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'답글 달기'} />
-        <Reply reply={reply} />
+        <Reply reply={reply} Id={Id} />
         <S.ReplyContainer>
           <S.ReplyList>
-            {/* 부모 댓글의 대댓글 목록을 동적으로 렌더링 */}
             {replies
-              .filter(item => item.id === parentId) // 부모 댓글 ID로 필터링
-              .map(parentReply => renderReplies(parentReply.replies))}
+              .filter(item => item.id === Id) // 부모 댓글 ID로 필터링
+              .map(item => (
+                <S.ReplyPackage key={item.id}>
+                  {/* 대댓글만 렌더링 */}
+                  <S.ReplyAgain>
+                    {item.replies.map(subReply => (
+                      <Reply
+                        key={subReply.id}
+                        reply={subReply.text}
+                        Id={item.id} // 부모 댓글의 ID 전달
+                      />
+                    ))}
+                  </S.ReplyAgain>
+                </S.ReplyPackage>
+              ))}
           </S.ReplyList>
         </S.ReplyContainer>
       </ScrollView>

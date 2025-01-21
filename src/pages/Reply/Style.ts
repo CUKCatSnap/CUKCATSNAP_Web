@@ -82,7 +82,7 @@ export const ProfileReply = styled(View)`
 
 export const ReplyPackage = styled(View)``;
 export const ReplyAgain = styled(View)`
-  left: 10%;
+  margin-left: 10%;
 `;
 
 export const ReplyInputBox = styled(View)`

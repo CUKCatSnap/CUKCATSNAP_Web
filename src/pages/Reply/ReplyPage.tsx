@@ -20,12 +20,10 @@ const ReplyPage = ({route}) => {
         addReply({
           id: Date.now(), // 고유 ID 생성 (예: 타임스탬프)
           text: reply, // 댓글 내용
-          parentId: parentId, // 대댓글이면 부모 ID 지정, 기본값은 null
           replies: [], // 대댓글 리스트 (기본값은 빈 배열)
         }),
       );
       setReply(''); // 입력창 비우기
-      setParentId(null); // 대댓글 작성 모드 해제
     }
   };
 
@@ -47,10 +45,19 @@ const ReplyPage = ({route}) => {
           <S.ReplyContainer>
             <S.Line />
             <S.ReplyList>
-              {/* 댓글 목록을 동적으로 렌더링 */}
-              {replies.map((item, index) => (
-                <S.ReplyPackage key={index}>
-                  <Reply reply={item.text} />
+              {replies.map(item => (
+                <S.ReplyPackage key={item.id}>
+                  <Reply reply={item.text} Id={item.id} />
+                  {/* 대댓글도 렌더링 */}
+                  <S.ReplyAgain>
+                    {item.replies.map(subReply => (
+                      <Reply
+                        key={subReply.id}
+                        reply={subReply.text}
+                        Id={item.id} // 부모 댓글의 ID 전달
+                      />
+                    ))}
+                  </S.ReplyAgain>
                 </S.ReplyPackage>
               ))}
             </S.ReplyList>
