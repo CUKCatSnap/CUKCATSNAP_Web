@@ -1,14 +1,11 @@
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {Svg} from 'react-native-svg';
 
-export const Post = styled(View)`
-  margin-bottom: 3%;
-  margin-bottom: 10px;
-`;
+export const Post = styled(View)``;
 
 //너비와 높이를 %로 정하면 가져올 때 컴포넌트가 합쳐지는 현상 발생
-export const PostContainer = styled(View)`
+export const PostContainer = styled(Image)`
   width: 165px;
   height: 100px;
   border-radius: 20px;

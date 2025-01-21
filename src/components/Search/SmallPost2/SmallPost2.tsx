@@ -5,13 +5,13 @@ import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
 
-const SmallPost2 = () => {
+const SmallPost2 = ({image}: {image: any}) => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
   return (
     <SafeAreaView>
       <S.Post>
-        <S.PostContainer />
+        <S.PostContainer source={image} />
         <S.PostBox>
           <S.NameText onPress={() => navigation.navigate('AuthorProfile')}>
             나 똘똘 작가

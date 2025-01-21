@@ -15,7 +15,9 @@ export const SubscribeContainer = styled(View)`
 export const SubscribeBox = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 45%;
 `;
 export const SearchTabContainer = styled(View)`
   flex-direction: row;

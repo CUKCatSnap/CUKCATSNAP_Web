@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import MyReserve from '../../components/Home/MyReserve/MyReserve';
 import RecentReserve from '../../components/Home/RecentReserve/Recentreserve';
@@ -107,8 +108,14 @@ const Home = () => {
           <S.RecentReserveContainer
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
-            <RecentReserve />
-            <RecentReserve />
+            <RecentReserve
+              image={require('../../images/sample2.png')}
+              nickname="나 똘똘"
+            />
+            <RecentReserve
+              image={require('../../images/sample1.png')}
+              nickname="김 무개"
+            />
           </S.RecentReserveContainer>
         </ScrollView>
       </S.Container>

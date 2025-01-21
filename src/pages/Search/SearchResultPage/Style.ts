@@ -87,7 +87,9 @@ export const SearchListAuthorBox = styled(View)`
   margin: 3%;
   flex-direction: row;
   flex-wrap: wrap;
-  column-gap: 5%;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 40%;
 `;
 export const Delete = styled(Pressable)``;
 export const SearchBox = styled(View)`
