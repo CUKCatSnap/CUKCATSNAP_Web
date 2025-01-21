@@ -4,8 +4,20 @@ import {createSlice} from '@reduxjs/toolkit';
 const repliesSlice = createSlice({
   name: 'replies',
   initialState: {
-    items: [], // 댓글 목록 초기 상태
+    items: [
+      {
+        id: 1737448255399, // 부모 댓글 ID
+        text: '댓글 1',
+        replies: [], // 대댓글 배열
+      },
+      {
+        id: 1737448258798,
+        text: '댓글 2',
+        replies: [],
+      },
+    ],
   },
+
   reducers: {
     // 일반 댓글 추가
     addReply: (state, action) => {
@@ -15,17 +27,14 @@ const repliesSlice = createSlice({
         replies: [], // 대댓글 저장을 위한 배열
       });
     },
-
     // 대댓글 추가
     addSubReply: (state, action) => {
-      const {parentId, reply} = action.payload;
+      const {parentId, reply} = action.payload; // 부모 댓글의 ID와 대댓글
+      const parentReply = state.items.find(item => item.id === parentId); // 부모 댓글 찾기
 
-      // parentId에 해당하는 댓글을 찾음
-      const parentComment = state.items.find(item => item.id === parentId);
-
-      if (parentComment) {
-        // 대댓글 추가
-        parentComment.replies.push(reply);
+      if (parentReply) {
+        // 부모 댓글의 replies 배열에 대댓글 추가
+        parentReply.replies.push(reply);
       }
     },
   },

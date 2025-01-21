@@ -60,3 +60,4 @@ export const ReplyList = styled(View)`
   margin-left: 10%;
 `;
 export const ReplyPackage = styled(View)``;
+export const ReplyAgain = styled(View)``;
