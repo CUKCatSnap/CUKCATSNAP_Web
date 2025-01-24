@@ -1,6 +1,17 @@
 import styled from 'styled-components/native';
 import {View, Text, TouchableOpacity} from 'react-native';
-export const ReserveContainer = styled(TouchableOpacity)`
+
+interface ReserveContainerProps {
+  state:
+    | 'PENDING'
+    | 'APPROVED'
+    | 'REJECTED'
+    | 'MEMBER_CANCELLED'
+    | 'PHOTOGRAPHY_CANCELLED'
+    | string;
+}
+
+export const ReserveContainer = styled(TouchableOpacity)<ReserveContainerProps>`
   flex: 1;
   flex-direction: row;
   background-color: ${({state}) => {

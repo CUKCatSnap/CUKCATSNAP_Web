@@ -102,7 +102,7 @@ export const IntersectionText = styled.Text<PressProps>`
   align-items: center;
 `;
 export const Intersection = styled.Pressable<PressProps>`
-  width: 33%;
+  width: 50%;
   height: 25px;
   border-radius: 5px;
   justify-content: center;

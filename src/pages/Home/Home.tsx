@@ -94,9 +94,9 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header />
       <S.Container>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Header />
           <Title text="내 예약" />
           {content}
           <S.QuickIconContainer>
