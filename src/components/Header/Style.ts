@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {View, Text} from 'react-native';
 
 export const HeaderContainer = styled(View)`
-  width: 100%;
+  margin-left: 5%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +10,6 @@ export const HeaderContainer = styled(View)`
   margin-bottom: 15%;
   padding-left: 5%;
   padding-right: 10%;
-  margin-left: 5%;
 `;
 
 export const HeaderText = styled(Text)`

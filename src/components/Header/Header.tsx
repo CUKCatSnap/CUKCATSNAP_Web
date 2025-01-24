@@ -27,7 +27,6 @@ const Header = () => {
         <TouchableOpacity onPress={() => setSidebarOpen(true)}>
           <Hamburger />
         </TouchableOpacity>
-
         <CatSnap />
         <TouchableOpacity onPress={() => navigation.navigate('Alarm')}>
           <Bell />

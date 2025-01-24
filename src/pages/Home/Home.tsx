@@ -94,9 +94,9 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
-      <S.Container>
-        <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header />
+        <S.Container>
           <Title text="내 예약" />
           {content}
           <S.QuickIconContainer>
@@ -117,8 +117,8 @@ const Home = () => {
               nickname="김 무개"
             />
           </S.RecentReserveContainer>
-        </ScrollView>
-      </S.Container>
+        </S.Container>
+      </ScrollView>
     </SafeAreaView>
   );
 };
