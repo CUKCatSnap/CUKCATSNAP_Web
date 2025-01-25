@@ -2,11 +2,18 @@
 import React from 'react';
 import {SafeAreaView, Text, StyleSheet, ScrollView, View} from 'react-native';
 import * as S from './Style';
+import {useNavigation} from '@react-navigation/native';
 
 const ReserveAuthorBox = ({item}) => {
+  const navigation = useNavigation(); // 네비게이션 객체 가져오기
+
+  const handleReserve = () => {
+    navigation.navigate('ReserveState');
+  };
+
   return (
     <SafeAreaView>
-      <S.ReserveContainer state={item.state}>
+      <S.ReserveContainer state={item.state} onPress={handleReserve}>
         <S.ReserveText>
           {item.startTime[3]}:
           {item.startTime[4] === 0 ? '00' : item.startTime[4]}

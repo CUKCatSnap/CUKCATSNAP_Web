@@ -22,13 +22,16 @@ import {
 import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
 import * as S from './Style';
 import RatingStar from '../../../components/Rating/Rating';
+import {putPhoto} from '../../../apis/Review/putPhoto';
 
-const CreateReviewPage = () => {
+const CreateReviewPage = ({route}) => {
+  const {reservationId} = route.params; // 전달된 reserveId 받기
+
   const [placeScore, setPlaceScore] = useState('');
   const [photographerScore, setPhotographerScore] = useState('');
   const [content, setContent] = useState('');
   const [photoFileNameList, setPhotoFileNameList] = useState([]);
-  const [reservationId, setReservationId] = useState('');
+
   const [isdisabled, setDisabled] = useState(false);
   const [images, setImages] = useState<Asset[]>([]); // 선택된 이미지들의 배열
   //별점 상태
@@ -69,20 +72,30 @@ const CreateReviewPage = () => {
   //작성한 리뷰 보내기(post)
   const handleSubmitAuthor = async () => {
     const requestBody = {
-      reservationId,
+      reservationId: reservationId,
       placeScore: ratingPlace,
       photographerScore: ratingAuthor,
       content,
       photoFileNameList,
     };
     console.log(requestBody);
-    /*
+
     const result = await createReview(requestBody);
-    if (result) {
-      Alert.alert('리뷰가 성공적으로 등록되었습니다.');
+
+    if (result && result.presignedUrls) {
+      console.log('받은 Presigned URLs:', result.presignedUrls);
+
+      // Presigned URL을 사용해 이미지를 S3에 업로드
+      const uploadSuccess = await putPhoto(result.presignedUrls, images);
+
+      if (uploadSuccess) {
+        Alert.alert('리뷰가 성공적으로 등록되었습니다.');
+      } else {
+        Alert.alert('리뷰 등록은 성공했지만, 이미지 업로드에 실패했습니다.');
+      }
     } else {
       Alert.alert('리뷰 등록에 실패했습니다.');
-    }*/
+    }
   };
 
   //리뷰 추가 버튼 활성화

@@ -173,11 +173,11 @@ const SearchResultPage = ({route}) => {
           {showAuthor && (
             <S.SearchListContainer>
               <S.SearchListAuthorBox>
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
+                <SmallPost2 image={require('../../../images/sample1.png')} />
+                <SmallPost2 image={require('../../../images/sample2.png')} />
+                <SmallPost2 image={require('../../../images/sample3.png')} />
+                <SmallPost2 image={require('../../../images/sample1.png')} />
+                <SmallPost2 image={require('../../../images/sample2.png')} />
               </S.SearchListAuthorBox>
             </S.SearchListContainer>
           )}

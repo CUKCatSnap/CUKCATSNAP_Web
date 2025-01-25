@@ -33,6 +33,7 @@ import AuthorWeekFormatPage from '../pages/Settings/AuthorWeekFormat/AuthorWeekF
 import UserReservePage from '../pages/Reserve/UserReservePage';
 import CreateReviewPage from '../pages/Review/CreateReviewPage/CreateReviewPage';
 import ReplyAgainPage from '../pages/Reply/ReplyAgainPage/ReplyAgainPage';
+import ReserveState from '../pages/ReserveState/ReserveState';
 
 export type RootStackParam = {
   Home: undefined;
@@ -274,6 +275,16 @@ const CalendarStack = () => {
       <Stack.Screen
         name="MyCalendar"
         component={MyCalendar}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ReserveState"
+        component={ReserveState}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateReviewPage"
+        component={CreateReviewPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

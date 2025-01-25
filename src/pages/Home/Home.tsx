@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import MyReserve from '../../components/Home/MyReserve/MyReserve';
 import RecentReserve from '../../components/Home/RecentReserve/Recentreserve';
@@ -93,9 +94,9 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <S.Container>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Header />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header />
+        <S.Container>
           <Title text="내 예약" />
           {content}
           <S.QuickIconContainer>
@@ -107,11 +108,17 @@ const Home = () => {
           <S.RecentReserveContainer
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
-            <RecentReserve />
-            <RecentReserve />
+            <RecentReserve
+              image={require('../../images/sample2.png')}
+              nickname="나 똘똘"
+            />
+            <RecentReserve
+              image={require('../../images/sample1.png')}
+              nickname="김 무개"
+            />
           </S.RecentReserveContainer>
-        </ScrollView>
-      </S.Container>
+        </S.Container>
+      </ScrollView>
     </SafeAreaView>
   );
 };

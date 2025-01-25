@@ -51,31 +51,28 @@ const Subscribe = () => {
         <S.SubscribeContainer>
           {showAuthor && (
             <S.SubscribeBox>
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
             </S.SubscribeBox>
           )}
           {showPlace && (
             <S.SubscribeBox>
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
-              <SmallPost />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
+              <SmallPost image={require('../../images/sample3.png')} />
+              <SmallPost image={require('../../images/sample2.png')} />
+              <SmallPost image={require('../../images/sample1.png')} />
             </S.SubscribeBox>
           )}
         </S.SubscribeContainer>

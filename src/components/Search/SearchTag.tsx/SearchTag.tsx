@@ -40,24 +40,18 @@ const SearchTag = () => {
       </S.SearchTabContainer>
       {showAuthor && (
         <S.SearchListContainer>
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
-          <SmallPost />
+          <SmallPost image={require('../../../images/sample3.png')} />
+          <SmallPost image={require('../../../images/sample2.png')} />
+          <SmallPost image={require('../../../images/sample1.png')} />
         </S.SearchListContainer>
       )}
       {showReview && (
         <S.SearchListContainer>
-          <SmallPost />
-          <SmallPost />
+          <SmallPost image={require('../../../images/sample3.png')} />
+          <SmallPost image={require('../../../images/sample2.png')} />
+          <SmallPost image={require('../../../images/sample1.png')} />
+          <SmallPost image={require('../../../images/sample2.png')} />
+          <SmallPost image={require('../../../images/sample1.png')} />
         </S.SearchListContainer>
       )}
     </SafeAreaView>

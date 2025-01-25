@@ -110,8 +110,11 @@ export const SearchRecentText = styled(Text)`
 export const SubscribeBox = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 40%;
 `;
+
 export const SubscribeContainer = styled(View)`
   margin: 3%;
   justify-content: center;

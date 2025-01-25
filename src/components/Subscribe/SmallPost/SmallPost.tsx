@@ -4,11 +4,11 @@ import React from 'react';
 import {SafeAreaView} from 'react-native';
 import * as S from './Style';
 
-const SmallPost = () => {
+const SmallPost = ({image}: {image: any}) => {
   return (
     <SafeAreaView>
       <S.Post>
-        <S.PostContainer />
+        <S.PostContainer source={image} />
         <S.PostBox>
           <S.NameText>나 똘똘 작가</S.NameText>
           <S.Score>평점 4.8★</S.Score>

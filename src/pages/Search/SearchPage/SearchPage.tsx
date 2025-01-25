@@ -156,14 +156,13 @@ const Search = () => {
           {showAuthor && (
             <S.SubscribeContainer>
               <S.SubscribeBox>
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
-                <SmallPost2 />
+                <SmallPost2 image={require('../../../images/sample1.png')} />
+                <SmallPost2 image={require('../../../images/sample2.png')} />
+                <SmallPost2 image={require('../../../images/sample3.png')} />
+                <SmallPost2 image={require('../../../images/sample1.png')} />
+                <SmallPost2 image={require('../../../images/sample2.png')} />
+                <SmallPost2 image={require('../../../images/sample3.png')} />
+                <SmallPost2 image={require('../../../images/sample1.png')} />
               </S.SubscribeBox>
             </S.SubscribeContainer>
           )}

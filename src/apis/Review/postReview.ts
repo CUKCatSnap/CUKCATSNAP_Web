@@ -3,9 +3,6 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-//reservationData를 만들어서 여기까지 가져오고
-//가져온 데이터를 post요청으로 보내면 된다
-
 export const createReview = async requestBody => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');

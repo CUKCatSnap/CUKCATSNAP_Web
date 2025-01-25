@@ -209,17 +209,6 @@ const AuthorProfile = () => {
               </S.IntersectionText>
             </S.Intersection>
             <S.Intersection
-              onPress={handleReview}
-              onPressIn={() => setIsTouchTwo(prevState => !prevState)}
-              isPress={isTouchTwo}>
-              <S.IntersectionText
-                onPress={handleReview}
-                onPressIn={() => setIsTouchTwo(prevState => !prevState)}
-                isPress={isTouchTwo}>
-                리뷰하기
-              </S.IntersectionText>
-            </S.Intersection>
-            <S.Intersection
               onPress={handleBlock}
               onPressIn={() => setIsTouchThree(prevState => !prevState)}
               isPress={isTouchThree}>

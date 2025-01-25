@@ -1,3 +1,4 @@
+//유저가 예약을 할 수 있는 페이지 입니다.
 import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
