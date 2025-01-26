@@ -131,6 +131,38 @@ const SearchResultPage = ({route}) => {
   const handleSearchClick = (text: string) => {
     // 상태 업데이트 후 네비게이션
     setInputText(text); // 상태 업데이트
+    const trimmedText = inputText.trim();
+    // 입력값이 숫자가 아닐 경우 요청하지 않음
+    if (!trimmedText || isNaN(Number(trimmedText))) {
+      return;
+    }
+
+    // 숫자를 입력하면 리뷰 조회 가능 (리뷰 id로 리뷰 조회)
+    fetchReviewSearch(Number(trimmedText))
+      .then(data => {
+        if (data) {
+          navigation.navigate('SearchResultPage', {
+            reviewData: data,
+            query: inputText,
+          });
+          console.log('전달 완료', data);
+        } else {
+          // data가 null인 경우에도 페이지를 계속 넘어가게 하기
+          navigation.navigate('SearchResultPage', {
+            reviewData: {},
+            query: inputText,
+          });
+          console.log('해당 리뷰를 찾을 수 없습니다.');
+        }
+      })
+      .catch(error => {
+        // 요청 실패 시에도 페이지를 넘어가게 하기
+        navigation.navigate('SearchResultPage', {
+          reviewData: {},
+          query: inputText,
+        });
+        console.log('에러 발생:', error);
+      });
     setTimeout(() => {
       navigation.replace('SearchResultPage', {
         query: text, // 클릭된 검색어 전달
