@@ -8,7 +8,7 @@ const ReserveAuthorBox = ({item}) => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
   const handleReserve = () => {
-    navigation.navigate('ReserveState');
+    navigation.navigate('ReserveState', {item});
   };
 
   return (
