@@ -23,10 +23,11 @@ import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
 import * as S from './Style';
 import RatingStar from '../../../components/Rating/Rating';
 import {putPhoto} from '../../../apis/Review/putPhoto';
+import {useNavigation} from '@react-navigation/native';
 
 const CreateReviewPage = ({route}) => {
   const {reservationId} = route.params; // 전달된 reserveId 받기
-
+  const navigation = useNavigation();
   const [placeScore, setPlaceScore] = useState('');
   const [photographerScore, setPhotographerScore] = useState('');
   const [content, setContent] = useState('');
@@ -78,23 +79,34 @@ const CreateReviewPage = ({route}) => {
       content,
       photoFileNameList,
     };
-    console.log(requestBody);
 
-    const result = await createReview(requestBody);
+    console.log('📡 리뷰 등록 요청 데이터:', requestBody); // 요청 데이터 확인
 
-    if (result && result.presignedUrls) {
-      console.log('받은 Presigned URLs:', result.presignedUrls);
+    try {
+      const result = await createReview(requestBody);
+      console.log('📡 서버 응답:', result); // 서버 응답 확인
 
-      // Presigned URL을 사용해 이미지를 S3에 업로드
-      const uploadSuccess = await putPhoto(result.presignedUrls, images);
+      if (result && result.data && result.data.presignedURL) {
+        console.log('📡 받은 Presigned URLs:', result.data.presignedURL);
 
-      if (uploadSuccess) {
-        Alert.alert('리뷰가 성공적으로 등록되었습니다.');
+        // Presigned URL을 사용해 이미지 업로드
+        const uploadSuccess = await putPhoto(result.data.presignedURL, images);
+
+        if (uploadSuccess) {
+          Alert.alert('✅ 리뷰가 성공적으로 등록되었습니다.');
+          navigation.navigate('Home');
+        } else {
+          Alert.alert(
+            '⚠️ 리뷰 등록은 성공했지만, 이미지 업로드에 실패했습니다.',
+          );
+        }
       } else {
-        Alert.alert('리뷰 등록은 성공했지만, 이미지 업로드에 실패했습니다.');
+        console.error('❌ Presigned URL을 받지 못했습니다. 서버 응답:', result);
+        Alert.alert('❌ 리뷰 등록에 실패했습니다. (Presigned URL 없음)');
       }
-    } else {
-      Alert.alert('리뷰 등록에 실패했습니다.');
+    } catch (error) {
+      console.error('❌ 리뷰 등록 요청 실패:', error);
+      Alert.alert('❌ 리뷰 등록 중 오류 발생');
     }
   };
 

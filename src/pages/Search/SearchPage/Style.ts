@@ -16,7 +16,9 @@ export const SearchLankingContainer = styled(View)`
   height: 100%;
 `;
 
-export const SearchListContainer = styled(View)``;
+export const SearchListContainer = styled(View)`
+  align-items: center;
+`;
 
 export const SearchTabContainer = styled(View)`
   flex-direction: row;
@@ -125,4 +127,15 @@ export const SearchBox = styled(View)`
   justify-content: space-between;
   margin-right: 10%;
   align-items: center;
+`;
+export const SearchBox2 = styled(View)`
+  align-items: center;
+`;
+export const SearchText = styled(Text)`
+  font-size: 25px;
+  font-weight: bold;
+  color: #bebebe;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
 `;

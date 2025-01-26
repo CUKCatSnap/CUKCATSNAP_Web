@@ -23,10 +23,9 @@ export const Score = styled(Text)`
   font-size: 16px;
 `;
 export const Date = styled(Text)`
-  color: black;
-  font-weight: bold;
+  color: #a1a1a1;
   margin: 0 15%;
-  font-size: 16px;
+  font-size: 13px;
 `;
 export const Time = styled(Text)`
   color: #747272;

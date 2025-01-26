@@ -16,9 +16,10 @@ import SmallPost2 from '../../../components/Search/SmallPost2/SmallPost2';
 import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
 import {useSelector, useDispatch} from 'react-redux';
 import {addSearch, deleteSearch} from '../../../store/slices/searchSlice';
+import {fetchReviewSearch} from '../../../apis/Review/getReviewSearch';
 
 const SearchResultPage = ({route}) => {
-  const {query} = route.params;
+  const {query, reviewData} = route.params;
   const [inputText, setInputText] = useState(query); // 입력 상태 추가
   const [showSuggestions, setShowSuggestions] = useState(false); // 제안 항목 표시 여부
   const [showAuthor, setShowAuthor] = useState(true); // 작가 탭 항목 표시 여부 (초기 상태 : 출력 0)
@@ -52,14 +53,42 @@ const SearchResultPage = ({route}) => {
 
   // 엔터 키 입력 처리
   const handleSubmitEditing = () => {
+    const trimmedText = inputText.trim();
+    // 입력값이 숫자가 아닐 경우 요청하지 않음
+    if (!trimmedText || isNaN(Number(trimmedText))) {
+      return;
+    }
+    // Redux에 검색 기록 추가
     if (inputText.trim()) {
-      // Redux에 검색 기록 추가
       dispatch(addSearch(inputText.trim())); // Redux 상태 업데이트
       setShowSuggestions(false); // 제안 항목 숨기기
-      navigation.navigate('SearchResultPage', {
-        query: inputText,
-        recentSearches: searchTexts, // Redux 상태 전달
-      });
+
+      // 숫자를 입력하면 리뷰 조회 가능 (리뷰 id로 리뷰 조회)
+      fetchReviewSearch(Number(trimmedText))
+        .then(data => {
+          if (data) {
+            navigation.navigate('SearchResultPage', {
+              reviewData: data,
+              query: inputText,
+            });
+            console.log('전달 완료', data);
+          } else {
+            // data가 null인 경우에도 페이지를 계속 넘어가게 하기
+            navigation.navigate('SearchResultPage', {
+              reviewData: {},
+              query: inputText,
+            });
+            console.log('해당 리뷰를 찾을 수 없습니다.');
+          }
+        })
+        .catch(error => {
+          // 요청 실패 시에도 페이지를 넘어가게 하기
+          navigation.navigate('SearchResultPage', {
+            reviewData: {},
+            query: inputText,
+          });
+          console.log('에러 발생:', error);
+        });
     }
   };
 
@@ -184,17 +213,20 @@ const SearchResultPage = ({route}) => {
 
           {showFeed && (
             <S.SearchListContainer>
-              <Post />
-              <Post />
-              <Post />
+              <S.SearchListAuthorBox>
+                <SmallPost2 image={require('../../../images/sample2.png')} />
+              </S.SearchListAuthorBox>
             </S.SearchListContainer>
           )}
           {showReview && (
             <S.SearchListContainer>
-              <Post />
-              <Post />
-              <Post />
-              <Post />
+              {reviewData && Object.keys(reviewData).length > 0 ? (
+                <Post postData={reviewData} reviewId={query} />
+              ) : (
+                <S.SearchBox2>
+                  <S.SearchText>검색 결과가 없습니다.</S.SearchText>
+                </S.SearchBox2>
+              )}
             </S.SearchListContainer>
           )}
         </S.SearchContainer>
