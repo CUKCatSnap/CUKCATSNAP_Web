@@ -98,3 +98,15 @@ export const SearchBox = styled(View)`
   margin-right: 10%;
   align-items: center;
 `;
+export const SearchBox2 = styled(View)`
+  align-items: center;
+`;
+
+export const SearchText = styled(Text)`
+  font-size: 25px;
+  font-weight: bold;
+  color: #bebebe;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
+`;

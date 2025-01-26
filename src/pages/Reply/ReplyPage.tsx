@@ -9,7 +9,7 @@ import {addReply} from '../../store/slices/replySlice';
 import {useSelector, useDispatch} from 'react-redux';
 
 const ReplyPage = ({route}) => {
-  const {title} = route.params;
+  const {data, date} = route.params;
   const [reply, setReply] = useState(''); // 상태 추가
   const replies = useSelector(state => state.replies.items); // 리덕스 상태에서 댓글 목록 가져오기
   const dispatch = useDispatch(); // 리덕스 디스패치 함수
@@ -35,12 +35,13 @@ const ReplyPage = ({route}) => {
           <S.PostContainer>
             <S.PostBox>
               <S.Profile />
-              <S.Nickname>Imsmart</S.Nickname>
-              <S.Score>평점 4.8★</S.Score>
+              <S.Nickname>
+                {data.data.memberTinyInformation.nickname}
+              </S.Nickname>
+              <S.Score>평점 {data.data.photographerScore}★</S.Score>
             </S.PostBox>
-            <S.Date>2024/9/20 18:00</S.Date>
-            <S.PostText>{title}</S.PostText>
-            <S.Time>2시간 전</S.Time>
+            <S.PostText>{data.data.content}</S.PostText>
+            <S.Time>{date}</S.Time>
           </S.PostContainer>
           <S.ReplyContainer>
             <S.Line />

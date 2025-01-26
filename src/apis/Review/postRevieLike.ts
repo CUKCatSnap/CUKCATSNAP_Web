@@ -1,33 +1,37 @@
-//작가가 자신의 예약 프로그램을 등록하고 수정하는 api(POST)
+//리뷰를 작성하는 api 입니다.(POST)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-//reservationData를 만들어서 여기까지 가져오고
-//가져온 데이터를 post요청으로 보내면 된다
-
-export const createReservation = async reservationData => {
+export const postReviewLike = async (reviewId: number) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
       console.error('액세스 토큰이 없습니다.');
       return null;
     }
-
+    const params = {
+      reviewId: reviewId,
+    };
     const response = await apiClient.post(
-      'https://api.catsnap.net/reservation/photographer/my/program',
-      reservationData, // 요청 본문에 포함할 데이터
+      `https://api.catsnap.net/review/like/${reviewId}`,
+      reviewId,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`, // 액세스 토큰 헤더에 추가
         },
+        params: params,
       },
     );
 
-    console.log('응답 데이터:', response.data);
+    console.log('응답 데이터:', response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
-    console.error('프로그램 생성 실패:', error.response?.data || error.message);
+    console.error('요청 실패:', error.response?.data || error.message);
+    if (error.response) {
+      console.log('응답 상태:', error.response.status);
+      console.log('응답 데이터:', error.response.data);
+    }
     return null;
   }
 };
