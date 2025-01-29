@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable, TouchableOpacity, Image} from 'react-native';
 
-export const QuickIconContainer = styled(TouchableOpacity)`
+export const QuickIconContainer = styled(TouchableOpacity)``;
+
+export const QuickMapBox = styled(Image)`
   width: 94px;
   height: 94px;
   border-radius: 20px;
-  background-color: gray;
   margin: 10px;
 `;
 

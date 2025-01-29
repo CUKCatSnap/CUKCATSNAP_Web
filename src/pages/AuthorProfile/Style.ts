@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable, TouchableOpacity, Image} from 'react-native';
 
 interface PressProps {
   isPress: boolean;
@@ -8,7 +8,7 @@ interface PressProps {
 export const AuthorProfileContainer = styled(View)`
   margin: 0 7%;
   justify-content: center;
-  margin-top: -10%;
+  margin-top: -5%;
 `;
 
 export const ProfileContainer = styled(View)`
@@ -53,8 +53,13 @@ export const AuthorRecentReserve = styled(Text)`
 `;
 
 export const ProfilePostBox = styled(View)``;
-
-export const AuthorFeedImage = styled(View)`
+export const ProfileEmpty = styled(Image)`
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: gray;
+`;
+export const AuthorFeedImage = styled(Image)`
   width: 100%;
   height: 213px;
   background-color: black;
@@ -89,8 +94,8 @@ export const Price = styled(Text)`
 export const IntersectionContainer = styled(View)`
   flex-direction: row;
   gap: 10px;
-  justify-content: center;
-  margin: 5% 5%;
+  flex-wrap: wrap;
+  margin: 5% 0%;
 `;
 
 export const IntersectionText = styled.Text<PressProps>`
@@ -105,7 +110,8 @@ export const Intersection = styled.Pressable<PressProps>`
   width: 50%;
   height: 25px;
   border-radius: 5px;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex: 1;
   align-items: center;
   background-color: ${props => (props.isPress ? '#423cd2' : '#f3f3f3')};
 `;

@@ -22,7 +22,26 @@ const ReserveComponent = ({item}) => {
         <S.ReserveText>
           {item.photographerTinyInformationResponse.nickname} 작가
         </S.ReserveText>
-        <Text>예약 상태: {item.state}</Text>
+        {item.state === 'APPROVED' && (
+          <View>
+            <Text>예약 상황 : 예약 승인</Text>
+          </View>
+        )}
+        {item.state === 'REJECTED' && (
+          <View>
+            <Text>예약 상황 : 예약 취소</Text>
+          </View>
+        )}
+        {item.state === 'PHOTOGRAPHY_CANCELLED' && (
+          <View>
+            <Text>예약 상황 : 촬영 취소</Text>
+          </View>
+        )}
+        {item.state === 'PENDING' && (
+          <View>
+            <Text>예약 상황 : 예약 대기</Text>
+          </View>
+        )}
         <Text>장소 : {item.reservationLocation.locationName}</Text>
       </S.ReserveContainer>
     </SafeAreaView>

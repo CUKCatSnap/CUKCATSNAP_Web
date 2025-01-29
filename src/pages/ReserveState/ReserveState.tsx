@@ -18,6 +18,7 @@ import ReserveUserBox from '../../components/Reserve/ReserveComponent/ReserveUse
 import {Picker} from '@react-native-picker/picker';
 import {postReserveStatus} from '../../apis/AuthorReserve/postReserveState';
 import * as S from './Style';
+import LoginBtn from '../../components/Login/LoginBtn';
 
 const ReserveState = ({route}) => {
   const {item} = route.params; // 전달된 item을 받기
@@ -44,57 +45,65 @@ const ReserveState = ({route}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {isAuthor ? (
-          <>
+          <S.StateComponent>
             <ContentsHeader text={'예약 상태 변경하기'} />
-            <S.StateComponent>
-              <ReserveAuthorBox item={item} />
-
+            <ReserveAuthorBox item={item} />
+            <S.StateBox>
               {reservationStatus === 'PENDING' && (
-                <View>
-                  <Text>현재 예약 상태 : 예약 대기</Text>
-                </View>
+                <S.BtnText>예약 승인 대기중 입니다.</S.BtnText>
               )}
               {reservationStatus === 'APPROVED' && (
-                <View>
-                  <Text>현재 예약 상태 : 예약 승인</Text>
-                </View>
+                <S.BtnText>예약을 승인했습니다.</S.BtnText>
               )}
               {reservationStatus === 'REJECTED' && (
-                <View>
-                  <Text>현재 예약 상태 : 예약 취소</Text>
-                </View>
+                <S.BtnText>예약을 취소했습니다.</S.BtnText>
               )}
               {reservationStatus === 'PHOTOGRAPHY_CANCELLED' && (
-                <View>
-                  <Text>현재 예약 상태 : 촬영 취소</Text>
-                </View>
+                <S.BtnText>촬영을 취소했습니다.</S.BtnText>
               )}
-              {reservationStatus === 'PENDING' && (
-                <View>
-                  <Button
-                    title="예약 승인"
-                    onPress={() => handleStatusChange('APPROVED')}
-                  />
-                  <Button
-                    title="예약 거부"
-                    onPress={() => handleStatusChange('REJECTED')}
-                  />
-                </View>
-              )}
-              {reservationStatus === 'APPROVED' && (
-                <Button
-                  title="촬영 취소"
-                  onPress={() => handleStatusChange('PHOTOGRAPHY_CANCELLED')}
-                />
-              )}
-            </S.StateComponent>
-          </>
+              <S.StateComponent>
+                {reservationStatus === 'PENDING' && (
+                  <S.BtnBox>
+                    <S.Btn>
+                      <LoginBtn
+                        text={'예약 승인'}
+                        onPress={() => handleStatusChange('APPROVED')}
+                      />
+                    </S.Btn>
+                    <S.Btn>
+                      <LoginBtn
+                        text={'예약 거부'}
+                        onPress={() => handleStatusChange('REJECTED')}
+                      />
+                    </S.Btn>
+                  </S.BtnBox>
+                )}
+
+                {reservationStatus === 'APPROVED' && (
+                  <S.BtnBox>
+                    <S.Btn>
+                      <LoginBtn
+                        text={'촬영 취소'}
+                        onPress={() =>
+                          handleStatusChange('PHOTOGRAPHY_CANCELLED')
+                        }
+                      />
+                    </S.Btn>
+                  </S.BtnBox>
+                )}
+              </S.StateComponent>
+            </S.StateBox>
+          </S.StateComponent>
         ) : (
           <View>
             <ContentsHeader text={'예약 확인'} />
             <Text>내 예약을 확인합니다.</Text>
             <ReserveUserBox item={item} />
-            <Button title={'리뷰하기'} onPress={handleReview} />
+            <LoginBtn text={'리뷰하기'} onPress={handleReview} />
+            {/* 승인되었을때만 리뷰 작성 가능하게 하기
+            {reservationStatus === 'APPROVED' && (
+          <LoginBtn text={'리뷰하기'} onPress={handleReview} />
+            )}*/}
           </View>
         )}
       </ScrollView>

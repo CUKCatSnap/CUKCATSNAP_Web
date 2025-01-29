@@ -63,7 +63,7 @@ const Home = () => {
   if (isAuthor) {
     content = (
       <S.ReserveView>
-        <S.ReserveText>작가의 예약 목록입니다.</S.ReserveText>
+        <S.ReserveText>예약이 없습니다.</S.ReserveText>
       </S.ReserveView>
     );
   } else if (isUser) {

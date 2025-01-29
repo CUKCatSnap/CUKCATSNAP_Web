@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable, TouchableOpacity, Image} from 'react-native';
 
 interface PressProps {
   isPress: boolean;
@@ -17,14 +17,12 @@ export const ProfileContainer = styled(View)`
   padding-top: 0px;
   align-items: center;
 `;
-
-export const Profile = styled(View)`
-  background-color: black;
+export const ProfileEmpty = styled(Image)`
   width: 50px;
   height: 50px;
-  border-radius: 25px;
+  border-radius: 30px;
+  background-color: gray;
 `;
-
 export const ProfileBox = styled(View)`
   flex-direction: row;
   justify-content: space-between;
@@ -54,7 +52,7 @@ export const AuthorRecentReserve = styled(Text)`
 
 export const ProfilePostBox = styled(View)``;
 
-export const AuthorFeedImage = styled(View)`
+export const AuthorFeedImage = styled(Image)`
   width: 100%;
   height: 213px;
   background-color: black;
@@ -117,7 +115,7 @@ export const PostContainer = styled(View)`
 export const ProgramText = styled(Text)`
   margin: 10% 0;
   color: gray;
-  font-size: 20px;
+  font-size: 18px;
 `;
 export const ProgramView = styled(View)`
   align-items: center;
