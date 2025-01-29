@@ -9,7 +9,7 @@ export const SearchTabContainer = styled(View)`
   flex-direction: row;
   justify-content: center;
   gap: 10px;
-  margin: 1% 5%;
+  margin: 5% 1%;
 `;
 
 export const SearchTab = styled(Pressable)`
@@ -32,6 +32,7 @@ export const SearchTabBox = styled(View)<TabProps>`
 export const SearchListContainer = styled(View)`
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 3% 1%;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 50%;
 `;

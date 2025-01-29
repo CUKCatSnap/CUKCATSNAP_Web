@@ -12,7 +12,9 @@ const QuickMap = () => {
   };
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
-      <S.QuickIconContainer onPress={handleNavigate} />
+      <S.QuickIconContainer onPress={handleNavigate}>
+        <S.QuickMapBox source={require('../../../images/map.png')} />
+      </S.QuickIconContainer>
       <S.QuickText>장소 찾기</S.QuickText>
     </SafeAreaView>
   );

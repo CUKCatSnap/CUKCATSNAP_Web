@@ -89,7 +89,9 @@ const AuthorProfileComponent = () => {
     <SafeAreaView style={styles.container}>
       <S.AuthorProfileContainer>
         <S.ProfileContainer>
-          <S.Profile />
+          <S.ProfileEmpty
+            source={require('../../../images/sample_profile.png')}
+          />
           <S.ProfileTextBox>
             <S.AuthorNickName>Imsmart</S.AuthorNickName>
             <S.AuthorName>나 똘똘 작가</S.AuthorName>
@@ -101,7 +103,7 @@ const AuthorProfileComponent = () => {
         </S.ProfileContainer>
 
         <S.ProfilePostBox>
-          <S.AuthorFeedImage />
+          <S.AuthorFeedImage source={require('../../../images/sample3.png')} />
           <S.AuthorFeedProfile>
             안녕하세요, 저는 어렸을 때 부터 사진을 찍어왔구요. 사진을 찍는 것이
             너무 즐겁습니다 ㅋㅋㅋㅋㅋ. 이곳은 작가가 자기소개를 쓰는
