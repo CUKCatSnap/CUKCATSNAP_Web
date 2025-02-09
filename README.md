@@ -39,8 +39,84 @@
 
 # 기능(계속 개발 중)
 
+모델(사용자) 기능
 
-# 기능 구현 및 버그 수정 기록
+<table>
+  <tr>
+    <th width="500px">회원가입 및 로그인</th>
+    <th width="500px">메인 페이지</th>
+    <th width="500px">내 예약 현황</th>
+  </tr>
+  <tr>
+    <td align="center">
+    <img src="https://github.com/user-attachments/assets/9bf66b06-9e31-45df-8a91-c56ab7b5b86a"  width="500px" ><br>
+    </td>
+       <td align="center">
+      <img src="https://github.com/user-attachments/assets/bfe07887-8095-4ced-9c6c-7200640883cc"  width="500px" ><br>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/ede4395b-2a22-4d67-9522-b7c8ec89f67d" width="500px"><br>
+    </td>
+  </tr>
+</table>
+  <table>
+  <tr>
+    <th width="500px">작가 정보</th>
+    <th width="500px">예약 잡기</th>
+    <th width="500px">리뷰 작성</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/6b147c3c-3be4-41ee-8ec1-252e6e97f68e"  width="500px" ><br>
+    </td>
+    <td align="center">
+    <img src="https://github.com/user-attachments/assets/1217a492-016d-4430-9a8b-142187e9d91f"  width="500px" ><br>
+    </td>
+    <td align="center">
+     <img src="https://github.com/user-attachments/assets/cf53c074-8206-4119-86d9-666f42d8b804" width="500px"><br>
+    </td>
+  </tr>
+</table>
+작가 기능
+  <table>
+  <tr>
+    <th width="500px">작가 Mypage</th>
+    <th width="500px">작가 환경 설정 메뉴</th>
+    <th width="500px">예약 설정</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/21685619-d210-4ebd-a6e5-37790180e896"  width="500px" ><br>
+    </td>
+    <td align="center">
+    <img src="https://github.com/user-attachments/assets/1e0116b1-ca7d-4f1b-8534-8f01e276146a"  width="500px" ><br>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/7412b695-0dc9-411f-9bad-84fd27b54fc1" width="500px"><br>
+    </td>
+  </tr>
+</table>
+  <table>
+  <tr>
+    <th width="500px">예약 시간 목록</th>
+    <th width="500px">요일별 예약 설정</th>
+    <th width="500px">예약 시간 형식</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/21685619-d210-4ebd-a6e5-37790180e896"  width="500px" ><br>
+    </td>
+    <td align="center">
+    <img src="https://github.com/user-attachments/assets/0b9f8fbc-528f-44cf-8af1-0b56bfe2473d"  width="500px" ><br>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4e50d2d4-c2a2-4a22-8350-02d2f1a33db1" width="500px"><br>
+    </td>
+  </tr>
+</table>
+++ 추후 사진 추가 : 댓글 기능, 검색 페이지
+
+# 트러블 슈팅
 
 # 배포 링크
 
