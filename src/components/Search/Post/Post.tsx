@@ -48,11 +48,11 @@ const Post = ({postData, reviewId}) => {
   // 각 이미지를 렌더링할 함수
   const renderItem = ({item}) => (
     <Image
-      source={{uri: item}}
+      //source={{uri: item}}
       // 테스트용 :
-      // source={require('../../../images/sample3.png')}
+      source={require('../../../images/sample3.png')}
       resizeMode="cover" // 빈공간 없이 꽉 채우도록 설정
-      style={{transform: [{scale: 1.1}]}} // 이미지를 10% 확대
+      style={{transform: [{scale: 1.0}]}} // 이미지를 10% 확대
     />
   );
 

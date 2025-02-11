@@ -119,6 +119,28 @@ const Login = () => {
     });
   };*/
 
+  //네이버 로그인
+  const handleNaverLogin = async () => {
+    navigation.navigate('NaverLoginWebView');
+    /*try {
+      const response = await NaverLoginUser();
+      if (response) {
+        // 로그인 성공 액션을 dispatch하여 상태 업데이트
+        // 즉, 이게 전역 상태를 업데이트 함 (redux)
+        dispatch(loginSuccess({...response, isAuthor: false}));
+        Alert.alert(
+          '', // 제목
+          '네이버 계정으로 로그인했습니다.', // 메시지
+          [
+            {text: '확인', onPress: () => navigation.navigate('Home')}, // 확인 버튼 눌렀을 때 홈으로 이동
+          ],
+        );
+      }
+    } catch (error) {
+      console.log('로그인 실패', error.message || '알 수 없는 오류 발생');
+    }*/
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -171,7 +193,7 @@ const Login = () => {
             <S.LoginText2>또는</S.LoginText2>
             <S.LoginUnderbar />
           </S.LoginCenterBar>
-          <S.LoginWithNaverContent>
+          <S.LoginWithNaverContent onPress={handleNaverLogin}>
             <S.NaverIcon>
               <Naver />
             </S.NaverIcon>

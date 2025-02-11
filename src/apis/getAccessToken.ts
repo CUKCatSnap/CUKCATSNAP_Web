@@ -10,7 +10,7 @@ const refreshAccessToken = async () => {
       'https://api.catsnap.net/refresh/access-token',
       {
         params: {refreshToken: 'string'},
-        withCredentials: true, // 쿠키 사용
+        withCredentials: true, // 쿠키 사용 신호 보내기 (이러면 따로 저장 안해도 사용할수있음)
       },
     );
 

@@ -34,6 +34,7 @@ import UserReservePage from '../pages/Reserve/UserReservePage';
 import CreateReviewPage from '../pages/Review/CreateReviewPage/CreateReviewPage';
 import ReplyAgainPage from '../pages/Reply/ReplyAgainPage/ReplyAgainPage';
 import ReserveState from '../pages/ReserveState/ReserveState';
+import NaverLoginWebView from '../pages/Login/NaverLoginWebView/NaverLoginWebView';
 
 export type RootStackParam = {
   Home: undefined;
@@ -213,6 +214,11 @@ const AuthStack = () => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="NaverLoginWebView"
+        component={NaverLoginWebView}
         options={{headerShown: false}}
       />
       <Stack.Screen
