@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <SafeAreaView>
       <S.SideBarBox>
-        {/* 사이드바 */}
+        {/* 사이드바*/}
         {isSidebarOpen && (
           <Sidebar
             isOpen={isSidebarOpen}
