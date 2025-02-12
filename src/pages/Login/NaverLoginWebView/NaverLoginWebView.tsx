@@ -4,7 +4,6 @@ import React, {useEffect, useRef} from 'react';
 import {WebView} from 'react-native-webview';
 import {Dimensions, Alert} from 'react-native';
 import CookieManager from '@react-native-cookies/cookies';
-import {naverLogin} from '../../../apis/Login/postNaverLogin';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {loginSuccess} from '../../../store/slices/authSlice';
@@ -22,17 +21,40 @@ const NaverLoginWebView = () => {
     const message = event.nativeEvent.data;
     console.log('Received message:', message); // URL 확인
 
-    // 로그인 성공 후 특정 URL 확인 (예: 'http://localhost:8080/callback')
+    // 네이버 로그인 성공 후 특정 URL 확인
     if (message.includes('https://api.catsnap.net/callback')) {
       try {
-        const response = await naverLogin();
-        if (response) {
-          dispatch(loginSuccess({...response, isAuthor: false}));
-          console.log('네이버 로그인 완료');
+        // ✅ 서버에서 액세스 토큰 가져오기 (fetch 사용)
+        const response = await fetch(
+          'https://api.catsnap.net/oauth2/authorization/naver',
+          {
+            method: 'POST',
+            credentials: 'include', // CORS 허용 필요
+          },
+        );
+
+        // 🔹 응답 헤더 전체 출력 (디버깅용)
+        console.log('응답 헤더 전체:', [...response.headers]);
+
+        const accessToken = response.headers.get('authorization'); // 액세스 토큰 가져오기
+
+        if (accessToken) {
+          console.log('✅ 액세스 토큰:', accessToken);
+          dispatch(
+            loginSuccess({
+              token: accessToken.replace('Bearer ', ''),
+              isAuthor: false,
+            }),
+          );
           navigation.navigate('Home');
+        } else {
+          console.warn('액세스 토큰이 응답 헤더에 없음! CORS 설정 확인 필요.');
         }
       } catch (error) {
-        console.log('로그인 실패', error.message || '알 수 없는 오류 발생');
+        console.error(
+          '네이버 로그인 실패:',
+          error.message || '알 수 없는 오류 발생',
+        );
       }
     }
   };

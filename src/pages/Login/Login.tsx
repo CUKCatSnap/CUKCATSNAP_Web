@@ -1,6 +1,12 @@
 //로그인 페이지 입니다.
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, Alert} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Linking,
+} from 'react-native';
 import * as S from './Style';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import LoginBtn from '../../components/Login/LoginBtn';
@@ -186,14 +192,15 @@ const Login = () => {
               />
             </S.LoginBtn>
           </S.LoginBtnBox>
-          <S.LoginCenterBar
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}>
+          <S.LoginCenterBar>
             <S.LoginUnderbar />
             <S.LoginText2>또는</S.LoginText2>
             <S.LoginUnderbar />
           </S.LoginCenterBar>
-          <S.LoginWithNaverContent onPress={handleNaverLogin}>
+          <S.LoginWithNaverContent
+            /* onPress={() =>
+              Linking.openURL('catsnap://home')
+            } */ onPress={handleNaverLogin}>
             <S.NaverIcon>
               <Naver />
             </S.NaverIcon>

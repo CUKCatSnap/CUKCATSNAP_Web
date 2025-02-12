@@ -1,6 +1,4 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
  *
  * @format
  */
@@ -13,7 +11,16 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from 'react-redux';
 import store from './src/store/store'; // 위에서 만든 store import
 import SplashScreenPage from './src/pages/SplashScreen/SplashScreen';
-const Stack = createNativeStackNavigator();
+import {createStackNavigator} from '@react-navigation/stack';
+
+const linking = {
+  prefixes: ['catsnap://'], // URL 스키마 설정
+  config: {
+    screens: {
+      Home: 'home', // catsnap://home -> Home 화면으로 이동
+    },
+  },
+};
 
 function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
@@ -27,7 +34,7 @@ function App(): React.JSX.Element {
   }, []);
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         {/* 스플래시 화면이 표시되는 동안 */}
         {isSplashVisible ? (
           <SplashScreenPage /> // 스플래시 화면 컴포넌트
