@@ -3,12 +3,12 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import * as S from './Style';
-
+import {API_KEY} from '@env';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import MapView, {Marker, MapPressEvent} from 'react-native-maps';
 // Geocoding API 키 설정 (Google Cloud에서 발급)
-Geocoder.init('AIzaSyB6TjT4jD8qwujSSzjpY_xNaNFgK9pgkgU', {language: 'ko'});
+Geocoder.init(API_KEY, {language: 'ko'});
 
 interface ReserveMapProps {
   onLocationSelect: (
