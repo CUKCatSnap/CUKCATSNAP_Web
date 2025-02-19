@@ -21,12 +21,6 @@ export const TimeText = styled(Text)`
   color: #bebebe;
   width: 100%;
 `;
-export const TimeText2 = styled(Text)`
-  font-size: 20px;
-  color: #bebebe;
-  width: 100%;
-  margin-bottom: 2%;
-`;
 
 export const PosText = styled(Text)`
   font-size: 14px;
@@ -34,7 +28,7 @@ export const PosText = styled(Text)`
   margin: 5%;
 `;
 export const PosView = styled(View)`
-  margin: 5% 3%;
+  margin: 5%;
 `;
 
 export const Box = styled(View)`
@@ -52,8 +46,4 @@ export const LocationText = styled(Text)`
   font-size: 20px;
   color: black;
   margin-bottom: 5%;
-  margin-left: 3%;
-`;
-export const TextView = styled(View)`
-  margin-bottom: 3%;
 `;

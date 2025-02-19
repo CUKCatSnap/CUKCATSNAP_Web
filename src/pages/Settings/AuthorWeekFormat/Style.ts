@@ -22,8 +22,9 @@ export const DayText = styled(Text)`
 `;
 
 export const Contents = styled(View)`
-  background-color: rgb(209, 219, 231);
+  border-color: '#503bc7';
   border-radius: 10px;
+  border: 3px;
   padding: 0px 10px;
   margin: 3px 3px;
   align-items: center;

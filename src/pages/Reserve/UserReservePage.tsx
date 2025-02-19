@@ -8,7 +8,10 @@ import {
   TextInput,
   View,
   Button,
+  FlatList,
   Alert,
+  Pressable,
+  Image,
 } from 'react-native';
 import {postReserve} from '../../apis/UserReserve/postReserve';
 import {useNavigation} from '@react-navigation/native';
@@ -19,6 +22,7 @@ import {fetchReserveTime} from '../../apis/UserReserve/getReserveTime';
 import ReserveTime from '../../components/Reserve/ReserveTime/ReserveTime';
 import * as S from './Style';
 import Title from '../../components/Home/Title/Title';
+import ReserveMap from '../../components/ReserveMap/ReserveMap';
 
 const UserReservePage = ({route}) => {
   const {programId} = route.params;
@@ -75,11 +79,7 @@ const UserReservePage = ({route}) => {
       console.log('선택된 시간:', time);
     }
   };
-  const onMonthChange = () => {
-    if (monthReserve.length === 0) {
-      return; // monthReserve가 빈 배열일 때 아무 작업도 하지 않음
-    }
-  };
+
   const handleSubmit = async () => {
     if (!selectedTime) {
       Alert.alert('', '예약 시간을 선택해 주세요.');
@@ -90,9 +90,9 @@ const UserReservePage = ({route}) => {
     const requestBody = {
       photographerId,
       reservationLocation: {
-        latitude: parseFloat(latitude), // 문자열을 실수로 변환
-        longitude: parseFloat(longitude), // 문자열을 실수로 변환
-        locationName,
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        locationName: locationName,
       },
       startTime: dateTime, // 날짜와 시간 합친 값을 사용
       programId,
@@ -115,6 +115,34 @@ const UserReservePage = ({route}) => {
       console.log('예약 실패', error.message || '알 수 없는 오류 발생');
     }
   };
+  // 자식 컴포넌트에서 호출될 콜백 함수
+  const handleLocationChange = (
+    newlet: string,
+    newlon: string,
+    newLocationName: string,
+  ) => {
+    setLocationName(newLocationName);
+    setLatitude(newlet);
+    setLongitude(newlon);
+  };
+
+  const [mapKey, setMapKey] = useState(0);
+
+  useEffect(() => {
+    console.log('📅 날짜 변경됨:', startTime);
+
+    // 날짜가 변경될 때 선택한 시간, 장소, 위도, 경도 초기화
+    setSelectedTime(null);
+    setLocationName('');
+    setLatitude('');
+    setLongitude('');
+
+    setMapKey(prevKey => prevKey + 1); // 지도 강제 리렌더링
+  }, [startTime]); // startTime이 변경될 때 실행
+
+  const onMonthChange = newMonth => {
+    setMapKey(prevKey => prevKey + 1); // 달 변경 시 key 업데이트 → 강제 리렌더링
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -122,54 +150,52 @@ const UserReservePage = ({route}) => {
         <ContentsHeader text="예약하기" />
         <Calendar onDateSelect={setStartTime} onMonthChange={onMonthChange} />
 
-        <S.TimeView>
-          <Title text="예약 가능한 시간" />
+        <S.Container>
+          <S.TimeView>
+            <Title text="예약 가능한 시간" />
+            <S.PosView>
+              <FlatList
+                horizontal={true} // 수평 스크롤
+                showsHorizontalScrollIndicator={false}
+                data={availableTimes} // 데이터 배열
+                keyExtractor={(item, index) => index.toString()} // 고유 키 지정
+                renderItem={({item}) => (
+                  <View>
+                    <ReserveTime
+                      isSelected={selectedTime?.startTime === item.startTime} // 선택된 시간인지 확인
+                      text={item.startTime}
+                      onPress={() => handleTime(item)} // 시간 클릭 시 handleTime 호출
+                      disabled={!item.isAvailableReservation} // 예약 가능한 시간인지 확인
+                    />
+                  </View>
+                )}
+                ListEmptyComponent={() => (
+                  <S.TextView>
+                    <S.TimeText>예약 가능한 시간이 없습니다.</S.TimeText>
+                  </S.TextView>
+                )}
+              />
+            </S.PosView>
+            <Title text="위치" />
+            <ReserveMap key={mapKey} onLocationSelect={handleLocationChange} />
 
-          <S.TimeScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}>
-            {availableTimes.length > 0 ? (
-              availableTimes.map((time, index) => (
-                <View key={index}>
-                  <ReserveTime
-                    isSelected={selectedTime?.startTime === time.startTime} // 선택된 시간인지 확인
-                    text={time.startTime}
-                    onPress={() => handleTime(time)} // 시간 클릭 시 handleTime 호출
-                    disabled={!time.isAvailableReservation}
-                  />
-                </View>
-              ))
+            {locationName === '' ? (
+              <S.TextView>
+                <S.TimeText2>지도에서 위치를 선택하세요.</S.TimeText2>
+              </S.TextView>
             ) : (
-              <S.PosView>
-                <S.TimeText>예약 가능한 시간이 없습니다.</S.TimeText>
-              </S.PosView>
+              <S.LocationText>{locationName}</S.LocationText>
             )}
-          </S.TimeScrollView>
 
-          <Title text="위치" />
-          <S.PosText>
-            지도에서 위치를 선택 후에 예약할 수 있습니다. 현재는 임시 위도와
-            경도를 설정합니다.
-          </S.PosText>
-          <S.PosText>위도</S.PosText>
-          <TextInput
-            keyboardType="numeric"
-            value={latitude.toString()}
-            onChangeText={text => setLatitude(text)}
-          />
-
-          <S.PosText>경도</S.PosText>
-          <TextInput
-            keyboardType="numeric"
-            value={longitude.toString()}
-            onChangeText={text => setLongitude(text)}
-          />
-
-          <S.PosText>장소 이름</S.PosText>
-          <TextInput value={locationName} onChangeText={setLocationName} />
-
-          <LoginBtn text="예약하기" onPress={handleSubmit} />
-        </S.TimeView>
+            <LoginBtn
+              text="예약하기"
+              onPress={handleSubmit}
+              disabled={
+                locationName === '' || latitude === '' || longitude === ''
+              }
+            />
+          </S.TimeView>
+        </S.Container>
       </ScrollView>
     </SafeAreaView>
   );

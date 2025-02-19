@@ -29,7 +29,7 @@ const ReserveProgramPage = ({route}) => {
     navigation.navigate('UserReservePage', {programId, photographerId});
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'프로그램 세부내용'} />
         <S.Container>
@@ -44,5 +44,10 @@ const ReserveProgramPage = ({route}) => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default ReserveProgramPage;
