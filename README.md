@@ -121,6 +121,8 @@
 
 # 트러블 슈팅
 
+- 구글 지도 오류 : https://github.com/CUKCatSnap/CUKCATSNAP_Web/pull/30
+
 # 배포 링크
 
 https://drive.google.com/drive/folders/1OzCGK5izAoQaEDW9td9t9FLjmW7BhW75?usp=drive_link
