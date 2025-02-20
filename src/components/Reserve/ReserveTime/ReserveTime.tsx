@@ -20,7 +20,7 @@ const ReserveTime: React.FC<TimeProps> = ({
     <SafeAreaView>
       <S.Time
         style={{
-          backgroundColor: isSelected ? '#49a0fd' : 'rgb(209, 219, 231)', // 선택된 상태일 때 색상 변경
+          borderColor: isSelected ? '#503bc7' : 'rgb(209, 219, 231)', // 선택된 상태일 때 색상 변경
         }}
         onPress={() => onPress?.(text)}
         disabled={disabled}>

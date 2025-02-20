@@ -2,9 +2,10 @@ import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 
 export const Time = styled(TouchableOpacity)`
-  background-color: ${({disabled}) =>
+  border-color: ${({disabled}) =>
     disabled ? 'rgb(238, 238, 238);' : 'rgb(209, 219, 231);'};
   border-radius: 10px;
+  border: 3px;
   padding: 0px 10px;
   margin: 3px 3px;
   align-items: center;

@@ -32,8 +32,10 @@ export const Btn = styled(View)`
 
 export const Content = styled(Pressable)<isClickedProps>`
   border-radius: 10px;
-  background-color: ${props =>
-    props.isClicked ? '#423CD2' : 'rgb(136, 139, 184)'};
+  border: 3px;
+
+  border-color: ${props =>
+    props.isClicked ? '#503bc7' : 'rgb(209, 219, 231)'};
   justify-content: center;
   align-items: center;
   margin: 10px;
@@ -44,7 +46,7 @@ export const ContentsText = styled(Text)``;
 
 export const FormatText = styled(Text)`
   font-weight: bold;
-  color: white;
+  color: black;
   font-size: 18px;
 `;
 export const BtnBox = styled(View)`
