@@ -25,7 +25,6 @@ const ReserveProgram = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
   const handleSubmitAuthor = async () => {
-    navigation.replace('Mypage');
     const reservationData = {
       title,
       content,
@@ -36,7 +35,8 @@ const ReserveProgram = () => {
     const result = await createReservation(reservationData);
     if (result) {
       fetchReservationPrograms();
-      Alert.alert('예약 프로그램이 성공적으로 생성되었습니다.');
+      Alert.alert('예약 프로그램이 등록되었습니다.');
+      navigation.navigate('Mypage');
     } else {
       Alert.alert('예약 프로그램 생성에 실패했습니다.');
     }
@@ -68,6 +68,7 @@ const ReserveProgram = () => {
             onChangeText={setContent}
             textAlignVertical="top"
             numberOfLines={5}
+            multiline={true}
           />
           <S.Title>가격(단위 : 원)</S.Title>
           <S.InputBox

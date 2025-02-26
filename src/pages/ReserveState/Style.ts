@@ -6,12 +6,12 @@ export const StateComponent = styled(View)``;
 
 export const BtnText = styled(Text)`
   font-size: 20px;
-  justify-content: center;
+
   color: black;
 `;
 
 export const StateBox = styled(View)`
-  margin: 0% 7%;
+  margin: 0% 5%;
 `;
 
 //가로로 버튼 두개 넣기, 화면에 꽉차게
@@ -25,4 +25,7 @@ export const BtnBox = styled(View)`
 export const Btn = styled(View)`
   justify-content: space-evenly;
   flex: 1;
+`;
+export const Btn2 = styled(View)`
+  margin: 3% 0%;
 `;

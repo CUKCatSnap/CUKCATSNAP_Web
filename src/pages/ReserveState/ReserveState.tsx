@@ -95,16 +95,20 @@ const ReserveState = ({route}) => {
             </S.StateBox>
           </S.StateComponent>
         ) : (
-          <View>
+          <S.StateComponent>
             <ContentsHeader text={'예약 확인'} />
-            <Text>내 예약을 확인합니다.</Text>
+
             <ReserveUserBox item={item} />
-            <LoginBtn text={'리뷰하기'} onPress={handleReview} />
-            {/* 승인되었을때만 리뷰 작성 가능하게 하기
+            <S.StateBox>
+              <S.Btn2>
+                <LoginBtn text={'리뷰하기'} onPress={handleReview} />
+                {/* 승인되었을때만 리뷰 작성 가능하게 하기
             {reservationStatus === 'APPROVED' && (
           <LoginBtn text={'리뷰하기'} onPress={handleReview} />
             )}*/}
-          </View>
+              </S.Btn2>
+            </S.StateBox>
+          </S.StateComponent>
         )}
       </ScrollView>
     </SafeAreaView>

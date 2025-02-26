@@ -122,7 +122,7 @@ const AuthorProfile = () => {
           ) : (
             <View>
               <S.ContentsBoxContainer>
-                <S.ContentsAreaText2>예약 목록</S.ContentsAreaText2>
+                <S.ContentsAreaText2>예약 프로그램 목록</S.ContentsAreaText2>
                 <S.Line2 />
                 {programs.map(program => (
                   <S.ContentsBox
@@ -135,7 +135,7 @@ const AuthorProfile = () => {
                         program.content,
                       )
                     }>
-                    <S.Contents>{program.title}</S.Contents>
+                    <S.Contents numberOfLines={1}>{program.title}</S.Contents>
                     <S.Price>{program.price}원</S.Price>
                   </S.ContentsBox>
                 ))}

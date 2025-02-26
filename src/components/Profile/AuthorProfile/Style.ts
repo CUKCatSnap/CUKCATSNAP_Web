@@ -74,6 +74,7 @@ export const Box = styled(View)`
 `;
 export const Contents = styled(Text)`
   color: #747272;
+  width: 50%;
 `;
 export const Price = styled(Text)`
   color: black;

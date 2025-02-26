@@ -16,16 +16,20 @@ export const BoxText = styled(Text)`
   color: black;
   font-size: 18px;
   font-weight: bold;
+  padding: 3% 5%;
 `;
 export const ContentText = styled(Text)`
   color: black;
   font-size: 18px;
 `;
 export const Container = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  margin: 3%;
 `;
 export const ContainerBox = styled(View)`
   margin: 10% 0%;
+`;
+export const ContainerComponent = styled(View)`
+  border: 1px solid #b1b1b1;
+  border-radius: 15px;
+  margin: 2% 0%;
 `;
