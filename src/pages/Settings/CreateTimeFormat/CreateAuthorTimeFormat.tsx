@@ -5,6 +5,7 @@ import {
   View,
   Alert,
   TextInput,
+  ScrollView,
   StyleSheet,
 } from 'react-native';
 import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
@@ -69,70 +70,72 @@ const CreateAuthorTimeFormatPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ContentsHeader text="예약 시간 등록하기" />
-      <S.TimeViewContainer>
-        <S.TimeText
-          value={formatName}
-          placeholder="예약명"
-          keyboardType="default"
-          onChangeText={setFormatName}
-        />
-
-        <S.TimeView>
-          {/* 시 선택 드롭다운 */}
-          <View>
-            <S.TimeTextBox>시간</S.TimeTextBox>
-            <S.PickerBox>
-              <Picker
-                selectedValue={selectedHour}
-                onValueChange={itemValue => setSelectedHour(itemValue)}>
-                {Array.from({length: 24}, (_, index) => {
-                  const hour = String(index).padStart(2, '0');
-                  return <Picker.Item key={hour} label={hour} value={hour} />;
-                })}
-              </Picker>
-            </S.PickerBox>
-          </View>
-
-          {/* 분 선택 드롭다운 */}
-          <View>
-            <S.TimeTextBox>분</S.TimeTextBox>
-            <S.PickerBox>
-              <Picker
-                selectedValue={selectedMinute}
-                onValueChange={itemValue => setSelectedMinute(itemValue)}>
-                {Array.from({length: 60}, (_, index) => {
-                  const minute = String(index).padStart(2, '0');
-                  return (
-                    <Picker.Item key={minute} label={minute} value={minute} />
-                  );
-                })}
-              </Picker>
-            </S.PickerBox>
-          </View>
-
-          <CalendarBtn
-            text="예약 시간 추가"
-            onPress={() => {
-              addTimeToList(); // 선택된 시간과 분을 추가
-            }}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ContentsHeader text="예약 시간 등록하기" />
+        <S.TimeViewContainer>
+          <S.TimeText
+            value={formatName}
+            placeholder="예약명"
+            keyboardType="default"
+            onChangeText={setFormatName}
           />
-        </S.TimeView>
 
-        {/* 입력된 시간들을 ReserveTime 컴포넌트로 렌더링 */}
+          <S.TimeView>
+            {/* 시 선택 드롭다운 */}
+            <View>
+              <S.TimeTextBox>시간</S.TimeTextBox>
+              <S.PickerBox>
+                <Picker
+                  selectedValue={selectedHour}
+                  onValueChange={itemValue => setSelectedHour(itemValue)}>
+                  {Array.from({length: 24}, (_, index) => {
+                    const hour = String(index).padStart(2, '0');
+                    return <Picker.Item key={hour} label={hour} value={hour} />;
+                  })}
+                </Picker>
+              </S.PickerBox>
+            </View>
 
-        <S.TimeBox>
-          {startTimeList.map((time, index) => (
-            <ReserveTime key={index} text={time} onPress={deleteTime} /> // 시간 입력 후 ReserveTime 컴포넌트로 표시
-          ))}
-        </S.TimeBox>
+            {/* 분 선택 드롭다운 */}
+            <View>
+              <S.TimeTextBox>분</S.TimeTextBox>
+              <S.PickerBox>
+                <Picker
+                  selectedValue={selectedMinute}
+                  onValueChange={itemValue => setSelectedMinute(itemValue)}>
+                  {Array.from({length: 60}, (_, index) => {
+                    const minute = String(index).padStart(2, '0');
+                    return (
+                      <Picker.Item key={minute} label={minute} value={minute} />
+                    );
+                  })}
+                </Picker>
+              </S.PickerBox>
+            </View>
 
-        <LoginBtn
-          text="등록하기"
-          onPress={handleTimeTable}
-          disabled={isButtonDisabled}
-        />
-      </S.TimeViewContainer>
+            <CalendarBtn
+              text="예약 시간 추가"
+              onPress={() => {
+                addTimeToList(); // 선택된 시간과 분을 추가
+              }}
+            />
+          </S.TimeView>
+
+          {/* 입력된 시간들을 ReserveTime 컴포넌트로 렌더링 */}
+
+          <S.TimeBox>
+            {startTimeList.map((time, index) => (
+              <ReserveTime key={index} text={time} onPress={deleteTime} /> // 시간 입력 후 ReserveTime 컴포넌트로 표시
+            ))}
+          </S.TimeBox>
+
+          <LoginBtn
+            text="등록하기"
+            onPress={handleTimeTable}
+            disabled={isButtonDisabled}
+          />
+        </S.TimeViewContainer>
+      </ScrollView>
     </SafeAreaView>
   );
 };

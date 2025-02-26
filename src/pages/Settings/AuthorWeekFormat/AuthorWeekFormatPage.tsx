@@ -51,60 +51,64 @@ const AuthorWeekFormatPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader text="요일별 예약 설정" />
-        {[
-          'MONDAY',
-          'TUESDAY',
-          'WEDNESDAY',
-          'THURSDAY',
-          'FRIDAY',
-          'SATURDAY',
-          'SUNDAY',
-          'HOLIDAY',
-        ].map(day => (
-          <S.DayBox key={day}>
-            <S.DayText>
-              {day === 'MONDAY'
-                ? '월요일'
-                : day === 'TUESDAY'
-                ? '화요일'
-                : day === 'WEDNESDAY'
-                ? '수요일'
-                : day === 'THURSDAY'
-                ? '목요일'
-                : day === 'FRIDAY'
-                ? '금요일'
-                : day === 'SATURDAY'
-                ? '토요일'
-                : day === 'SUNDAY'
-                ? '일요일'
-                : '공휴일'}{' '}
-              :
-            </S.DayText>
-            {formatsByDay[day].length > 0 ? (
-              <S.TimeBox>
-                {formatsByDay[day].map(format => (
-                  <S.Contents key={format}>
-                    <S.TitleText>{format}</S.TitleText>
-                  </S.Contents>
-                ))}
-              </S.TimeBox>
-            ) : (
-              <S.NoneText>선택된 시간이 없습니다.</S.NoneText>
-            )}
+        <S.Container>
+          <ContentsHeader text="요일별 예약 설정" />
+          {[
+            'MONDAY',
+            'TUESDAY',
+            'WEDNESDAY',
+            'THURSDAY',
+            'FRIDAY',
+            'SATURDAY',
+            'SUNDAY',
+            'HOLIDAY',
+          ].map(day => (
+            <S.DayBox key={day}>
+              <S.DayText>
+                {day === 'MONDAY'
+                  ? '월요일'
+                  : day === 'TUESDAY'
+                  ? '화요일'
+                  : day === 'WEDNESDAY'
+                  ? '수요일'
+                  : day === 'THURSDAY'
+                  ? '목요일'
+                  : day === 'FRIDAY'
+                  ? '금요일'
+                  : day === 'SATURDAY'
+                  ? '토요일'
+                  : day === 'SUNDAY'
+                  ? '일요일'
+                  : '공휴일'}{' '}
+                :
+              </S.DayText>
+              {formatsByDay[day].length > 0 ? (
+                <S.TimeBox>
+                  {formatsByDay[day].map(format => (
+                    <S.ContentsView key={format}>
+                      <S.ContentBox>
+                        <S.TitleText numberOfLines={1}>{format}</S.TitleText>
+                      </S.ContentBox>
+                    </S.ContentsView>
+                  ))}
+                </S.TimeBox>
+              ) : (
+                <S.NoneText>선택된 시간이 없습니다.</S.NoneText>
+              )}
 
-            <S.ContentsBtn>
-              <LoginBtn text="추가/삭제" onPress={() => handleBtn(day)} />
-            </S.ContentsBtn>
-          </S.DayBox>
-        ))}
-        <CustomModal
-          visible={modalVisible}
-          onClose={closeModal}
-          message=""
-          onSelectFormats={handleSelectFormats}
-          selectedDay={selectedDay}
-        />
+              <S.ContentsBtn>
+                <LoginBtn text="추가/삭제" onPress={() => handleBtn(day)} />
+              </S.ContentsBtn>
+            </S.DayBox>
+          ))}
+          <CustomModal
+            visible={modalVisible}
+            onClose={closeModal}
+            message=""
+            onSelectFormats={handleSelectFormats}
+            selectedDay={selectedDay}
+          />
+        </S.Container>
       </ScrollView>
     </SafeAreaView>
   );

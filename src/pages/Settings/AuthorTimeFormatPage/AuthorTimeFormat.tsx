@@ -1,4 +1,5 @@
 //작가가 자신의 예약 시간 형식을 조회하는 페이지 입니다.
+//예약 시간 목록을 불러옵니다.
 import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
@@ -38,11 +39,20 @@ const AuthorTimeFormatPage = () => {
     }
   };
 
+  //예약 시간 목록이 갱신 또는 삭제될때 페이지 리렌더링
   useFocusEffect(
     React.useCallback(() => {
-      loadTimeFormat(); // 화면이 포커스될 때 데이터 새로고침
+      const fetchData = async () => {
+        await loadTimeFormat();
+      };
+      fetchData();
+
+      return () => {
+        setTimeFormatList([]); // 화면 이동 시 기존 데이터 초기화 (필요하면 추가)
+      };
     }, []),
   );
+
   const handleTimeFormat = () => {
     navigation.navigate('CreateAuthorTimeFormatPage');
   };
@@ -61,48 +71,33 @@ const AuthorTimeFormatPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {timeFormatList.length > 0 ? (
-        <FlatList
-          data={timeFormatList}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={
-            <>
-              <ContentsHeader text="예약 시간 목록" />
-            </>
-          }
-          ListFooterComponent={
-            <>
-              <S.TimeBtnView>
-                <S.BtnView>
-                  <CalendarBtn
-                    text="예약 시간 생성하기"
-                    onPress={handleTimeFormat}
-                  />
-                </S.BtnView>
-              </S.TimeBtnView>
-            </>
-          }
-          keyExtractor={item => item.reservationTimeFormatId}
-          renderItem={({item}) => (
-            <ReserveBox item={item} onDelete={handleDelete} />
-          )} // RenderTimeFormatItem 호출
-        />
-      ) : (
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <ContentsHeader text="예약 시간 목록" />
-          <S.TimeTextView>
-            <S.TimeText>생성된 예약 시간이 없습니다.</S.TimeText>
-          </S.TimeTextView>
-          <S.TimeBtnView>
-            <S.BtnView>
-              <CalendarBtn
-                text="예약 시간 생성하기"
-                onPress={handleTimeFormat}
-              />
-            </S.BtnView>
-          </S.TimeBtnView>
         </View>
-      )}
+        {timeFormatList.length > 0 ? (
+          <FlatList
+            scrollEnabled={false}
+            data={timeFormatList}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={item => item.reservationTimeFormatId}
+            renderItem={({item}) => (
+              <ReserveBox item={item} onDelete={handleDelete} />
+            )}
+          />
+        ) : (
+          <View>
+            <S.TimeTextView>
+              <S.TimeText>생성된 예약 시간이 없습니다.</S.TimeText>
+            </S.TimeTextView>
+          </View>
+        )}
+        <S.TimeBtnView>
+          <S.BtnView>
+            <CalendarBtn text="예약 시간 생성하기" onPress={handleTimeFormat} />
+          </S.BtnView>
+        </S.TimeBtnView>
+      </ScrollView>
     </SafeAreaView>
   );
 };

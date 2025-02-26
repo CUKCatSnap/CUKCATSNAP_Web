@@ -25,10 +25,7 @@ export const ModalFlatBox = styled(View)`
   max-height: 75%; /* 최대 높이 설정 (스크롤 가능하도록) */
   overflow: hidden; /* 내용이 박스를 넘어가지 않도록 설정 */
 `;
-export const Btn = styled(View)`
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
+export const Btn = styled(View)``;
 
 export const Content = styled(Pressable)<isClickedProps>`
   border-radius: 10px;
@@ -53,4 +50,15 @@ export const BtnBox = styled(View)`
   flex-direction: row;
   justify-content: center;
   gap: 10px;
+`;
+export const TimeText = styled(Text)`
+  font-size: 18px;
+  font-weight: bold;
+  color: #b1b1b1;
+`;
+
+export const TextBox = styled(View)`
+  justify-content: center;
+  align-items: center;
+  margin: 20% 10%;
 `;

@@ -1,6 +1,14 @@
 //채팅 페이지 입니다.
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, Modal, View, Button, FlatList} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  Modal,
+  View,
+  Button,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import * as S from './Style';
 import CalendarBtn from '../Calendar/CalendarBtn/CalendarBtn';
 import {fetchTimeFormat} from '../../apis/AuthorTimeFormat/getAuthorTimeFormat';
@@ -91,55 +99,61 @@ const CustomModal: React.FC<CustomModalProps> = ({
   };
 
   return (
-    <Modal
-      visible={visible}
-      animationType="fade"
-      transparent={true}
-      onRequestClose={onClose}>
-      <S.ModalViewContainer>
-        <S.ModalBox>
-          <View>
-            <S.ContentsText>{message}</S.ContentsText>
-            {timeFormatList.length > 0 ? (
-              <S.ModalFlatBox>
-                <FlatList
-                  data={timeFormatList}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.formatName}
-                  renderItem={({item}) => (
-                    <S.Content
-                      onPress={() =>
-                        toggleSelect(
-                          item.formatName,
-                          item.reservationTimeFormatId,
-                        )
-                      }
-                      isClicked={selectedFormat === item.formatName} // 선택된 포맷만 강조
-                    >
-                      <S.FormatText>{item.formatName}</S.FormatText>
-                    </S.Content>
-                  )}
-                />
-              </S.ModalFlatBox>
-            ) : (
-              <View>
+    <SafeAreaView>
+      <Modal
+        visible={visible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={onClose}>
+        <S.ModalViewContainer>
+          <S.ModalBox>
+            <View>
+              <S.ContentsText>{message}</S.ContentsText>
+              {timeFormatList.length > 0 ? (
+                <S.ModalFlatBox>
+                  <FlatList
+                    data={timeFormatList}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={item => item.formatName}
+                    renderItem={({item}) => (
+                      <S.Content
+                        onPress={() =>
+                          toggleSelect(
+                            item.formatName,
+                            item.reservationTimeFormatId,
+                          )
+                        }
+                        isClicked={selectedFormat === item.formatName} // 선택된 포맷만 강조
+                      >
+                        <S.FormatText>{item.formatName}</S.FormatText>
+                      </S.Content>
+                    )}
+                  />
+                </S.ModalFlatBox>
+              ) : (
                 <View>
-                  <Text>생성된 예약 시간이 없습니다.</Text>
+                  <ScrollView showsVerticalScrollIndicator={true}>
+                    <S.TextBox>
+                      <S.TimeText>생성된 예약 시간이 없습니다.</S.TimeText>
+                    </S.TextBox>
+                  </ScrollView>
                 </View>
-              </View>
-            )}
-            <S.BtnBox>
-              <S.Btn>
-                <CalendarBtn text="확인" onPress={handleConfirm} />
-              </S.Btn>
-              <S.Btn>
-                <CalendarBtn text="삭제" onPress={handleDelete} />
-              </S.Btn>
-            </S.BtnBox>
-          </View>
-        </S.ModalBox>
-      </S.ModalViewContainer>
-    </Modal>
+              )}
+              <ScrollView showsVerticalScrollIndicator={true}>
+                <S.BtnBox>
+                  <S.Btn>
+                    <CalendarBtn text="확인" onPress={handleConfirm} />
+                  </S.Btn>
+                  <S.Btn>
+                    <CalendarBtn text="삭제" onPress={handleDelete} />
+                  </S.Btn>
+                </S.BtnBox>
+              </ScrollView>
+            </View>
+          </S.ModalBox>
+        </S.ModalViewContainer>
+      </Modal>
+    </SafeAreaView>
   );
 };
 

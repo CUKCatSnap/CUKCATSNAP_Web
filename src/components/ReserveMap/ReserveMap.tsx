@@ -1,4 +1,4 @@
-//홈 화면의 '장소 찾기' 버튼을 누르면 나오는 지도 페이지 입니다.
+//지도 컴포넌트 입니다. 불러와서 사용이 가능합니다.
 
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, Text, StyleSheet} from 'react-native';

@@ -5,7 +5,7 @@ export const Time = styled(TouchableOpacity)`
   border-color: ${({disabled}) =>
     disabled ? 'rgb(238, 238, 238);' : 'rgb(209, 219, 231);'};
   border-radius: 10px;
-  border: 3px;
+  border: 1px;
   padding: 0px 10px;
   margin: 3px 3px;
   align-items: center;

@@ -23,7 +23,7 @@ const Mypage = () => {
   //2. 유저인지? 작가인지?
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <S.TopView>
           <ContentsHeader text={'마이페이지'} />
           <Icon
