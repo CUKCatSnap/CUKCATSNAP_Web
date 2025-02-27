@@ -71,7 +71,15 @@ const Login = () => {
           '', // 제목
           '로그인 되었습니다.', // 메시지
           [
-            {text: '확인', onPress: () => navigation.navigate('Home')}, // 확인 버튼 눌렀을 때 홈으로 이동
+            {
+              text: '확인',
+              onPress: () =>
+                // 네비게이션 스택 리셋 후 Home으로 이동
+                navigation.reset({
+                  index: 0, // 새로 스택을 하나만 추가하도록 설정
+                  routes: [{name: 'Home'}], // 새로운 Home 화면으로 이동
+                }),
+            }, // 확인 버튼 눌렀을 때 홈으로 이동
           ],
         );
       }
