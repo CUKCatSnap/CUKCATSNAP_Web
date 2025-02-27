@@ -11,9 +11,16 @@ interface ReserveContainerProps {
     | string;
 }
 
-export const ReserveContainer = styled(TouchableOpacity)<ReserveContainerProps>`
-  flex: 1;
-  flex-direction: row;
+export const ReserveContainer = styled(TouchableOpacity)`
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2% 5%;
+  border: 1px solid rgb(209, 219, 231);
+  border-radius: 15px;
+  gap: 10px;
+`;
+
+export const ContainerBox = styled(View)<ReserveContainerProps>`
   background-color: ${({state}) => {
     switch (state) {
       case 'PENDING':
@@ -30,28 +37,51 @@ export const ReserveContainer = styled(TouchableOpacity)<ReserveContainerProps>`
         return 'rgb(188, 187, 233)'; // 기본 배경색
     }
   }};
-  margin: 2% 5%;
-  border-radius: 15px;
+  width: 30%;
+  position: absolute;
+  height: 100%;
+  right: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 1;
+`;
+
+export const ReserveBox = styled(View)``;
+
+export const TextContainer = styled(View)`
   padding: 5%;
-  justify-content: space-evenly;
-  gap: 10px;
+  flex-direction: row;
   align-items: center;
 `;
+
 export const ReserveTitleText = styled(Text)`
   font-size: 25px;
   color: black;
   font-weight: bold;
+  width: 40%;
+  margin: 0% 3%;
+  margin-top: -1%;
 `;
 export const ReserveText = styled(Text)`
   font-size: 20px;
+  color: #3e23b9;
+  font-weight: bold;
+  width: 20%;
+  align-items: end;
+  z-index: 100;
+`;
+export const ReserveText2 = styled(Text)`
+  font-size: 20px;
   color: black;
   font-weight: bold;
+  width: 100%;
+  z-index: 100;
 `;
-
 export const Line = styled(View)`
-  width: 5px;
-  height: 35px;
-  background-color: #423cd2;
+  width: 2px;
+  height: 100%;
+
+  background-color: rgb(209, 219, 231);
 `;
 
 export const Box = styled(View)`

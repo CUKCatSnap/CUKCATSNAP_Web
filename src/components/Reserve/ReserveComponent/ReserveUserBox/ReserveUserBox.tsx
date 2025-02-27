@@ -12,20 +12,28 @@ const ReserveUserBox = ({item}) => {
   };
 
   const time = item.startTime.split(' ')[1]; // 날짜를 분리하고 시간만 추출
+
   return (
     <SafeAreaView>
-      <S.ReserveContainer state={item.state} onPress={handleReserve}>
-        <S.ReserveText>{time}</S.ReserveText>
-        <S.Line />
-        <S.ReserveTitleText>
-          {item.reservedProgramResponse.title}
-        </S.ReserveTitleText>
-        <S.Box>
-          <S.ReserveText>
-            {item.photographerTinyInformationResponse.nickname} 작가
-          </S.ReserveText>
-          <Text>장소 : {item.reservationLocation.locationName}</Text>
-        </S.Box>
+      <S.ReserveContainer onPress={handleReserve}>
+        <S.ReserveBox>
+          <S.TextContainer>
+            <S.ReserveText>{time}</S.ReserveText>
+            <S.Line />
+            <S.ReserveTitleText numberOfLines={1}>
+              {item.reservedProgramResponse.title}
+            </S.ReserveTitleText>
+            <S.Box>
+              <S.ReserveText2 numberOfLines={1}>
+                {item.photographerTinyInformationResponse.nickname} 작가
+              </S.ReserveText2>
+              <S.ReserveText2 numberOfLines={1}>
+                위치 : {item.reservationLocation.locationName}
+              </S.ReserveText2>
+            </S.Box>
+          </S.TextContainer>
+          <S.ContainerBox state={item.state} />
+        </S.ReserveBox>
       </S.ReserveContainer>
     </SafeAreaView>
   );

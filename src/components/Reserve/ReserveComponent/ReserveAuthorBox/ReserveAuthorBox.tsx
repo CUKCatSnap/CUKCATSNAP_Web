@@ -13,21 +13,28 @@ const ReserveAuthorBox = ({item}) => {
 
   return (
     <SafeAreaView>
-      <S.ReserveContainer state={item.state} onPress={handleReserve}>
-        <S.ReserveText>
-          {item.startTime[3]}:
-          {item.startTime[4] === 0 ? '00' : item.startTime[4]}
-        </S.ReserveText>
-        <S.Line />
-        <S.ReserveTitleText>
-          {item.reservedProgramResponse.title}
-        </S.ReserveTitleText>
-        <S.Box>
-          <S.ReserveText>
-            {item.memberTinyInformationResponse.nickname} 유저
-          </S.ReserveText>
-          <Text>장소 : {item.reservationLocation.locationName}</Text>
-        </S.Box>
+      <S.ReserveContainer onPress={handleReserve}>
+        <S.ReserveBox>
+          <S.TextContainer>
+            <S.ReserveText>
+              {item.startTime[3]}:
+              {item.startTime[4] === 0 ? '00' : item.startTime[4]}
+            </S.ReserveText>
+            <S.Line />
+            <S.ReserveTitleText numberOfLines={1}>
+              {item.reservedProgramResponse.title}
+            </S.ReserveTitleText>
+            <S.Box>
+              <S.ReserveText2 numberOfLines={1}>
+                {item.memberTinyInformationResponse.nickname} 님
+              </S.ReserveText2>
+              <S.ReserveText2 numberOfLines={1}>
+                위치 : {item.reservationLocation.locationName}
+              </S.ReserveText2>
+            </S.Box>
+          </S.TextContainer>
+          <S.ContainerBox state={item.state} />
+        </S.ReserveBox>
       </S.ReserveContainer>
     </SafeAreaView>
   );

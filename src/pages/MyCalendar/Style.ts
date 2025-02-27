@@ -21,4 +21,6 @@ export const CalendarText = styled(Text)`
   color: #bebebe;
 `;
 
-export const Container = styled(View)``;
+export const Container = styled(View)`
+  margin-bottom: 3%;
+`;
