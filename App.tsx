@@ -25,10 +25,11 @@ const linking = {
 function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
 
+  //스플래시 화면 시간 조절
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsSplashVisible(false); // 3초 후 스플래시 화면 숨기기
-    }, 3000); // 3초 동안 스플래시 화면 유지
+      setIsSplashVisible(false); // 1.5초 후 스플래시 화면 숨기기
+    }, 1500); // 1.5초 동안 스플래시 화면 유지
 
     return () => clearTimeout(timer);
   }, []);

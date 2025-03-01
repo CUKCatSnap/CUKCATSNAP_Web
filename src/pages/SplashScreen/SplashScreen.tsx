@@ -1,16 +1,30 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, Text, StyleSheet, Image, Animated} from 'react-native';
 import CatSnap from '../../icons/CatSnap.svg';
+//import {Image} from 'react-native-svg';
 
 const SplashScreenPage = () => {
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
-    // 앱이 로딩된 후 스플래시 화면을 숨깁니다.
-    setTimeout(() => {}, 2000);
-  }, []);
+    Animated.timing(rotateAnim, {
+      toValue: 1,
+      duration: 1000, // 2초 동안 회전
+      useNativeDriver: true,
+    }).start();
+  }, [rotateAnim]);
+
+  const spin = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'], // 0도에서 360도 회전
+  });
 
   return (
     <View style={styles.container}>
-      <CatSnap />
+      <Animated.Image
+        source={require('../../images/mainLogo.png')}
+        style={[styles.img, {transform: [{rotate: spin}]}]}
+      />
     </View>
   );
 };
@@ -21,6 +35,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  img: {
+    width: 80,
+    height: 80,
   },
 });
 
