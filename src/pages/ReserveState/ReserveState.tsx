@@ -106,11 +106,14 @@ const ReserveState = ({route}) => {
               {reservationStatus === 'APPROVED' && (
                 <S.BtnText>예약이 확정되었습니다.</S.BtnText>
               )}
+              {reservationStatus === 'MEMBER_CANCELLED' && (
+                <S.BtnText>예약을 취소했습니다.</S.BtnText>
+              )}
               {reservationStatus === 'REJECTED' && (
                 <S.BtnText>작가가 예약을 취소했습니다.</S.BtnText>
               )}
               {reservationStatus === 'PHOTOGRAPHY_CANCELLED' && (
-                <S.BtnText>촬영이 취소되었습니다.</S.BtnText>
+                <S.BtnText>작가가 촬영을 취소했습니다.</S.BtnText>
               )}
             </S.StateBox>
 

@@ -24,3 +24,7 @@ export const CalendarText = styled(Text)`
 export const Container = styled(View)`
   margin-bottom: 3%;
 `;
+
+export const Guide = styled(View)`
+  margin: 2% 7%;
+`;

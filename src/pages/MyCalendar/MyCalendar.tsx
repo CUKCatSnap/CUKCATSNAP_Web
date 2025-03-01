@@ -20,6 +20,7 @@ import ReserveAuthorBox from '../../components/Reserve/ReserveComponent/ReserveA
 import ReserveUserBox from '../../components/Reserve/ReserveComponent/ReserveUserBox/ReserveUserBox';
 import {fetchReserveMonth} from '../../apis/UserReserve/getReserveMonth';
 import {fetchAuthorReserveMonth} from '../../apis/AuthorReserve/getAuthorReserveMonth';
+import ReserveColorBox from '../../components/Reserve/ReserveColorBox/ReserveColorBox';
 
 const MyCalendar = () => {
   const isAuthor = useSelector(state => state.auth.user?.isAuthor);
@@ -149,6 +150,10 @@ const MyCalendar = () => {
             onMonthChange={handleMonthChange}
             monthReserve={monthReserve}
           />
+          <S.Guide>
+            <ReserveColorBox />
+          </S.Guide>
+
           {isAuthor ? (
             <FlatList
               scrollEnabled={false}
