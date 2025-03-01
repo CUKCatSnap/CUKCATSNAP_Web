@@ -27,5 +27,5 @@ export const TimeBtnView = styled(View)`
 `;
 
 export const BtnView = styled(View)`
-  margin-bottom: 5%;
+  margin: 3% 0%;
 `;

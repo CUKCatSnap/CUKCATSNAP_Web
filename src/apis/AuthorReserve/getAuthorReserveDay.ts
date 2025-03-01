@@ -26,6 +26,9 @@ export const fetchAuthorReserveDay = async day => {
     );
 
     console.log('응답 데이터:', response.data); // 응답 데이터 확인
+    console.log(
+      response.data.data.photographerReservationInformationResponseList,
+    ); // 예약 목록 객체 확인
     return response.data;
   } catch (error) {
     console.error('요청 실패:', error.response?.data || error.message);

@@ -115,41 +115,64 @@ const MyCalendar = () => {
     }
   }, [month, isAuthor, user]); // month가 변경될 때마다 API 호출
 
+  const [sortedReserve, setSortedReserve] = useState([]);
+
+  useEffect(() => {
+    if (isAuthor) {
+      const sortedData = [...reserve].sort(
+        (a, b) => a.startTime[3] - b.startTime[3],
+      );
+      setSortedReserve(sortedData);
+    } else {
+      const sortedData = [...reserve].sort((a, b) => {
+        // 'YYYY-MM-DD HH:MM' 형식의 문자열을 Date 객체로 변환
+        const timeA = new Date(a.startTime.replace(' ', 'T'));
+        const timeB = new Date(b.startTime.replace(' ', 'T'));
+
+        // 시간 비교
+        return timeA - timeB;
+      });
+      setSortedReserve(sortedData); // 정렬된 데이터를 상태로 설정
+    }
+  }, [reserve, isAuthor]); // reserve 데이터가 변경될 때마다 정렬
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ContentsHeader text={'캘린더'} />
-        <S.CalendarHeader>
-          <Title text={'내 예약'} />
-        </S.CalendarHeader>
-        <Calendar
-          onDateSelect={handleDateSelect}
-          onMonthChange={handleMonthChange}
-          monthReserve={monthReserve}
-        />
-        {isAuthor ? (
-          <FlatList
-            scrollEnabled={false}
-            nestedScrollEnabled={true} // ScrollView 안에서 FlatList 동작 허용
-            showsVerticalScrollIndicator={false}
-            data={reserve}
-            keyExtractor={item => String(item.reservationId)}
-            renderItem={({item}) => <ReserveAuthorBox item={item} />}
+        <S.Container>
+          <ContentsHeader text={'캘린더'} />
+          <S.CalendarHeader>
+            <Title text={'내 예약'} />
+          </S.CalendarHeader>
+          <Calendar
+            onDateSelect={handleDateSelect}
+            onMonthChange={handleMonthChange}
+            monthReserve={monthReserve}
           />
-        ) : user ? (
-          <FlatList
-            scrollEnabled={false}
-            nestedScrollEnabled={true} // ScrollView 안에서 FlatList 동작 허용
-            showsVerticalScrollIndicator={false}
-            data={reserve}
-            keyExtractor={item => String(item.reservationId)}
-            renderItem={({item}) => <ReserveUserBox item={item} />}
-          />
-        ) : (
-          <S.CalendarContainer>
-            <S.CalendarText>로그인이 필요합니다.</S.CalendarText>
-          </S.CalendarContainer>
-        )}
+          {isAuthor ? (
+            <FlatList
+              scrollEnabled={false}
+              nestedScrollEnabled={true} // ScrollView 안에서 FlatList 동작 허용
+              showsVerticalScrollIndicator={false}
+              data={sortedReserve} // 배열 정렬
+              keyExtractor={item => String(item.reservationId)}
+              renderItem={({item}) => <ReserveAuthorBox item={item} />}
+            />
+          ) : user ? (
+            <FlatList
+              scrollEnabled={false}
+              nestedScrollEnabled={true} // ScrollView 안에서 FlatList 동작 허용
+              showsVerticalScrollIndicator={false}
+              data={sortedReserve} // 배열 정렬
+              keyExtractor={item => String(item.reservationId)}
+              renderItem={({item}) => <ReserveUserBox item={item} />}
+            />
+          ) : (
+            <S.CalendarContainer>
+              <S.CalendarText>로그인이 필요합니다.</S.CalendarText>
+            </S.CalendarContainer>
+          )}
+        </S.Container>
       </ScrollView>
     </SafeAreaView>
   );

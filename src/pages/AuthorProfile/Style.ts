@@ -6,7 +6,7 @@ interface PressProps {
 }
 
 export const AuthorProfileContainer = styled(View)`
-  margin: 0 7%;
+  margin: 5% 7%;
   justify-content: center;
   margin-top: -5%;
 `;
@@ -85,6 +85,7 @@ export const ContentsBoxContainer = styled(View)`
 
 export const Contents = styled(Text)`
   color: black;
+  width: 50%;
 `;
 export const Price = styled(Text)`
   color: black;
@@ -95,7 +96,7 @@ export const IntersectionContainer = styled(View)`
   flex-direction: row;
   gap: 10px;
   flex-wrap: wrap;
-  margin: 5% 0%;
+  margin-top: 5%;
 `;
 
 export const IntersectionText = styled.Text<PressProps>`

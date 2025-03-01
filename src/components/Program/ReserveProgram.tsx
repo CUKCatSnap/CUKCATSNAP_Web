@@ -16,9 +16,13 @@ const ReserveProgram = ({title, content, price}) => {
       <S.ContainerBox>
         <S.Container>
           <S.ContainerText>{title}</S.ContainerText>
-          <S.BoxText>{price}원</S.BoxText>
         </S.Container>
-        <S.ContentText>{content}</S.ContentText>
+        <S.ContainerComponent>
+          <S.BoxText>{price}원</S.BoxText>
+        </S.ContainerComponent>
+        <S.Container>
+          <S.ContentText>{content}</S.ContentText>
+        </S.Container>
       </S.ContainerBox>
     </SafeAreaView>
   );

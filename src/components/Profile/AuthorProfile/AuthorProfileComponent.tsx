@@ -130,7 +130,7 @@ const AuthorProfileComponent = () => {
                   program.content,
                 )
               }>
-              <S.Contents>{program.title}</S.Contents>
+              <S.Contents numberOfLines={1}>{program.title}</S.Contents>
               <S.Price>{program.price}원</S.Price>
             </S.ContentsBox>
           ))

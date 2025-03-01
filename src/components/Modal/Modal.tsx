@@ -1,6 +1,14 @@
 //채팅 페이지 입니다.
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, Modal, View, Button, FlatList} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  Modal,
+  View,
+  Button,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import * as S from './Style';
 import CalendarBtn from '../Calendar/CalendarBtn/CalendarBtn';
 import {fetchTimeFormat} from '../../apis/AuthorTimeFormat/getAuthorTimeFormat';
@@ -25,7 +33,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
 }) => {
   const [timeFormatList, setTimeFormatList] = useState([]); // 목록 데이터를 저장할 상태
   const [isClicked, setIsClicked] = useState(false);
-  const [timeFormat, setTimeFormat] = useState(false);
+  const [isTimeExist, setIsTimeExist] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState<string | null>(null); // 하나의 선택된 포맷만 저장
   const [reservationTimeFormatId, setreservationTimeFormatId] = useState<
     string | null
@@ -56,8 +64,16 @@ const CustomModal: React.FC<CustomModalProps> = ({
     formatName: string,
     reservationTimeFormatId: string,
   ) => {
-    setSelectedFormat(formatName); // 하나의 포맷만 선택
-    setreservationTimeFormatId(reservationTimeFormatId); // 해당 포맷 ID도 선택
+    if (selectedFormat === formatName) {
+      // 이미 선택된 항목이면 해제
+      setSelectedFormat(null);
+      setIsClicked(true);
+      setreservationTimeFormatId(null);
+    } else {
+      setSelectedFormat(formatName); // 하나의 포맷만 선택
+      setIsClicked(false);
+      setreservationTimeFormatId(reservationTimeFormatId); // 해당 포맷 ID도 선택
+    }
   };
   // 요소 보내기
   const handleConfirm = async () => {
@@ -90,56 +106,99 @@ const CustomModal: React.FC<CustomModalProps> = ({
     onClose(); // 모달 닫기
   };
 
+  //설정 취소하고 모달 창 끄기
+  const handleCancel = () => {
+    onClose();
+  };
+
   return (
-    <Modal
-      visible={visible}
-      animationType="fade"
-      transparent={true}
-      onRequestClose={onClose}>
-      <S.ModalViewContainer>
-        <S.ModalBox>
-          <View>
-            <S.ContentsText>{message}</S.ContentsText>
-            {timeFormatList.length > 0 ? (
+    <SafeAreaView>
+      <Modal
+        visible={visible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={onClose}>
+        <S.ModalViewContainer>
+          <S.ModalBox>
+            <View>
+              <S.ContentsText>{message}</S.ContentsText>
+
               <S.ModalFlatBox>
-                <FlatList
-                  data={timeFormatList}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.formatName}
-                  renderItem={({item}) => (
-                    <S.Content
-                      onPress={() =>
-                        toggleSelect(
-                          item.formatName,
-                          item.reservationTimeFormatId,
-                        )
-                      }
-                      isClicked={selectedFormat === item.formatName} // 선택된 포맷만 강조
-                    >
-                      <S.FormatText>{item.formatName}</S.FormatText>
-                    </S.Content>
-                  )}
-                />
+                {timeFormatList.length > 0 ? (
+                  <FlatList
+                    data={timeFormatList}
+                    contentContainerStyle={{flexGrow: 1}}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={item => item.formatName}
+                    ListFooterComponent={
+                      <S.BtnBox>
+                        <S.Btn>
+                          <CalendarBtn
+                            text="확인"
+                            onPress={handleConfirm}
+                            disabled={isClicked}
+                          />
+                        </S.Btn>
+                        <S.Btn>
+                          <CalendarBtn
+                            text="삭제"
+                            onPress={handleDelete}
+                            disabled={isTimeExist}
+                          />
+                        </S.Btn>
+                        <S.Btn>
+                          <CalendarBtn text="취소" onPress={handleCancel} />
+                        </S.Btn>
+                      </S.BtnBox>
+                    }
+                    renderItem={({item}) => (
+                      <S.Content
+                        onPress={() =>
+                          toggleSelect(
+                            item.formatName,
+                            item.reservationTimeFormatId,
+                          )
+                        }
+                        isClicked={selectedFormat === item.formatName} // 선택된 포맷만 강조
+                      >
+                        <S.FormatText>{item.formatName}</S.FormatText>
+                      </S.Content>
+                    )}
+                  />
+                ) : (
+                  <View>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                      <S.TextBox>
+                        <S.TimeText>생성된 예약 시간이 없습니다.</S.TimeText>
+                      </S.TextBox>
+                      <S.BtnBox>
+                        <S.Btn>
+                          <CalendarBtn
+                            text="확인"
+                            onPress={handleConfirm}
+                            disabled={isClicked}
+                          />
+                        </S.Btn>
+                        <S.Btn>
+                          <CalendarBtn
+                            text="삭제"
+                            onPress={handleDelete}
+                            disabled={isTimeExist}
+                          />
+                        </S.Btn>
+                        <S.Btn>
+                          <CalendarBtn text="취소" onPress={handleCancel} />
+                        </S.Btn>
+                      </S.BtnBox>
+                    </ScrollView>
+                  </View>
+                )}
               </S.ModalFlatBox>
-            ) : (
-              <View>
-                <View>
-                  <Text>생성된 예약 시간이 없습니다.</Text>
-                </View>
-              </View>
-            )}
-            <S.BtnBox>
-              <S.Btn>
-                <CalendarBtn text="확인" onPress={handleConfirm} />
-              </S.Btn>
-              <S.Btn>
-                <CalendarBtn text="삭제" onPress={handleDelete} />
-              </S.Btn>
-            </S.BtnBox>
-          </View>
-        </S.ModalBox>
-      </S.ModalViewContainer>
-    </Modal>
+            </View>
+          </S.ModalBox>
+        </S.ModalViewContainer>
+      </Modal>
+    </SafeAreaView>
   );
 };
 

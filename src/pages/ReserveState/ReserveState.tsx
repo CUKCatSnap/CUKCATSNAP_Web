@@ -45,66 +45,119 @@ const ReserveState = ({route}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {isAuthor ? (
-          <S.StateComponent>
+          <View>
             <ContentsHeader text={'예약 상태 변경하기'} />
-            <ReserveAuthorBox item={item} />
+            <S.StateComponent>
+              <S.Container>
+                <S.ContainerText>
+                  <S.Title>{item.reservedProgramResponse.title}</S.Title>
+                  <S.Content>
+                    {item.memberTinyInformationResponse.nickname} 님
+                  </S.Content>
+                  <S.Content>
+                    {item.startTime[0]}-{item.startTime[1]}-{item.startTime[2]}
+                  </S.Content>
+                  <S.Content>
+                    {item.startTime[3]}:
+                    {item.startTime[4] === 0 ? '00' : item.startTime[4]}
+                  </S.Content>
+                  <S.Content>
+                    위치 : {item.reservationLocation.locationName}
+                  </S.Content>
+                </S.ContainerText>
+                <S.ContainerBox state={reservationStatus} />
+              </S.Container>
+
+              <S.StateBox>
+                {reservationStatus === 'PENDING' && (
+                  <S.BtnText>예약 승인 대기중 입니다.</S.BtnText>
+                )}
+                {reservationStatus === 'APPROVED' && (
+                  <S.BtnText>예약을 승인했습니다.</S.BtnText>
+                )}
+                {reservationStatus === 'REJECTED' && (
+                  <S.BtnText>예약을 취소했습니다.</S.BtnText>
+                )}
+                {reservationStatus === 'PHOTOGRAPHY_CANCELLED' && (
+                  <S.BtnText>촬영을 취소했습니다.</S.BtnText>
+                )}
+                <S.StateComponent>
+                  {reservationStatus === 'PENDING' && (
+                    <S.BtnBox>
+                      <S.Btn>
+                        <LoginBtn
+                          text={'예약 승인'}
+                          onPress={() => handleStatusChange('APPROVED')}
+                        />
+                      </S.Btn>
+                      <S.Btn>
+                        <LoginBtn
+                          text={'예약 거부'}
+                          onPress={() => handleStatusChange('REJECTED')}
+                        />
+                      </S.Btn>
+                    </S.BtnBox>
+                  )}
+
+                  {reservationStatus === 'APPROVED' && (
+                    <S.BtnBox>
+                      <S.Btn>
+                        <LoginBtn
+                          text={'촬영 취소'}
+                          onPress={() =>
+                            handleStatusChange('PHOTOGRAPHY_CANCELLED')
+                          }
+                        />
+                      </S.Btn>
+                    </S.BtnBox>
+                  )}
+                </S.StateComponent>
+              </S.StateBox>
+            </S.StateComponent>
+          </View>
+        ) : (
+          <S.StateComponent>
+            <ContentsHeader text={'예약 확인'} />
+
+            <S.Container>
+              <S.ContainerText>
+                <S.Title>{item.reservedProgramResponse.title}</S.Title>
+                <S.Content>
+                  {item.photographerTinyInformationResponse.nickname} 작가
+                </S.Content>
+                <S.Content>{item.startTime.split(' ')[0]}</S.Content>
+                <S.Content>{item.startTime.split(' ')[1]}</S.Content>
+                <S.Content>
+                  위치 : {item.reservationLocation.locationName}
+                </S.Content>
+              </S.ContainerText>
+              <S.ContainerBox state={reservationStatus} />
+            </S.Container>
+
             <S.StateBox>
               {reservationStatus === 'PENDING' && (
                 <S.BtnText>예약 승인 대기중 입니다.</S.BtnText>
               )}
               {reservationStatus === 'APPROVED' && (
-                <S.BtnText>예약을 승인했습니다.</S.BtnText>
+                <S.BtnText>예약이 확정되었습니다.</S.BtnText>
               )}
               {reservationStatus === 'REJECTED' && (
-                <S.BtnText>예약을 취소했습니다.</S.BtnText>
+                <S.BtnText>작가가 예약을 취소했습니다.</S.BtnText>
               )}
               {reservationStatus === 'PHOTOGRAPHY_CANCELLED' && (
-                <S.BtnText>촬영을 취소했습니다.</S.BtnText>
+                <S.BtnText>촬영이 취소되었습니다.</S.BtnText>
               )}
-              <S.StateComponent>
-                {reservationStatus === 'PENDING' && (
-                  <S.BtnBox>
-                    <S.Btn>
-                      <LoginBtn
-                        text={'예약 승인'}
-                        onPress={() => handleStatusChange('APPROVED')}
-                      />
-                    </S.Btn>
-                    <S.Btn>
-                      <LoginBtn
-                        text={'예약 거부'}
-                        onPress={() => handleStatusChange('REJECTED')}
-                      />
-                    </S.Btn>
-                  </S.BtnBox>
-                )}
+            </S.StateBox>
 
+            <S.StateBox>
+              {/*승인되었을때만 리뷰 작성 가능*/}
+              <S.Btn2>
                 {reservationStatus === 'APPROVED' && (
-                  <S.BtnBox>
-                    <S.Btn>
-                      <LoginBtn
-                        text={'촬영 취소'}
-                        onPress={() =>
-                          handleStatusChange('PHOTOGRAPHY_CANCELLED')
-                        }
-                      />
-                    </S.Btn>
-                  </S.BtnBox>
+                  <LoginBtn text={'리뷰하기'} onPress={handleReview} />
                 )}
-              </S.StateComponent>
+              </S.Btn2>
             </S.StateBox>
           </S.StateComponent>
-        ) : (
-          <View>
-            <ContentsHeader text={'예약 확인'} />
-            <Text>내 예약을 확인합니다.</Text>
-            <ReserveUserBox item={item} />
-            <LoginBtn text={'리뷰하기'} onPress={handleReview} />
-            {/* 승인되었을때만 리뷰 작성 가능하게 하기
-            {reservationStatus === 'APPROVED' && (
-          <LoginBtn text={'리뷰하기'} onPress={handleReview} />
-            )}*/}
-          </View>
         )}
       </ScrollView>
     </SafeAreaView>
