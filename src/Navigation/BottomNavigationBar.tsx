@@ -135,6 +135,16 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="ReserveState"
+        component={ReserveState}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateReviewPage"
+        component={CreateReviewPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{headerShown: false}} // 로그인 화면이 처음에 나타나는 경우

@@ -3,7 +3,7 @@ import React from 'react';
 import {SafeAreaView, Text, StyleSheet, ScrollView, View} from 'react-native';
 import * as S from './Style';
 import {useNavigation} from '@react-navigation/native';
-
+import Point from '../../../../icons/point.svg';
 const ReserveAuthorBox = ({item}) => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
@@ -28,9 +28,14 @@ const ReserveAuthorBox = ({item}) => {
               <S.ReserveText2 numberOfLines={1}>
                 {item.memberTinyInformationResponse.nickname} 님
               </S.ReserveText2>
-              <S.ReserveText2 numberOfLines={1}>
-                위치 : {item.reservationLocation.locationName}
-              </S.ReserveText2>
+              <S.PointContainer>
+                <S.SvgBox>
+                  <Point />
+                </S.SvgBox>
+                <S.ReserveText2 numberOfLines={1}>
+                  {item.reservationLocation.locationName}
+                </S.ReserveText2>
+              </S.PointContainer>
             </S.Box>
           </S.TextContainer>
           <S.ContainerBox state={item.state} />

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import {View, Text, TouchableOpacity} from 'react-native';
-
+import {View, Text, Pressable, TouchableOpacity} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 interface ReserveContainerProps {
   state:
     | 'PENDING'
@@ -10,14 +10,13 @@ interface ReserveContainerProps {
     | 'PHOTOGRAPHY_CANCELLED'
     | string;
 }
+export const StateComponent = styled(View)``;
 
-export const ReserveContainer = styled(TouchableOpacity)`
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 2% 5%;
+export const Container = styled(View)`
   border: 1px solid rgb(209, 219, 231);
-  border-radius: 15px;
-  gap: 10px;
+  margin: 0% 7%;
+  border-radius: 10px;
+  flex-direction: row;
 `;
 
 export const ContainerBox = styled(View)<ReserveContainerProps>`
@@ -37,56 +36,56 @@ export const ContainerBox = styled(View)<ReserveContainerProps>`
         return 'rgb(188, 187, 233)'; // 기본 배경색
     }
   }};
-  width: 15%;
-  position: absolute;
+  width: 30%;
   height: 100%;
   right: 0;
+  position: absolute;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  z-index: 1;
+  flex-shrink: 0; /* 크기 유지 */
 `;
 
-export const ReserveBox = styled(View)``;
+export const ContainerText = styled(View)`
+  padding: 7%;
+  width: 70%;
+`;
 
-export const TextContainer = styled(View)`
-  padding: 5%;
+export const Title = styled(Text)`
+  color: black;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 2%;
+`;
+export const Content = styled(Text)`
+  color: black;
+  font-size: 20px;
+  margin: 1% 0%;
+`;
+export const BtnText = styled(Text)`
+  font-size: 20px;
+  color: black;
+  margin: 0% 2%;
+  margin-top: 3%;
+`;
+
+export const StateBox = styled(View)`
+  margin: 0% 7%;
+`;
+
+//가로로 버튼 두개 넣기, 화면에 꽉차게
+export const BtnBox = styled(View)`
   flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 5% 0%;
 `;
 
-export const ReserveTitleText = styled(Text)`
-  font-size: 25px;
-  color: black;
-  font-weight: bold;
-  width: 40%;
-  margin: 0% 3%;
-  margin-top: -1%;
-`;
-export const ReserveText = styled(Text)`
-  font-size: 20px;
-  color: #3e23b9;
-  font-weight: bold;
-  width: 20%;
-  align-items: end;
-  z-index: 100;
-`;
-export const ReserveText2 = styled(Text)`
-  font-size: 20px;
-  color: black;
-  font-weight: bold;
-  width: 100%;
-  z-index: 100;
-`;
-export const Line = styled(View)`
-  width: 2px;
-  height: 100%;
-
-  background-color: rgb(209, 219, 231);
-`;
-
-export const Box = styled(View)`
+export const Btn = styled(View)`
+  justify-content: space-evenly;
   flex: 1;
-  flex-direction: column;
+`;
+export const Btn2 = styled(View)`
+  margin: 3% 0%;
 `;
 export const PointContainer = styled(View)`
   flex: 1;

@@ -6,13 +6,14 @@ import {
   View,
   ScrollView,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import * as S from './Style'; // 스타일링 파일
 import {fetchReservations} from '../../apis/UserReserve/getReservation';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 추가
 import {useSelector} from 'react-redux';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
-import ReserveComponent from '../../components/Reserve/ReserveComponent/ReserveComponent';
+import ReserveUserBox from '../../components/Reserve/ReserveComponent/ReserveUserBox/ReserveUserBox';
 
 const MyReservePage = () => {
   const [reservations, setReservations] = useState([]); // 예약 데이터를 저장할 상태
@@ -72,25 +73,27 @@ const MyReservePage = () => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ContentsHeader text="내 예약" />
       {isAuthor ? (
         <View>
           <Text>작가입니다.</Text>
         </View>
       ) : isUser ? (
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          ref={flatListRef}
-          data={reservations}
-          keyExtractor={item => item.reservationId.toString()} // 예약 ID를 key로 사용
-          renderItem={({item}) => <ReserveComponent item={item} />} // ReservationItem 컴포넌트를 사용
-          onEndReached={loadMoreData} // 끝에 도달했을 때 추가 데이터 로드
-          onEndReachedThreshold={0.5} // 리스트 끝에서 얼마나 남았을 때 호출할지 설정 (10%)
-          initialNumToRender={size} // 처음에 렌더링할 아이템 개수
-          maxToRenderPerBatch={size} // 한 번에 렌더링할 최대 아이템 개수
-          windowSize={5} // FlatList의 렌더링 윈도우 크기
-        />
+        <S.TableView>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ref={flatListRef}
+            data={reservations}
+            keyExtractor={item => item.reservationId.toString()} // 예약 ID를 key로 사용
+            renderItem={({item}) => <ReserveUserBox item={item} />} // ReservationItem 컴포넌트를 사용
+            onEndReached={loadMoreData} // 끝에 도달했을 때 추가 데이터 로드
+            onEndReachedThreshold={0.5} // 리스트 끝에서 얼마나 남았을 때 호출할지 설정 (10%)
+            initialNumToRender={size} // 처음에 렌더링할 아이템 개수
+            maxToRenderPerBatch={size} // 한 번에 렌더링할 최대 아이템 개수
+            windowSize={5} // FlatList의 렌더링 윈도우 크기
+          />
+        </S.TableView>
       ) : (
         <View>
           <Text>로그인이 필요합니다.</Text>
@@ -105,5 +108,10 @@ const MyReservePage = () => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 export default MyReservePage;

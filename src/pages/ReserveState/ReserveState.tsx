@@ -11,14 +11,12 @@ import {
   Alert,
 } from 'react-native';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
-import ReserveAuthorBox from '../../components/Reserve/ReserveComponent/ReserveAuthorBox/ReserveAuthorBox';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import ReserveUserBox from '../../components/Reserve/ReserveComponent/ReserveUserBox/ReserveUserBox';
-import {Picker} from '@react-native-picker/picker';
 import {postReserveStatus} from '../../apis/AuthorReserve/postReserveState';
 import * as S from './Style';
 import LoginBtn from '../../components/Login/LoginBtn';
+import ReserveDataBox from '../../components/Reserve/ReserveComponent/ReserveDataBox/ReserveDataBox';
 
 const ReserveState = ({route}) => {
   const {item} = route.params; // 전달된 item을 받기
@@ -48,26 +46,7 @@ const ReserveState = ({route}) => {
           <View>
             <ContentsHeader text={'예약 상태 변경하기'} />
             <S.StateComponent>
-              <S.Container>
-                <S.ContainerText>
-                  <S.Title>{item.reservedProgramResponse.title}</S.Title>
-                  <S.Content>
-                    {item.memberTinyInformationResponse.nickname} 님
-                  </S.Content>
-                  <S.Content>
-                    {item.startTime[0]}-{item.startTime[1]}-{item.startTime[2]}
-                  </S.Content>
-                  <S.Content>
-                    {item.startTime[3]}:
-                    {item.startTime[4] === 0 ? '00' : item.startTime[4]}
-                  </S.Content>
-                  <S.Content>
-                    위치 : {item.reservationLocation.locationName}
-                  </S.Content>
-                </S.ContainerText>
-                <S.ContainerBox state={reservationStatus} />
-              </S.Container>
-
+              <ReserveDataBox item={item} />
               <S.StateBox>
                 {reservationStatus === 'PENDING' && (
                   <S.BtnText>예약 승인 대기중 입니다.</S.BtnText>
@@ -119,21 +98,7 @@ const ReserveState = ({route}) => {
           <S.StateComponent>
             <ContentsHeader text={'예약 확인'} />
 
-            <S.Container>
-              <S.ContainerText>
-                <S.Title>{item.reservedProgramResponse.title}</S.Title>
-                <S.Content>
-                  {item.photographerTinyInformationResponse.nickname} 작가
-                </S.Content>
-                <S.Content>{item.startTime.split(' ')[0]}</S.Content>
-                <S.Content>{item.startTime.split(' ')[1]}</S.Content>
-                <S.Content>
-                  위치 : {item.reservationLocation.locationName}
-                </S.Content>
-              </S.ContainerText>
-              <S.ContainerBox state={reservationStatus} />
-            </S.Container>
-
+            <ReserveDataBox item={item} />
             <S.StateBox>
               {reservationStatus === 'PENDING' && (
                 <S.BtnText>예약 승인 대기중 입니다.</S.BtnText>
