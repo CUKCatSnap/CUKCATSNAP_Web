@@ -37,7 +37,7 @@ export const ContainerBox = styled(View)<ReserveContainerProps>`
         return 'rgb(188, 187, 233)'; // 기본 배경색
     }
   }};
-  width: 30%;
+  width: 15%;
   position: absolute;
   height: 100%;
   right: 0;
@@ -87,4 +87,13 @@ export const Line = styled(View)`
 export const Box = styled(View)`
   flex: 1;
   flex-direction: column;
+`;
+export const PointContainer = styled(View)`
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+`;
+export const SvgBox = styled(View)`
+  margin-top: 3px;
+  margin-right: 5px;
 `;

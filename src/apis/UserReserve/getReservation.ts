@@ -3,7 +3,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchReservations = async (type = 'UPCOMING', page, size) => {
+export const fetchReservations = async (type = 'All', page, size) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {

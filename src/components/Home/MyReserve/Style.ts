@@ -41,4 +41,5 @@ export const NameText = styled(Text)`
   top: 55%;
   left: 3%;
   margin: 5%;
+  width: 80%;
 `;

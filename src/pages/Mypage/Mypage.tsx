@@ -38,8 +38,12 @@ const Mypage = () => {
           <AuthorProfileComponent />
         ) : (
           <View>
-            <Text>유저의 Mypage 입니다.</Text>
-            <LogoutBtn />
+            <S.ReserveView>
+              <S.ReserveText>아직 페이지가 구현되지 않았습니다.</S.ReserveText>
+            </S.ReserveView>
+            <S.ReserveView>
+              <LogoutBtn />
+            </S.ReserveView>
           </View>
         )}
       </ScrollView>

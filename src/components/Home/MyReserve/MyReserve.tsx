@@ -11,6 +11,14 @@ const MyReserve = ({reservation}) => {
     navigation.navigate('MyReserve');
   };
 
+  const date = new Date(reservation.startTime);
+  // 원하는 형식으로 출력 (YYYY-MM-DD HH:mm)
+  const formattedDate = `${date.getFullYear()}-${String(
+    date.getMonth() + 1,
+  ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}, ${String(
+    date.getHours(),
+  ).padStart(2, '0')}시 ${String(date.getMinutes()).padStart(2, '0')}분`;
+
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
       <S.MyReserveContainer onPress={handleReserve}>
@@ -21,10 +29,9 @@ const MyReserve = ({reservation}) => {
           end={{x: 0, y: 0}}
           style={{borderRadius: 20}}
         />
-        <S.DateText>
-          {new Date(reservation.startTime).toLocaleString()}
-        </S.DateText>
-        <S.NameText>
+        <S.DateText>{formattedDate}</S.DateText>
+
+        <S.NameText numberOfLines={1}>
           {reservation.photographerTinyInformationResponse.nickname} 작가
         </S.NameText>
       </S.MyReserveContainer>

@@ -19,6 +19,7 @@ import CalendarBtn from '../../components/Calendar/CalendarBtn/CalendarBtn';
 import * as S from './Style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {logout} from '../../store/slices/authSlice';
+
 const Settings = () => {
   // Redux에서 상태 가져오기
   const isAuthor = useSelector(state => state.auth.user?.isAuthor);
@@ -104,8 +105,14 @@ const Settings = () => {
             </View>
           ) : (
             <View>
-              <Text>유저의 설정 페이지 입니다.</Text>
-              <LogoutBtn />
+              <S.ReserveView>
+                <S.ReserveText>
+                  아직 페이지가 구현되지 않았습니다.
+                </S.ReserveText>
+              </S.ReserveView>
+              <S.ReserveView>
+                <LogoutBtn />
+              </S.ReserveView>
             </View>
           )}
         </S.SettingContainer>

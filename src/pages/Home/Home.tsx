@@ -35,7 +35,8 @@ const Home = () => {
       return;
     }
     try {
-      const response = await fetchReservations('UPCOMING', 0, 5);
+      //UPCOMING : 다가오는 예약만 출력 , ALL : 모든 예약 출력
+      const response = await fetchReservations('ALL', 0, 5);
       console.log(response); // 응답 데이터 확인
       const newReservations =
         response?.data?.slicedData?.memberReservationInformationResponseList;

@@ -55,8 +55,8 @@ const Search = () => {
   // 엔터 키 입력 처리
   const handleSubmitEditing = () => {
     const trimmedText = inputText.trim();
-    // 입력값이 숫자가 아닐 경우 요청하지 않음
-    if (!trimmedText || isNaN(Number(trimmedText))) {
+
+    if (!trimmedText) {
       return;
     }
     // Redux에 검색 기록 추가
