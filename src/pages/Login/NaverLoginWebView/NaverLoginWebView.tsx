@@ -17,47 +17,11 @@ const NaverLoginWebView = () => {
     CookieManager.clearAll().then(() => console.log('쿠키 삭제 완료'));
   }, []);
 
-  const handleMessage = async event => {
-    const message = event.nativeEvent.data;
-    console.log('Received message:', message); // URL 확인
-
-    // 네이버 로그인 성공 후 특정 URL 확인
-    if (message.includes('https://api.catsnap.net/callback')) {
-      try {
-        // ✅ 서버에서 액세스 토큰 가져오기 (fetch 사용)
-        const response = await fetch(
-          'https://api.catsnap.net/oauth2/authorization/naver',
-          {
-            method: 'POST',
-            credentials: 'include', // CORS 허용 필요
-          },
-        );
-
-        // 🔹 응답 헤더 전체 출력 (디버깅용)
-        console.log('응답 헤더 전체:', [...response.headers]);
-
-        const accessToken = response.headers.get('authorization'); // 액세스 토큰 가져오기
-
-        if (accessToken) {
-          console.log('✅ 액세스 토큰:', accessToken);
-          dispatch(
-            loginSuccess({
-              token: accessToken.replace('Bearer ', ''),
-              isAuthor: false,
-            }),
-          );
-          navigation.navigate('Home');
-        } else {
-          console.warn('액세스 토큰이 응답 헤더에 없음! CORS 설정 확인 필요.');
-        }
-      } catch (error) {
-        console.error(
-          '네이버 로그인 실패:',
-          error.message || '알 수 없는 오류 발생',
-        );
-      }
-    }
-  };
+  const handleMessage = async event => {};
+  function getQueryParam(url: string, key: string): string | null {
+    const match = url.match(new RegExp(`[?&]${key}=([^&]+)`));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
 
   return (
     <>
@@ -70,10 +34,22 @@ const NaverLoginWebView = () => {
           height: Dimensions.get('window').height,
         }}
         startInLoadingState={true}
-        onMessage={handleMessage} // 메시지를 받아서 처리
-        injectedJavaScript={
-          'window.ReactNativeWebView.postMessage(window.location.href);'
-        } // 로그인 후 URL을 postMessage로 보내기
+        onNavigationStateChange={navState => {
+          const url = navState.url;
+          console.log('🔁 현재 URL:', url);
+
+          if (url.includes('https://catsnap.app/oauth-success')) {
+            const token = getQueryParam(url, 'accessToken');
+            if (token) {
+              dispatch(loginSuccess({token, isAuthor: false}));
+              navigation.navigate('Home');
+            }
+          }
+
+          if (url.includes('error')) {
+            Alert.alert('로그인 실패', '로그인 중 오류가 발생했습니다.');
+          }
+        }}
         source={{uri: 'https://api.catsnap.net/oauth2/authorization/naver'}} // 네이버 로그인 페이지 URL
       />
     </>
