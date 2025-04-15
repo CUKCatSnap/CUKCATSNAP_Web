@@ -1,9 +1,7 @@
 import styled from 'styled-components/native';
 import {View, Text, TouchableOpacity, Image, Pressable} from 'react-native';
 
-export const PostComponent = styled(View)`
-  padding: 3%;
-`;
+export const PostComponent = styled(View)``;
 
 export const PostImageBox = styled(View)`
   width: 100%;

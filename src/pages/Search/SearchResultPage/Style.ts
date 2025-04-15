@@ -19,7 +19,10 @@ export const SearchLankingContainer = styled(View)`
 export const SearchListContainer = styled(View)`
   width: 100%;
 `;
-
+export const SearchListContainerReview = styled(View)`
+  width: 100%;
+  padding: 3%;
+`;
 export const SearchTabContainer = styled(View)`
   flex-direction: row;
   justify-content: left;

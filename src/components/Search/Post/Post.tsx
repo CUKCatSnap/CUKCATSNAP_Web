@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {toggleLike} from '../../../store/slices/likeSlice';
 import {RootState} from '../../../store/store';
 
-const Post = ({postData, reviewId}) => {
+const Post = ({postData, reviewId, isInteractive = true}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -62,6 +62,9 @@ const Post = ({postData, reviewId}) => {
   );
   // 좋아요 버튼 클릭 시 Redux 상태 변경
   const toggleLikeStatus = () => {
+    if (!isInteractive || !reviewId) {
+      return;
+    }
     postReviewLike(reviewId); // API 호출
     dispatch(toggleLike(reviewId)); // Redux 상태 업데이트
     // 현재 좋아요 상태 반대로 설정 & likeCount 증가/감소

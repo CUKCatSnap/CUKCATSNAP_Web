@@ -251,7 +251,7 @@ const SearchResultPage = ({route}) => {
             </S.SearchListContainer>
           )}
           {showReview && (
-            <S.SearchListContainer>
+            <S.SearchListContainerReview>
               {reviewData && Object.keys(reviewData).length > 0 ? (
                 <Post postData={reviewData} reviewId={query} />
               ) : (
@@ -259,7 +259,7 @@ const SearchResultPage = ({route}) => {
                   <S.SearchText>검색 결과가 없습니다.</S.SearchText>
                 </S.SearchBox2>
               )}
-            </S.SearchListContainer>
+            </S.SearchListContainerReview>
           )}
         </S.SearchContainer>
       </ScrollView>

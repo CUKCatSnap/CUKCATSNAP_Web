@@ -1,3 +1,4 @@
+//예약 목록을 볼 수 있는 페이지 입니다. 무한스크롤로 구현합니다.
 import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {
   SafeAreaView,
