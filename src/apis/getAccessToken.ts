@@ -15,10 +15,9 @@ const refreshAccessToken = async () => {
     );
 
     // 서버가 새로운 액세스 토큰을 반환하면
-    const newAccessToken = response.headers.authorization;
+    const newAccessToken = response.data.body.data.accessToken;
     if (newAccessToken) {
-      const tokenWithoutBearer = newAccessToken.replace('Bearer ', '');
-      await AsyncStorage.setItem('accessToken', tokenWithoutBearer);
+      await AsyncStorage.setItem('accessToken', newAccessToken);
       console.log('새로운 액세스 토큰 저장 완료');
       return;
     } else {

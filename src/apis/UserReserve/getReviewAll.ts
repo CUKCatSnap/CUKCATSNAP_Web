@@ -1,10 +1,9 @@
-//작가가 자신의 예약 시간 형식을 조회
-//(10:00) (11:00) 이런 해당하는 날의 시간 목록을 가져옵니다.
+//유저의 예약 목록을 불러오는 api입니다.(get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchTimeFormat = async () => {
+export const fetchReviewAll = async (type = 'All', page, size) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -12,12 +11,28 @@ export const fetchTimeFormat = async () => {
       return null;
     }
 
+    // 요청 파라미터 설정
+    const params = {
+      type: type, // 'UPCOMING' 또는 'ALL' 선택
+      pageable: {
+        page: page,
+        size: size,
+        sort: 'string', //이걸 파라미터로 같이 보내면 오류가 생김
+      },
+    };
+
     // axios 요청 보내기
     const response = await apiClient.get(
-      'https://api.catsnap.net/reservation/photographer/my/timeformat',
+      'https://api.catsnap.net/review/my/all',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+        },
+
+        params: {
+          type: params.type,
+          page: params.pageable.page,
+          size: params.pageable.size,
         },
       },
     );

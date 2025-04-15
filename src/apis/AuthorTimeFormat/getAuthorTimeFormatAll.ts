@@ -1,10 +1,10 @@
-//작가가 자신의 예약 시간 형식을 조회
-//(10:00) (11:00) 이런 해당하는 날의 시간 목록을 가져옵니다.
+//작가가 자신의 요일별 예약 설정을 조회하는 api
+//환결설정 => 요일별 예약 설정에서 월요일~일요일, 공휴일의 예약 시간 설정을 가져옵니다.
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchTimeFormat = async () => {
+export const fetchTimeFormatAll = async () => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -14,7 +14,7 @@ export const fetchTimeFormat = async () => {
 
     // axios 요청 보내기
     const response = await apiClient.get(
-      'https://api.catsnap.net/reservation/photographer/my/timeformat',
+      'https://api.catsnap.net/reservation/photographer/my/weekday/timeformat/all',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -22,10 +22,13 @@ export const fetchTimeFormat = async () => {
       },
     );
 
-    console.log('응답 데이터:', response.data); // 응답 데이터 확인
+    console.log('요일별 응답 데이터:', response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
-    console.error('요청 실패:', error.response?.data || error.message);
+    console.error(
+      '요일별 응답 데이터 요청 실패:',
+      error.response?.data || error.message,
+    );
     if (error.response) {
       console.log('응답 상태:', error.response.status);
       console.log('응답 데이터:', error.response.data);

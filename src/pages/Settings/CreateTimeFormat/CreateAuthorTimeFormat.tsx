@@ -1,3 +1,4 @@
+//예약 시간대를 설정할 수 있는 페이지 입니다.
 import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,

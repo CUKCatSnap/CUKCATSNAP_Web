@@ -19,6 +19,7 @@ import QuickMap from '../../components/Home/QuickMap/QuickMap';
 import {fetchReservations} from '../../apis/UserReserve/getReservation';
 import {useSelector} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
+import {fetchAuthorReservations} from '../../apis/AuthorReserve/getAuthorReservation';
 
 const Home = () => {
   const [reservations, setReservations] = useState([]); // 예약 데이터를 저장할 상태
@@ -30,30 +31,38 @@ const Home = () => {
   // 예약 데이터를 가져오는 함수
   const getReservations = async () => {
     if (isAuthor) {
-      return; // 작가일 경우 데이터 요청 중단
-    } else if (!isUser) {
-      return;
-    }
-    try {
-      //UPCOMING : 다가오는 예약만 출력 , ALL : 모든 예약 출력
-      const response = await fetchReservations('ALL', 0, 5);
-      console.log(response); // 응답 데이터 확인
-      const newReservations =
-        response?.data?.slicedData?.memberReservationInformationResponseList;
-      setReservations(newReservations || []); // 데이터 저장
-    } catch (err) {
-      setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
-    } finally {
-      setLoading(false); // 로딩 상태 해제
+      try {
+        //UPCOMING : 다가오는 예약만 출력 , ALL : 모든 예약 출력
+        const response = await fetchAuthorReservations('ALL', 0, 5);
+        console.log(response); // 응답 데이터 확인
+        const newReservations =
+          response?.data?.slicedData
+            ?.photographerReservationInformationResponseList;
+        setReservations(newReservations || []); // 데이터 저장
+      } catch (err) {
+        setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false); // 로딩 상태 해제
+      }
+    } else {
+      try {
+        //UPCOMING : 다가오는 예약만 출력 , ALL : 모든 예약 출력
+        const response = await fetchReservations('ALL', 0, 5);
+        console.log(response); // 응답 데이터 확인
+        const newReservations =
+          response?.data?.slicedData?.memberReservationInformationResponseList;
+        setReservations(newReservations || []); // 데이터 저장
+      } catch (err) {
+        setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false); // 로딩 상태 해제
+      }
     }
   };
 
   // 화면이 포커스될 때마다 예약 데이터 새로 가져오기
   useFocusEffect(
     React.useCallback(() => {
-      if (isAuthor) {
-        return;
-      } // 작가인 경우 예약 데이터를 요청하지 않음
       setLoading(true); // 로딩 상태 초기화
       getReservations(); // 데이터 새로 가져오기
     }, [isAuthor]), // isAuthor가 변경될 때마다 실행
@@ -61,15 +70,11 @@ const Home = () => {
 
   // 렌더링 조건 설정
   let content;
-  if (isAuthor) {
-    content = (
-      <S.ReserveView>
-        <S.ReserveText>예약이 없습니다.</S.ReserveText>
-      </S.ReserveView>
-    );
-  } else if (isUser) {
+  if (isAuthor || isUser) {
     content = loading ? (
-      <ActivityIndicator size="large" color="#232074" />
+      <S.LoadingContainer>
+        <ActivityIndicator size="large" color="#232074" />
+      </S.LoadingContainer>
     ) : error ? (
       <S.ReserveView>{error}</S.ReserveView>
     ) : reservations.length > 0 ? (

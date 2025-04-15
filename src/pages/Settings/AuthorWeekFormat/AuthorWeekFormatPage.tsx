@@ -1,5 +1,5 @@
 //작가의 요일별 예약 설정을 조회하는 페이지 입니다.
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,6 +15,8 @@ import * as S from './Style';
 import LoginBtn from '../../../components/Login/LoginBtn';
 import CustomModal from '../../../components/Modal/Modal';
 import CalendarBtn from '../../../components/Calendar/CalendarBtn/CalendarBtn';
+import {fetchTimeFormatAll} from '../../../apis/AuthorTimeFormat/getAuthorTimeFormatAll';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AuthorWeekFormatPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -47,6 +49,46 @@ const AuthorWeekFormatPage = () => {
   };
   const handleWeekSave = () => {};
   const handleDelete = () => {};
+
+  const getTimeFormatAll = async () => {
+    try {
+      const response = await fetchTimeFormatAll();
+      const result = response?.data?.reservationTimeFormatAllList;
+      if (Array.isArray(result)) {
+        const newFormatsByDay = {
+          MONDAY: [],
+          TUESDAY: [],
+          WEDNESDAY: [],
+          THURSDAY: [],
+          FRIDAY: [],
+          SATURDAY: [],
+          SUNDAY: [],
+          HOLIDAY: [],
+        };
+
+        result.forEach(item => {
+          const {weekday, reservationTimeFormat} = item;
+          const formatName = reservationTimeFormat?.formatName;
+
+          if (weekday && formatName) {
+            newFormatsByDay[weekday].push(formatName);
+          }
+        });
+
+        setFormatsByDay(newFormatsByDay);
+      } else {
+        console.warn('서버에서 요일별 데이터가 없습니다.');
+      }
+    } catch (error) {
+      console.error('오류 발생');
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getTimeFormatAll();
+    }, []),
+  );
 
   return (
     <SafeAreaView style={styles.container}>

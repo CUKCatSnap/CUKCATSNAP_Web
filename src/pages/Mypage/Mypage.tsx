@@ -9,6 +9,7 @@ import axios from 'axios';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import UserProfileComponent from '../../components/Profile/UserProfile/UserProfileComponent';
 import * as S from './Style';
 
 const Mypage = () => {
@@ -34,18 +35,7 @@ const Mypage = () => {
           />
         </S.TopView>
 
-        {isAuthor ? (
-          <AuthorProfileComponent />
-        ) : (
-          <View>
-            <S.ReserveView>
-              <S.ReserveText>아직 페이지가 구현되지 않았습니다.</S.ReserveText>
-            </S.ReserveView>
-            <S.ReserveView>
-              <LogoutBtn />
-            </S.ReserveView>
-          </View>
-        )}
+        {isAuthor ? <AuthorProfileComponent /> : <UserProfileComponent />}
       </ScrollView>
     </SafeAreaView>
   );
