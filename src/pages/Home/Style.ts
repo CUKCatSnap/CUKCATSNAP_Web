@@ -29,3 +29,6 @@ export const ReserveView = styled(View)`
   align-items: center;
   margin: 20%;
 `;
+export const LoadingContainer = styled(View)`
+  margin: 23%;
+`;
