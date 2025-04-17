@@ -121,6 +121,7 @@
 
 # 트러블 슈팅
 
+- 로그아웃 시 이전 데이터가 남아 있는 오류 : https://github.com/CUKCatSnap/CUKCATSNAP_Web/pull/31
 - 구글 지도 오류 : https://github.com/CUKCatSnap/CUKCATSNAP_Web/pull/30
 
 # 배포 링크
