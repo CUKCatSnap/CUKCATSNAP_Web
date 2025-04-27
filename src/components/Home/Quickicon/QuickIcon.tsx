@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const QuickIcon = () => {
   const navigation = useNavigation();
   const handleNavigate = () => {
-    navigation.navigate('Subscribe');
+    navigation.navigate('SubscribeHome');
   };
   return (
     <SafeAreaView style={{alignItems: 'center'}}>

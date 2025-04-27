@@ -38,3 +38,7 @@ export const SearchTabBox = styled(View)<TabProps>`
   height: 3px;
   background-color: ${props => (props.isActive ? '#423CD2' : '#BEBEBE')};
 `;
+
+export const Sub = styled(View)`
+  flex-direction: row;
+`;
