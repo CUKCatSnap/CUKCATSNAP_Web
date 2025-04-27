@@ -44,7 +44,7 @@ const Home = () => {
       } finally {
         setLoading(false); // 로딩 상태 해제
       }
-    } else {
+    } else if (isUser) {
       try {
         //UPCOMING : 다가오는 예약만 출력 , ALL : 모든 예약 출력
         const response = await fetchReservations('ALL', 0, 5);

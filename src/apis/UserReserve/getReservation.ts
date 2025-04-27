@@ -1,4 +1,4 @@
-//유저의 예약 목록을 불러오는 api입니다.(post)
+//유저의 예약 목록을 불러오는 api입니다.(get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
@@ -36,7 +36,7 @@ export const fetchReservations = async (type = 'All', page, size) => {
         },
       },
     );
-
+    console.log('전체 응답:', response);
     console.log('응답 데이터:', response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {

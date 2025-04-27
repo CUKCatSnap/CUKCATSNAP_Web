@@ -1,6 +1,6 @@
-import axios from 'axios';
+import RNFS from 'react-native-fs';
+import {Buffer} from 'buffer';
 
-// Presigned URL을 이용한 S3 이미지 업로드
 export const putPhoto = async (presignedUrls, images) => {
   try {
     if (!presignedUrls || presignedUrls.length === 0) {
@@ -22,27 +22,26 @@ export const putPhoto = async (presignedUrls, images) => {
 
     const uploadPromises = images.map(async (image, index) => {
       try {
-        const fileUri = image.uri;
+        const fileUri = image.uri.replace('file://', ''); // iOS/Android 호환
         const presignedUrl = presignedUrls[index];
 
         console.log(`🟡 [${index + 1}] 업로드 시작: ${fileUri}`);
 
-        // 이미지 파일을 Blob으로 변환
-        const response = await fetch(fileUri);
-        const blob = await response.blob();
+        // 👉 이미지 파일을 base64로 읽기
+        const fileBase64 = await RNFS.readFile(fileUri, 'base64');
+        const buffer = Buffer.from(fileBase64, 'base64');
 
-        console.log(`🟡 [${index + 1}] PUT 요청 전송 중... ${presignedUrl}`);
-
-        // PUT 요청으로 S3 업로드
-        const uploadResponse = await axios.put(presignedUrl, blob, {
+        // 👉 PUT 요청 전송
+        const uploadResponse = await axios.put(presignedUrl, buffer, {
           headers: {
-            'Content-Type': 'image/png',
+            // 서버에서 Content-Type 필요 없다고 했다면 아래 생략 가능
+            // 'Content-Type': 'image/jpeg',
           },
         });
 
         console.log(`✅ [${index + 1}] 업로드 성공:`, uploadResponse.status);
       } catch (error) {
-        console.error(`❌ [${index + 1}] 업로드 실패:`, error);
+        console.error(`❌ [${index + 1}] 업로드 실패:`, error.message);
       }
     });
 
@@ -51,7 +50,7 @@ export const putPhoto = async (presignedUrls, images) => {
     console.log('🎉 모든 이미지 업로드 완료!');
     return true;
   } catch (error) {
-    console.error('❌ 이미지 업로드 중 오류 발생:', error);
+    console.error('❌ 이미지 업로드 중 오류 발생:', error.message);
     return false;
   }
 };

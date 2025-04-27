@@ -16,7 +16,7 @@ import Subscribe from '../pages/Subscribe/Subscribe';
 import Login from '../pages/Login/Login';
 import SearchPage from '../pages/Search/SearchPage/SearchPage';
 import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
-import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
+import AuthorProfileDetailPage from '../pages/ProfileDetail/AuthorProfileDetailPage/AuthorProfileDetailPage';
 import Map from '../pages/Map/Map';
 import ReplyPage from '../pages/Reply/ReplyPage';
 import MyReservePage from '../pages/MyReserve/MyReservePage';
@@ -35,6 +35,7 @@ import CreateReviewPage from '../pages/Review/CreateReviewPage/CreateReviewPage'
 import ReplyAgainPage from '../pages/Reply/ReplyAgainPage/ReplyAgainPage';
 import ReserveState from '../pages/ReserveState/ReserveState';
 import NaverLoginWebView from '../pages/Login/NaverLoginWebView/NaverLoginWebView';
+import CreateSubscribePlacePage from '../pages/Subscribe/CreateSubscribePlacePage/CreateSubscribePlacePage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -151,8 +152,8 @@ const HomeStack = () => {
       />
       <Stack.Screen name="Map" component={Map} options={{headerShown: false}} />
       <Stack.Screen
-        name="Subscribe"
-        component={Subscribe}
+        name="SubscribeHome"
+        component={SubscribeStack}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -185,7 +186,7 @@ const SearchStack = () => {
       />
       <Stack.Screen
         name="AuthorProfile"
-        component={AuthorProfile}
+        component={AuthorProfileDetailPage}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -281,6 +282,24 @@ const FeedStack = () => {
       component={ReplyPage}
       options={{headerShown: false}}
     />
+  );
+};
+
+//구독 페이지
+const SubscribeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Subscribe"
+        component={Subscribe}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateSubscribePlacePage"
+        component={CreateSubscribePlacePage}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
   );
 };
 

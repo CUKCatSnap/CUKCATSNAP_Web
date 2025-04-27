@@ -1,26 +1,17 @@
-//리뷰에 좋아요를 토글하는 api 입니다.(POST)
+//검색 페이지에서 특정 작가의 상세 정보를 조회하는 api (get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const postReviewLike = async (reviewId: number) => {
+export const fetchAuthorProfileDetail = async (photographerId: number) => {
   try {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.error('액세스 토큰이 없습니다.');
-      return null;
-    }
-    const params = {
-      reviewId: reviewId,
-    };
-    const response = await apiClient.post(
-      `https://api.catsnap.net/review/like/${reviewId}`,
-      reviewId,
+    // axios 요청 보내기
+    const response = await apiClient.get(
+      `https://api.catsnap.net/photographer/information/${photographerId}`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`, // 액세스 토큰 헤더에 추가
+          Authorization: 'Bearer ',
         },
-        params: params,
       },
     );
 

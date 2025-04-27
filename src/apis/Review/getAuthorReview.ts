@@ -1,9 +1,14 @@
-//유저의 예약 목록을 불러오는 api입니다.(get)
+//특정 작가의 리뷰를 조회하는 api (get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const fetchReviewAll = async (type = 'All', page, size) => {
+export const fetchAuthorReview = async (
+  photographerId: number,
+  type = 'All',
+  page: number,
+  size: number,
+) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -23,7 +28,7 @@ export const fetchReviewAll = async (type = 'All', page, size) => {
 
     // axios 요청 보내기
     const response = await apiClient.get(
-      'https://api.catsnap.net/review/my/all',
+      `https://api.catsnap.net/review/${photographerId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

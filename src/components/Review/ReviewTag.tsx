@@ -5,7 +5,7 @@ import {SafeAreaView, Text, ScrollView, FlatList} from 'react-native';
 import * as S from './Style';
 import SmallPost from '../Subscribe/SmallPost/SmallPost';
 import Post from '../Search/Post/Post';
-import {fetchReviewAll} from '../../apis/UserReserve/getReviewAll';
+import {fetchReviewAll} from '../../apis/Review/getReviewAll';
 
 const ReviewTag = () => {
   const [showFeed, setShowFeed] = useState(false); // 내 피드 탭 항목 표시 여부 (초기 상태 : 출력 0)
