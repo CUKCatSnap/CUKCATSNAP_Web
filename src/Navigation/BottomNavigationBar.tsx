@@ -16,7 +16,7 @@ import Subscribe from '../pages/Subscribe/Subscribe';
 import Login from '../pages/Login/Login';
 import SearchPage from '../pages/Search/SearchPage/SearchPage';
 import SearchResultPage from '../pages/Search/SearchResultPage/SearchResultPage';
-import AuthorProfile from '../pages/AuthorProfile/AuthorProfile';
+import AuthorProfileDetailPage from '../pages/ProfileDetail/AuthorProfileDetailPage/AuthorProfileDetailPage';
 import Map from '../pages/Map/Map';
 import ReplyPage from '../pages/Reply/ReplyPage';
 import MyReservePage from '../pages/MyReserve/MyReservePage';
@@ -186,7 +186,7 @@ const SearchStack = () => {
       />
       <Stack.Screen
         name="AuthorProfile"
-        component={AuthorProfile}
+        component={AuthorProfileDetailPage}
         options={{headerShown: false}}
       />
       <Stack.Screen

@@ -4,7 +4,7 @@ import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import * as S from './Style';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {fetchReviewAll} from '../../../apis/UserReserve/getReviewAll';
+import {fetchReviewAll} from '../../../apis/Review/getReviewAll';
 import ReviewTag from '../../Review/ReviewTag';
 import LogoutBtn from '../../Logout/LogoutBtn';
 

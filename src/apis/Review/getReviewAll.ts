@@ -1,26 +1,43 @@
-//리뷰에 좋아요를 토글하는 api 입니다.(POST)
+//유저의 리뷰 목록을 불러오는 api입니다.(get)
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '../getAccessToken';
 
-export const postReviewLike = async (reviewId: number) => {
+export const fetchReviewAll = async (
+  type = 'All',
+  page: number,
+  size: number,
+) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
       console.error('액세스 토큰이 없습니다.');
       return null;
     }
+
+    // 요청 파라미터 설정
     const params = {
-      reviewId: reviewId,
+      type: type, // 'UPCOMING' 또는 'ALL' 선택
+      pageable: {
+        page: page,
+        size: size,
+        sort: 'string', //이걸 파라미터로 같이 보내면 오류가 생김
+      },
     };
-    const response = await apiClient.post(
-      `https://api.catsnap.net/review/like/${reviewId}`,
-      reviewId,
+
+    // axios 요청 보내기
+    const response = await apiClient.get(
+      'https://api.catsnap.net/review/my/all',
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`, // 액세스 토큰 헤더에 추가
+          Authorization: `Bearer ${accessToken}`,
         },
-        params: params,
+
+        params: {
+          type: params.type,
+          page: params.pageable.page,
+          size: params.pageable.size,
+        },
       },
     );
 

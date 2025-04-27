@@ -36,3 +36,7 @@ export const SearchListContainer = styled(View)`
   width: 100%;
   gap: 50%;
 `;
+
+export const SearchListContainerReview = styled(View)`
+  margin: 0%;
+`;
