@@ -1,4 +1,5 @@
-//다른 사람의 프로필을 보여주는 페이지 입니다.
+//선택한 작가의 프로필을 보여주는 페이지 입니다.
+//검색 페이지의 리뷰 또는 피드 페이지에서 이름을 클릭하면 나타납니다.
 //사용자가 작가의 프로필 페이지(소개 페이지)를 볼 수 있습니다.(사용자->작가)
 import React, {useState, useCallback, useEffect} from 'react';
 import {
@@ -10,19 +11,21 @@ import {
   View,
 } from 'react-native';
 import * as S from './Style';
-import SearchTag from '../../components/Search/SearchTag.tsx/SearchTag';
+import SearchTag from '../../../components/Search/SearchTag.tsx/SearchTag';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
-import {fetchPrograms} from '../../apis/ReserveProgram/getPrograms';
-import {fetchReserveGuide} from '../../apis/ReserveProgram/getReserveGuide';
+import ContentsHeader from '../../../components/ContentsHeader/ContentsHeader';
+import {fetchPrograms} from '../../../apis/ReserveProgram/getPrograms';
+import {fetchReserveGuide} from '../../../apis/ReserveProgram/getReserveGuide';
+import {fetchAuthorProfileDetail} from '../../../apis/Information/getAuthorProfileDetail';
 
-const AuthorProfile = () => {
+const AuthorProfileDetailPage = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const [isTouchOne, setIsTouchOne] = useState(false);
   const [isTouchTwo, setIsTouchTwo] = useState(false);
   const [isTouchThree, setIsTouchThree] = useState(false);
   const [programs, setPrograms] = useState([]); // 프로그램 데이터를 저장할 상태
   const [guide, setGuide] = useState(null); // 객체로 상태를 저장
+  const [profile, setProfile] = useState(null); // 프로필 데이터를 저장할 상태
 
   const handleChat = () => {
     navigation.navigate('Chat');
@@ -57,6 +60,16 @@ const AuthorProfile = () => {
     });
   };
 
+  //API 호출로 프로필 정보 가져오기
+  const loadProfile = async () => {
+    try {
+      const responseProfile = await fetchAuthorProfileDetail(photographerId);
+      setProfile(responseProfile.data);
+    } catch (error) {
+      console.error('프로필 데이터를 불러오는 중 오류 발생:', error);
+    }
+  };
+
   // API 호출로 프로그램 데이터 가져오기
   const loadPrograms = async () => {
     try {
@@ -77,7 +90,10 @@ const AuthorProfile = () => {
     }
   };
 
+  //
+
   useEffect(() => {
+    loadProfile();
     loadPrograms();
     loadGuide();
   }, [photographerId]);
@@ -87,22 +103,35 @@ const AuthorProfile = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <ContentsHeader text={'작가 정보'} />
         <S.AuthorProfileContainer>
-          <S.ProfileContainer>
-            <S.ProfileEmpty
-              source={require('../../images/sample_profile.png')}
-            />
-            <S.ProfileTextBox>
-              <S.AuthorNickName>Imsmart</S.AuthorNickName>
-              <S.AuthorName>나 똘똘 작가</S.AuthorName>
-              <S.ProfileBox>
-                <S.AuthorScore>평점 4.8★</S.AuthorScore>
-                <S.AuthorRecentReserve>최근 예약 5회</S.AuthorRecentReserve>
-              </S.ProfileBox>
-            </S.ProfileTextBox>
-          </S.ProfileContainer>
+          {profile && (
+            <S.ProfileContainer>
+              <S.ProfileEmpty
+                source={
+                  profile && profile.profilePhotoUrl
+                    ? {uri: profile.profilePhotoUrl}
+                    : require('../../../images/sample_profile.png')
+                }
+              />
+              <S.ProfileTextBox>
+                <S.AuthorNickName>
+                  {profile ? profile.nickname : '작가 닉네임'} 작가
+                </S.AuthorNickName>
+                <S.ProfileBox>
+                  <S.AuthorScore>
+                    {`평점 ${profile.photographerRating}★`}
+                  </S.AuthorScore>
+                  <S.AuthorRecentReserve>
+                    {`최근 예약 ${profile.recentReservation}회`}
+                  </S.AuthorRecentReserve>
+                </S.ProfileBox>
+              </S.ProfileTextBox>
+            </S.ProfileContainer>
+          )}
 
           <S.ProfilePostBox>
-            <S.AuthorFeedImage source={require('../../images/sample3.png')} />
+            <S.AuthorFeedImage
+              source={require('../../../images/sample3.png')}
+            />
             <S.AuthorFeedProfile>
               안녕하세요, 저는 어렸을 때 부터 사진을 찍어왔구요. 사진을 찍는
               것이 너무 즐겁습니다 ㅋㅋㅋㅋㅋ. 이곳은 작가가 자기소개를 쓰는
@@ -222,7 +251,7 @@ const AuthorProfile = () => {
               </S.IntersectionText>
             </S.Intersection>
           </S.IntersectionContainer>
-          <SearchTag />
+          <SearchTag photographerId={photographerId} />
         </S.AuthorProfileContainer>
       </ScrollView>
     </SafeAreaView>
@@ -234,4 +263,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
 });
-export default AuthorProfile;
+export default AuthorProfileDetailPage;
