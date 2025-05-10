@@ -15,6 +15,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncSt
 import {useSelector} from 'react-redux';
 import ContentsHeader from '../../components/ContentsHeader/ContentsHeader';
 import ReserveUserBox from '../../components/Reserve/ReserveComponent/ReserveUserBox/ReserveUserBox';
+import {fetchAuthorReservations} from '../../apis/AuthorReserve/getAuthorReservation';
+import ReserveAuthorBox from '../../components/Reserve/ReserveComponent/ReserveAuthorBox/ReserveAuthorBox';
 
 const MyReservePage = () => {
   const [reservations, setReservations] = useState([]); // 예약 데이터를 저장할 상태
@@ -24,35 +26,57 @@ const MyReservePage = () => {
   const [size] = useState(2); // 한 번에 불러올 데이터 개수
   const [hasMore, setHasMore] = useState(true); // 더 이상 불러올 데이터가 있는지 여부
   const flatListRef = useRef(null); // FlatList ref 추가
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const isUser = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
 
   // 예약 데이터 가져오는 함수
   const getReservations = useCallback(async () => {
     if (!hasMore) {
       return;
     } // 더 이상 데이터가 없으면 요청하지 않음
+    if (isUser) {
+      try {
+        setLoading(true);
+        const response = await fetchReservations('ALL', page, size); // 페이지와 크기를 파라미터로 보냄
+        const newReservations =
+          response?.data?.slicedData?.memberReservationInformationResponseList;
 
-    try {
-      setLoading(true);
-      const response = await fetchReservations('ALL', page, size); // 페이지와 크기를 파라미터로 보냄
-      const newReservations =
-        response?.data?.slicedData?.memberReservationInformationResponseList;
-
-      if (newReservations && newReservations.length > 0) {
-        setReservations(prevReservations => [
-          ...prevReservations, // 기존 데이터 유지
-          ...newReservations, // 새로 가져온 데이터 추가
-        ]);
-      } else {
-        setHasMore(false); // 더 이상 데이터가 없으면 상태 변경
+        if (newReservations && newReservations.length > 0) {
+          setReservations(prevReservations => [
+            ...prevReservations, // 기존 데이터 유지
+            ...newReservations, // 새로 가져온 데이터 추가
+          ]);
+        } else {
+          setHasMore(false); // 더 이상 데이터가 없으면 상태 변경
+        }
+      } catch (error) {
+        setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
-    } finally {
-      setLoading(false);
+    } else if (isAuthor) {
+      try {
+        setLoading(true);
+        const response = await fetchAuthorReservations('ALL', page, size); // 페이지와 크기를 파라미터로 보냄
+        const newReservations =
+          response?.data?.slicedData
+            ?.photographerReservationInformationResponseList;
+
+        if (newReservations && newReservations.length > 0) {
+          setReservations(prevReservations => [
+            ...prevReservations, // 기존 데이터 유지
+            ...newReservations, // 새로 가져온 데이터 추가
+          ]);
+        } else {
+          setHasMore(false); // 더 이상 데이터가 없으면 상태 변경
+        }
+      } catch (error) {
+        setError('예약 데이터를 가져오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [page, size, hasMore]);
+  }, [page, size, hasMore, isAuthor, isUser]);
 
   useEffect(() => {
     getReservations();
@@ -76,18 +100,22 @@ const MyReservePage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ContentsHeader text="내 예약" />
-      {isAuthor ? (
-        <View>
-          <Text>작가입니다.</Text>
-        </View>
-      ) : isUser ? (
+      {isAuthor || isUser ? (
         <S.TableView>
           <FlatList
             showsVerticalScrollIndicator={false}
             ref={flatListRef}
             data={reservations}
             keyExtractor={item => item.reservationId.toString()} // 예약 ID를 key로 사용
-            renderItem={({item}) => <ReserveUserBox item={item} />} // ReservationItem 컴포넌트를 사용
+            renderItem={({item}) => {
+              if (isUser) {
+                return <ReserveUserBox item={item} />;
+              } else if (isAuthor) {
+                return <ReserveAuthorBox item={item} />;
+              } else {
+                return null;
+              }
+            }} // ReservationItem 컴포넌트를 사용
             onEndReached={loadMoreData} // 끝에 도달했을 때 추가 데이터 로드
             onEndReachedThreshold={0.5} // 리스트 끝에서 얼마나 남았을 때 호출할지 설정 (10%)
             initialNumToRender={size} // 처음에 렌더링할 아이템 개수

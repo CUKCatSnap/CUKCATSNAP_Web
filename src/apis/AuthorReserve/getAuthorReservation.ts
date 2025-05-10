@@ -36,7 +36,7 @@ export const fetchAuthorReservations = async (type = 'All', page, size) => {
         },
       },
     );
-    console.log('전체 응답:', response);
+
     console.log('응답 데이터:', response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
