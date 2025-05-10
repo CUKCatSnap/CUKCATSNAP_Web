@@ -8,8 +8,8 @@ import Point from '../../../../icons/point.svg';
 const ReserveDataBox = ({item}) => {
   const [reservationStatus, setReservationStatus] = useState(item.state);
 
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const isUser = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
   return (
     <SafeAreaView>
       {isAuthor ? (

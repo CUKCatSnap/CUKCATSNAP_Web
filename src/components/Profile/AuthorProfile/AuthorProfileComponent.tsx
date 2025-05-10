@@ -23,8 +23,8 @@ const AuthorProfileComponent = () => {
   const [isTouchTwo, setIsTouchTwo] = useState(false);
   const [guide, setGuide] = useState(null); // 객체로 상태를 저장
   const [programs, setPrograms] = useState([]); // 프로그램 데이터를 저장할 상태
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const user = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
 
   // 작가 탭 항목 터치 시 항목 출력
   const handleFeed = () => {

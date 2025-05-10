@@ -22,8 +22,8 @@ import {logout} from '../../store/slices/authSlice';
 
 const Settings = () => {
   // Redux에서 상태 가져오기
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const user = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();

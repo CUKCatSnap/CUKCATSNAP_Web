@@ -14,8 +14,8 @@ import * as S from './Style';
 
 const Mypage = () => {
   // Redux에서 상태 가져오기
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const user = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const handleSetting = () => {
     navigation.navigate('Settings');
