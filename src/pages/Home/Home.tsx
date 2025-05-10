@@ -25,8 +25,8 @@ const Home = () => {
   const [reservations, setReservations] = useState([]); // 예약 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(null); // 에러 상태 관리
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const isUser = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
 
   // 예약 데이터를 가져오는 함수
   const getReservations = async () => {

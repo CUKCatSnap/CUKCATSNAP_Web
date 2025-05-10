@@ -65,8 +65,15 @@ const Login = () => {
 
     try {
       const response = await LoginUser(userLogin);
+      console.log('응답내역:', response);
       if (response) {
-        dispatch(loginSuccess({...response, isAuthor: false}));
+        if (response && response.body && response.body.data) {
+          const userData = response.body.data;
+          // 응답에 isAuthor가 없으면 false로 처리
+          const isAuthor = userData.isAuthor ?? false;
+
+          dispatch(loginSuccess({...userData, isAuthor})); // response.data만 넘기기
+        }
         Alert.alert(
           '', // 제목
           '로그인 되었습니다.', // 메시지

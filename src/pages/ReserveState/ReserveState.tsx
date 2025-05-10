@@ -22,8 +22,8 @@ const ReserveState = ({route}) => {
   const {item} = route.params; // 전달된 item을 받기
   const [reservationStatus, setReservationStatus] = useState(item.state);
 
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const isUser = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
 
   const handleReview = () => {

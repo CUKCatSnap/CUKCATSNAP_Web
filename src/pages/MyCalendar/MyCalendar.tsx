@@ -23,8 +23,8 @@ import {fetchAuthorReserveMonth} from '../../apis/AuthorReserve/getAuthorReserve
 import ReserveColorBox from '../../components/Reserve/ReserveColorBox/ReserveColorBox';
 
 const MyCalendar = () => {
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const user = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
   const [date, setDate] = useState('');
   const [reserve, setReserve] = useState([]);
@@ -65,7 +65,7 @@ const MyCalendar = () => {
     //유저면 유저의 예약, 작가면 작가의 예약 업데이트
     if (isAuthor) {
       dayReserveAuthor(selectedDate);
-    } else if (user) {
+    } else if (isUser) {
       dayReserveUser(selectedDate);
     }
   };
@@ -103,7 +103,7 @@ const MyCalendar = () => {
           .catch(error => {
             console.log('예약 정보를 가져오는 데 오류 발생:', error);
           });
-      } else if (user) {
+      } else if (isUser) {
         console.log(month);
         fetchReserveMonth(month)
           .then(response => {
@@ -114,7 +114,7 @@ const MyCalendar = () => {
           });
       }
     }
-  }, [month, isAuthor, user]); // month가 변경될 때마다 API 호출
+  }, [month, isAuthor, isUser]); // month가 변경될 때마다 API 호출
 
   const [sortedReserve, setSortedReserve] = useState([]);
 
@@ -163,7 +163,7 @@ const MyCalendar = () => {
               keyExtractor={item => String(item.reservationId)}
               renderItem={({item}) => <ReserveAuthorBox item={item} />}
             />
-          ) : user ? (
+          ) : isUser ? (
             <FlatList
               scrollEnabled={false}
               nestedScrollEnabled={true} // ScrollView 안에서 FlatList 동작 허용

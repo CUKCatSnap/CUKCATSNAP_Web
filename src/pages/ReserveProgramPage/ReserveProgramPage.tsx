@@ -12,8 +12,8 @@ import {useSelector} from 'react-redux';
 
 const ReserveProgramPage = ({route}) => {
   //유저정보 가져오기
-  const isAuthor = useSelector(state => state.auth.user?.isAuthor);
-  const user = useSelector(state => state.auth.user);
+  const isAuthor = useSelector(state => state.auth.isAuthor);
+  const isUser = useSelector(state => state.auth.isUser);
 
   const navigation = useNavigation();
   const {programId, title, content, price, photographerId} = route.params; // photographerId 추가
