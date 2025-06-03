@@ -40,3 +40,10 @@ export const SearchListContainer = styled(View)`
 export const SearchListContainerReview = styled(View)`
   margin: 0%;
 `;
+export const ReserveText = styled(Text)`
+  font-size: 25px;
+  font-weight: bold;
+  color: #bebebe;
+  justify-content: center;
+  align-items: center;
+`;

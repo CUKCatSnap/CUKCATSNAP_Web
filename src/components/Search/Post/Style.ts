@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import {View, Text, TouchableOpacity, Image, Pressable} from 'react-native';
-
+import {Dimensions} from 'react-native';
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 export const PostComponent = styled(View)``;
 
 export const PostImageBox = styled(View)`
@@ -94,4 +96,10 @@ export const TextContents = styled(Text)`
 
 export const Love = styled(Text)`
   padding: 10px 10px;
+`;
+export const Photo = styled(Image).attrs({
+  resizeMode: 'cover',
+})`
+  width: ${screenWidth}px;
+  height: 200px;
 `;

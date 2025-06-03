@@ -39,3 +39,10 @@ export const SearchListContainerFeed = styled(View)`
   width: 100%;
   gap: 50%;
 `;
+export const ReserveText = styled(Text)`
+  font-size: 25px;
+  font-weight: bold;
+  color: #bebebe;
+  justify-content: center;
+  align-items: center;
+`;

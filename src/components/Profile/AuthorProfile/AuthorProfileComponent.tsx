@@ -167,7 +167,7 @@ const AuthorProfileComponent = () => {
             </S.IntersectionText>
           </S.Intersection>
         </S.IntersectionContainer>
-        <SearchTag />
+        <SearchTag photographerId={2} />
       </S.AuthorProfileContainer>
     </SafeAreaView>
   );

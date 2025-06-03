@@ -9,6 +9,9 @@ import {postReviewLike} from '../../../apis/Review/postRevieLike';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleLike} from '../../../store/slices/likeSlice';
 import {RootState} from '../../../store/store';
+import {Dimensions} from 'react-native';
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const Post = ({postData, reviewId, isInteractive = true}) => {
   const navigation = useNavigation();
@@ -27,13 +30,7 @@ const Post = ({postData, reviewId, isInteractive = true}) => {
     isMeLiked,
   } = postData.data;
   const [likeCountState, setLikeCountState] = useState(likeCount); // likeCount 상태 관리
-
-  const handlePress = () => {
-    navigation.navigate('ReplyPage', {data: postData, date: formattedDateTime});
-  };
-  const handleAuthorProfile = () => {
-    navigation.navigate('AuthorProfile');
-  };
+  console.log('postData:', postData);
 
   const formattedDateTime = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
@@ -47,15 +44,19 @@ const Post = ({postData, reviewId, isInteractive = true}) => {
 
   // 각 이미지를 렌더링할 함수
   const renderItem = ({item}) => (
-    <Image
-      //source={{uri: item}}
+    <S.Photo
+      source={{uri: item}}
+      resizeMode="cover"
       // 테스트용 :
-      source={require('../../../images/sample3.png')}
-      resizeMode="cover" // 빈공간 없이 꽉 채우도록 설정
-      style={{transform: [{scale: 1.0}]}} // 이미지를 10% 확대
+      //source={require('../../../images/sample3.png')}
     />
   );
-
+  const handlePress = () => {
+    navigation.navigate('ReplyPage', {data: postData, date: formattedDateTime});
+  };
+  const handleAuthorProfile = () => {
+    navigation.navigate('AuthorProfile');
+  };
   // Redux에서 좋아요 상태 가져오기
   const isLiked = useSelector(
     (state: RootState) => state.like.likedPosts[reviewId] || false,
@@ -87,6 +88,7 @@ const Post = ({postData, reviewId, isInteractive = true}) => {
             renderItem={renderItem} // 각 이미지 렌더링
             keyExtractor={(item, index) => index.toString()}
             horizontal={true} // 가로로 스와이프
+            snapToInterval={screenWidth} // 핵심: 정확히 화면 너비만큼 스냅
             showsHorizontalScrollIndicator={false} // 스크롤 바 숨기기
             pagingEnabled={true} // 이미지마다 스와이프 가능하도록 설정
           />

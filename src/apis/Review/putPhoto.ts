@@ -1,5 +1,6 @@
 import RNFS from 'react-native-fs';
 import {Buffer} from 'buffer';
+import axios from 'axios';
 
 export const putPhoto = async (presignedUrls, images) => {
   try {
