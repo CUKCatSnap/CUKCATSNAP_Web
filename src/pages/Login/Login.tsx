@@ -73,6 +73,10 @@ const Login = () => {
           const isAuthor = userData.isAuthor ?? false;
 
           dispatch(loginSuccess({...userData, isAuthor})); // response.data만 넘기기
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
         }
         Alert.alert(
           '', // 제목
