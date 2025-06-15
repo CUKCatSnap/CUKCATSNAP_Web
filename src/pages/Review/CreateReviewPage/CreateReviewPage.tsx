@@ -93,8 +93,8 @@ const CreateReviewPage = ({route}) => {
         const uploadSuccess = await putPhoto(result.data.presignedURL, images);
 
         if (uploadSuccess) {
-          Alert.alert('✅ 리뷰가 성공적으로 등록되었습니다.');
-          navigation.navigate('Home');
+          Alert.alert('리뷰가 성공적으로 등록되었습니다.');
+          navigation.navigate('HomePage');
         } else {
           Alert.alert(
             '⚠️ 리뷰 등록은 성공했지만, 이미지 업로드에 실패했습니다.',
