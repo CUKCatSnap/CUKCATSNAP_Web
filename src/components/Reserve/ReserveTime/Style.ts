@@ -4,6 +4,7 @@ import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 export const Time = styled(TouchableOpacity)`
   border-color: ${({disabled}) =>
     disabled ? 'rgb(238, 238, 238);' : 'rgb(209, 219, 231);'};
+  opacity: ${({disabled}) => (disabled ? 0.5 : 1)};
   border-radius: 10px;
   border: 1px;
   padding: 0px 10px;

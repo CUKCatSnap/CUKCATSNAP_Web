@@ -27,6 +27,10 @@ const Settings = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const handleIntroduction = () => {
+    navigation.navigate('AuthorIntroductionPage');
+  };
   const handleSetting = () => {
     navigation.navigate('AuthorReserveSettingPage');
   };
@@ -84,6 +88,9 @@ const Settings = () => {
         <S.SettingContainer>
           {isAuthor ? (
             <View>
+              <S.SettingContents onPress={handleIntroduction}>
+                <S.SettingText>자기 소개 설정</S.SettingText>
+              </S.SettingContents>
               <S.SettingContents onPress={handleSetting}>
                 <S.SettingText>예약 설정</S.SettingText>
               </S.SettingContents>

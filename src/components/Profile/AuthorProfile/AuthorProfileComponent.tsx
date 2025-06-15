@@ -14,8 +14,8 @@ import SearchTag from '../../Search/SearchTag.tsx/SearchTag';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {fetchReservationPrograms} from '../../../apis/ReserveProgram/getReserveProgram';
 import LoginBtn from '../../Login/LoginBtn';
-import {fetchReserveGuide} from '../../../apis/ReserveProgram/getReserveGuide';
 import {useSelector} from 'react-redux';
+import Introduction from '../Introduction/Introduction';
 
 const AuthorProfileComponent = () => {
   const navigation = useNavigation(); // 네비게이션 객체 가져오기
@@ -102,14 +102,7 @@ const AuthorProfileComponent = () => {
           </S.ProfileTextBox>
         </S.ProfileContainer>
 
-        <S.ProfilePostBox>
-          <S.AuthorFeedImage source={require('../../../images/sample3.png')} />
-          <S.AuthorFeedProfile>
-            안녕하세요, 저는 어렸을 때 부터 사진을 찍어왔구요. 사진을 찍는 것이
-            너무 즐겁습니다 ㅋㅋㅋㅋㅋ. 이곳은 작가가 자기소개를 쓰는
-            공간이에요. 아래처럼 사진을 넣을 수도 있습니다. 어쩌구 저쩌구 ㅋㅋ
-          </S.AuthorFeedProfile>
-        </S.ProfilePostBox>
+        <Introduction />
 
         {/* 프로그램 리스트 렌더링 */}
         {programs.length === 0 ? (
