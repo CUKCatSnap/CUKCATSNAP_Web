@@ -48,7 +48,7 @@ const AuthorReserveAlarmPage = () => {
   const handleSetting = async () => {
     try {
       if (!contents) {
-        Alert.alert('변경 사항 없음', '설정을 먼저 변경해주세요.');
+        Alert.alert('변경 사항 없음', '설정을 텍스트가 비어 있습니다.');
         return;
       }
       // 요청할 데이터 형식

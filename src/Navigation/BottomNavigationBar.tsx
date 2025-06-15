@@ -36,6 +36,7 @@ import ReplyAgainPage from '../pages/Reply/ReplyAgainPage/ReplyAgainPage';
 import ReserveState from '../pages/ReserveState/ReserveState';
 import NaverLoginWebView from '../pages/Login/NaverLoginWebView/NaverLoginWebView';
 import CreateSubscribePlacePage from '../pages/Subscribe/CreateSubscribePlacePage/CreateSubscribePlacePage';
+import AuthorIntroductionPage from '../pages/Settings/AuthorIntroduction/AuthorIntroductionPage';
 
 export type RootStackParam = {
   Home: undefined;
@@ -333,6 +334,11 @@ const SettingStack = () => {
       <Stack.Screen
         name="SettingHome"
         component={Settings}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthorIntroductionPage"
+        component={AuthorIntroductionPage}
         options={{headerShown: false}}
       />
       <Stack.Screen
