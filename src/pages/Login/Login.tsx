@@ -14,6 +14,9 @@ import Naver from '../../icons/naver.svg';
 import {useNavigation} from '@react-navigation/native';
 import {LoginUser} from '../../apis/Login/postLogin';
 import {LoginAuthor} from '../../apis/Login/postAuthorLogin';
+import {getAuthorProfile} from '../../apis/Information/getAuthorProfile';
+import apiClient from '../../apis/getAccessToken';
+
 import {useDispatch} from 'react-redux';
 // 로그인 성공 시 상태를 업데이트하는 액션
 import {loginSuccess} from '../../store/slices/authSlice';
@@ -56,71 +59,45 @@ const Login = () => {
     }
   }, [id, password]); // id와 password의 상태를 감시
 
-  //유저 로그인
+  //로그인
   const handleSubmitUser = async () => {
-    const userLogin = {
-      identifier: id,
-      password,
-    };
-
     try {
-      const response = await LoginUser(userLogin);
-      console.log('응답내역:', response);
-      if (response) {
-        if (response && response.body && response.body.data) {
-          const userData = response.body.data;
-          // 응답에 isAuthor가 없으면 false로 처리
-          const isAuthor = userData.isAuthor ?? false;
+      const loginResponse = await LoginUser({identifier: id, password});
+      if (loginResponse && loginResponse.body && loginResponse.body.data) {
+        const accessToken = loginResponse.body.data.accessToken;
 
-          dispatch(loginSuccess({...userData, isAuthor})); // response.data만 넘기기
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
+        // accessToken을 apiClient 등에 세팅해주고 (토큰 관리 코드에 따라 다름)
+        apiClient.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+        // 작가 상세 정보 조회 시도
+        const authorProfile = await getAuthorProfile();
+
+        if (authorProfile) {
+          // 작가 정보 있으면 로그인 성공 처리 + isAuthor: true
+          dispatch(
+            loginSuccess({...authorProfile, isAuthor: true, accessToken}),
+          );
+        } else {
+          // 작가 정보 없으면 일반 유저 로그인 처리 + isAuthor: false
+          dispatch(loginSuccess({accessToken, isAuthor: false}));
         }
-        Alert.alert(
-          '', // 제목
-          '로그인 되었습니다.', // 메시지
-          [
-            {
-              text: '확인',
-              onPress: () =>
-                // 네비게이션 스택 리셋 후 Home으로 이동
-                navigation.reset({
-                  index: 0, // 새로 스택을 하나만 추가하도록 설정
-                  routes: [{name: 'Home'}], // 새로운 Home 화면으로 이동
-                }),
-            }, // 확인 버튼 눌렀을 때 홈으로 이동
-          ],
-        );
-      }
-    } catch (error) {
-      console.log('로그인 실패', error.message || '알 수 없는 오류 발생');
-    }
-  };
-  //작가 로그인
-  const handleSubmitAuthor = async () => {
-    const AuthorLogin = {
-      identifier: id,
-      password,
-    };
 
-    try {
-      const response = await LoginAuthor(AuthorLogin);
-      if (response) {
-        // 로그인 성공 액션을 dispatch하여 상태 업데이트
-        // 즉, 이게 전역 상태를 업데이트 함 (redux)
-        dispatch(loginSuccess({...response, isAuthor: true}));
-        Alert.alert(
-          '', // 제목
-          '작가로 로그인 되었습니다.', // 메시지
-          [
-            {text: '확인', onPress: () => navigation.navigate('Home')}, // 확인 버튼 눌렀을 때 홈으로 이동
-          ],
-        );
+        Alert.alert('', '로그인 되었습니다.', [
+          {
+            text: '확인',
+            onPress: () =>
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Home'}],
+              }),
+          },
+        ]);
       }
     } catch (error) {
-      console.log('로그인 실패', error.message || '알 수 없는 오류 발생');
+      Alert.alert(
+        '',
+        '로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.',
+      );
     }
   };
 
@@ -194,17 +171,8 @@ const Login = () => {
           <S.LoginBtnBox>
             <S.LoginBtn>
               <LoginBtn
-                text="유저 로그인"
+                text="로그인"
                 onPress={handleSubmitUser}
-                disabled={
-                  idError || passwordError || id === '' || password === ''
-                }
-              />
-            </S.LoginBtn>
-            <S.LoginBtn>
-              <LoginBtn
-                text="작가 로그인"
-                onPress={handleSubmitAuthor}
                 disabled={
                   idError || passwordError || id === '' || password === ''
                 }
