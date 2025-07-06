@@ -112,7 +112,7 @@ const Post = ({postData, reviewId, isInteractive = true}) => {
 
           <S.ProfileBox2>
             <S.Title onPress={handleAuthorProfile}>
-              {photographerTinyInformation.nickname}
+              {photographerTinyInformation.nickname} 작가
             </S.Title>
             <S.Score>평점 {photographerScore}★</S.Score>
           </S.ProfileBox2>

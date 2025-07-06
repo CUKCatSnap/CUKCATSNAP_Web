@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {View, Text, Pressable, TouchableOpacity, Image} from 'react-native';
 
 interface PressProps {
-  isPress: boolean;
+  pressable: boolean;
 }
 
 export const AuthorProfileContainer = styled(View)`
@@ -100,7 +100,7 @@ export const IntersectionContainer = styled(View)`
 `;
 
 export const IntersectionText = styled.Text<PressProps>`
-  color: ${props => (props.isPress ? 'white' : 'black')};
+  color: ${props => (props.pressable ? 'white' : 'black')};
   font-size: 13px;
   font-weight: bold;
   padding-bottom: 2px;
@@ -114,7 +114,7 @@ export const Intersection = styled.Pressable<PressProps>`
   justify-content: space-evenly;
   flex: 1;
   align-items: center;
-  background-color: ${props => (props.isPress ? '#423cd2' : '#f3f3f3')};
+  background-color: ${props => (props.pressable ? '#423cd2' : '#f3f3f3')};
 `;
 
 //2열 정렬 및 간격 일정하게
