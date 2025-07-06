@@ -119,7 +119,7 @@ const AuthorProfileDetailPage = () => {
                 </S.AuthorNickName>
                 <S.ProfileBox>
                   <S.AuthorScore>
-                    {`평점 ${profile.photographerRating}★`}
+                    {`평점 ${profile.photographerRating?.toFixed(1)}★`}
                   </S.AuthorScore>
                   <S.AuthorRecentReserve>
                     {`최근 예약 ${profile.recentReservation}회`}
@@ -222,23 +222,27 @@ const AuthorProfileDetailPage = () => {
           <S.IntersectionContainer>
             <S.Intersection
               onPress={handleChat}
-              onPressIn={() => setIsTouchOne(prevState => !prevState)}
-              isPress={isTouchOne}>
+              onPressIn={() => setIsTouchOne(true)} // 눌렀을 때 true
+              onPressOut={() => setIsTouchOne(false)} // 손가락 떼거나 영역 벗어나면 false
+              pressable={isTouchOne}>
               <S.IntersectionText
                 onPress={handleChat}
-                onPressIn={() => setIsTouchOne(prevState => !prevState)}
-                isPress={isTouchOne}>
+                onPressIn={() => setIsTouchOne(true)} // 눌렀을 때 true
+                onPressOut={() => setIsTouchOne(false)} // 손가락 떼거나 영역 벗어나면 false
+                pressable={isTouchOne}>
                 채팅하기
               </S.IntersectionText>
             </S.Intersection>
             <S.Intersection
               onPress={handleBlock}
-              onPressIn={() => setIsTouchThree(prevState => !prevState)}
-              isPress={isTouchThree}>
+              onPressIn={() => setIsTouchThree(true)} // 눌렀을 때 true
+              onPressOut={() => setIsTouchThree(false)} // 손가락 떼거나 영역 벗어나면 false
+              pressable={isTouchThree}>
               <S.IntersectionText
                 onPress={handleBlock}
-                onPressIn={() => setIsTouchThree(prevState => !prevState)}
-                isPress={isTouchThree}>
+                onPressIn={() => setIsTouchThree(true)} // 눌렀을 때 true
+                onPressOut={() => setIsTouchThree(false)} // 손가락 떼거나 영역 벗어나면 false
+                pressable={isTouchThree}>
                 차단하기
               </S.IntersectionText>
             </S.Intersection>

@@ -1,4 +1,4 @@
-//리뷰 1개를 피드 id로 조회하는 api
+//리뷰 1개를 리뷰 id로 조회하는 api
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
