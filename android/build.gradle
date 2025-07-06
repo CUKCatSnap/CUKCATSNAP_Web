@@ -18,5 +18,17 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
 }
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    configurations.all {
+        resolutionStrategy {
+            // androidx.browser 라이브러리 버전을 1.8.0으로 강제 고정
+            force 'androidx.browser:browser:1.8.0'
+        }
+    }
+}
 
 apply plugin: "com.facebook.react.rootproject"
